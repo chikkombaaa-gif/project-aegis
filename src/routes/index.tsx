@@ -1,24 +1,615 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { useEffect, useState } from "react";
+import {
+  ArrowUpRight,
+  Download,
+  Github,
+  Mail,
+  MapPin,
+  Phone,
+  Sparkles,
+  Brain,
+  Database,
+  Code2,
+  Cpu,
+  Rocket,
+  GraduationCap,
+  ChevronRight,
+} from "lucide-react";
+import { Background } from "@/components/portfolio/Background";
+import { Shield, ShieldSvg } from "@/components/portfolio/Shield";
+import { Loader } from "@/components/portfolio/Loader";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Barath V — AI & ML Engineer" },
+      {
+        name: "description",
+        content:
+          "Portfolio of Barath V — BE CSE (AI & ML) undergraduate specializing in Python, NLP, Machine Learning, Deep Learning, and MongoDB.",
+      },
+      { property: "og:title", content: "Barath V — AI & ML Engineer" },
+      {
+        property: "og:description",
+        content:
+          "Pre-final year AI & ML engineer building production-grade NLP and Machine Learning systems.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const PROFILE = {
+  name: "Barath V",
+  role: "AI & Machine Learning Engineer",
+  tagline:
+    "Pre-final year BE CSE (AI & ML) undergraduate engineering production-ready NLP and ML systems with Python and MongoDB.",
+  email: "barathvelu777@gmail.com",
+  phone: "7550140875",
+  location: "Chennai, Tamil Nadu",
+  github: "https://github.com/barathvelu1",
+  githubHandle: "barathvelu1",
+  cgpa: "8.0 / 10",
+  college: "Jeppiaar Engineering College",
+  degree: "B.E. Computer Science & Engineering (AI & ML)",
+  university: "Affiliated to Anna University",
+};
+
+const SKILLS: { group: string; icon: any; items: string[]; level: number }[] = [
+  { group: "Languages", icon: Code2, items: ["Python"], level: 88 },
+  { group: "AI / NLP", icon: Brain, items: ["Natural Language Processing", "Text Analytics"], level: 82 },
+  { group: "Machine Learning", icon: Cpu, items: ["Supervised Learning", "Model Evaluation", "Feature Engineering"], level: 78 },
+  { group: "Deep Learning", icon: Sparkles, items: ["Neural Networks", "Predictive Systems"], level: 74 },
+  { group: "Databases", icon: Database, items: ["MongoDB"], level: 80 },
+];
+
+const STRENGTHS = [
+  {
+    title: "Programming & Backend",
+    body: "Ships Python applications and data pipelines backed by MongoDB for reliable storage and retrieval.",
+  },
+  {
+    title: "Machine Learning & Deep Learning",
+    body: "Applies ML and DL fundamentals to design predictive systems that turn raw data into decisions.",
+  },
+  {
+    title: "Natural Language Processing",
+    body: "Builds NLP workflows that transform unstructured text into structured, real-world insight.",
+  },
+];
+
+const FOCUS_AREAS = [
+  {
+    title: "NLP Pipelines",
+    tags: ["Python", "NLP", "MongoDB"],
+    body: "End-to-end text classification and processing pipelines — from ingestion to model inference.",
+  },
+  {
+    title: "ML Prediction Systems",
+    tags: ["Python", "ML", "Scikit-learn"],
+    body: "Supervised learning workflows with careful data handling, feature design, and evaluation.",
+  },
+  {
+    title: "Deep Learning Prototypes",
+    tags: ["Python", "Deep Learning"],
+    body: "Neural network prototypes exploring representation learning on structured and text data.",
+  },
+];
+
 function Index() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 20 });
+
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
+    <>
+      {mounted && <Loader />}
+      <Background />
+
+      {/* scroll progress */}
+      <motion.div
+        style={{ scaleX }}
+        className="fixed left-0 right-0 top-0 z-50 h-[2px] origin-left"
+      >
+        <div
+          className="h-full w-full"
+          style={{
+            background: "linear-gradient(90deg, oklch(0.7 0.22 260), oklch(0.55 0.22 25))",
+            boxShadow: "0 0 12px oklch(0.7 0.22 260)",
+          }}
+        />
+      </motion.div>
+
+      <Navbar />
+
+      <main className="relative">
+        <Hero />
+        <About />
+        <Skills />
+        <Focus />
+        <Contact />
+        <Footer />
+      </main>
+    </>
+  );
+}
+
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const on = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", on);
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+  const links = ["about", "skills", "focus", "contact"];
+  return (
+    <header
+      className={`fixed left-0 right-0 top-0 z-40 transition-all ${
+        scrolled ? "backdrop-blur-xl" : ""
+      }`}
     >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <a href="#top" className="flex items-center gap-3">
+          <ShieldSvg size={32} />
+          <span className="display text-sm uppercase tracking-[0.35em] text-[oklch(0.9_0.02_260)]">
+            Barath.V
+          </span>
+        </a>
+        <nav className="hidden items-center gap-8 md:flex">
+          {links.map((l) => (
+            <a
+              key={l}
+              href={`#${l}`}
+              className="group relative text-xs uppercase tracking-[0.25em] text-[oklch(0.8_0.02_260)] transition hover:text-white"
+            >
+              {l}
+              <span className="absolute -bottom-1 left-0 h-px w-0 bg-[oklch(0.7_0.22_260)] transition-all group-hover:w-full" />
+            </a>
+          ))}
+        </nav>
+        <a
+          href={`mailto:${PROFILE.email}`}
+          className="glass rounded-full px-4 py-2 text-xs uppercase tracking-[0.25em] transition hover:glow-ring"
+        >
+          Recruit
+        </a>
+      </div>
+    </header>
+  );
+}
+
+function Hero() {
+  return (
+    <section id="top" className="relative flex min-h-screen items-center px-6 pt-32 md:pt-24">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-2">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 2 }}
+        >
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.22_260/0.35)] bg-[oklch(0.55_0.25_260/0.08)] px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-[oklch(0.85_0.05_260)]">
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.7_0.22_260)]" />
+            Available for internships
+          </div>
+          <h1 className="display text-5xl leading-[0.95] md:text-7xl">
+            <span className="text-gradient">{PROFILE.name}</span>
+          </h1>
+          <p className="mt-4 max-w-lg text-lg font-medium text-[oklch(0.85_0.02_260)]">
+            {PROFILE.role}
+          </p>
+          <p className="mt-6 max-w-xl text-sm leading-relaxed text-[oklch(0.72_0.03_260)] md:text-base">
+            {PROFILE.tagline}
+          </p>
+
+          <div className="mt-10 flex flex-wrap gap-3">
+            <a
+              href="#focus"
+              className="group inline-flex items-center gap-2 rounded-full bg-[oklch(0.55_0.25_260)] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_oklch(0.55_0.25_260)] transition hover:shadow-[0_20px_60px_-10px_oklch(0.55_0.25_260)]"
+            >
+              View Work <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+            <a
+              href={`mailto:${PROFILE.email}`}
+              className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:glow-ring"
+            >
+              Contact <Mail className="h-4 w-4" />
+            </a>
+            <a
+              href={PROFILE.github}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.55_0.22_25/0.5)] px-6 py-3 text-sm font-semibold text-[oklch(0.85_0.1_25)] transition hover:bg-[oklch(0.55_0.22_25/0.15)]"
+            >
+              <Github className="h-4 w-4" /> GitHub
+            </a>
+          </div>
+
+          <div className="mt-12 flex flex-wrap gap-x-8 gap-y-2 text-xs uppercase tracking-[0.25em] text-[oklch(0.7_0.03_260)]">
+            <span className="flex items-center gap-2"><MapPin className="h-3 w-3" /> {PROFILE.location}</span>
+            <span className="flex items-center gap-2"><GraduationCap className="h-3 w-3" /> CGPA {PROFILE.cgpa}</span>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 0.7 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, delay: 2.1, ease: [0.16, 1, 0.3, 1] }}
+          className="flex justify-center"
+        >
+          <Shield size={440} />
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function Section({
+  id,
+  eyebrow,
+  title,
+  children,
+}: {
+  id: string;
+  eyebrow: string;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="relative px-6 py-32">
+      <div className="mx-auto max-w-6xl">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="mb-14"
+        >
+          <div className="mb-3 flex items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-[oklch(0.7_0.15_260)]">
+            <span className="h-px w-8 bg-[oklch(0.55_0.25_260)]" />
+            {eyebrow}
+          </div>
+          <h2 className="display max-w-3xl text-4xl md:text-5xl">
+            <span className="text-gradient">{title}</span>
+          </h2>
+        </motion.div>
+        {children}
+      </div>
+    </section>
+  );
+}
+
+function About() {
+  return (
+    <Section id="about" eyebrow="Mission Brief" title="Engineer, learner, operator.">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="glass col-span-1 rounded-3xl p-8 md:col-span-2"
+        >
+          <p className="text-lg leading-relaxed text-[oklch(0.88_0.02_260)]">
+            Pre-final year <span className="text-white">BE CSE (AI & ML)</span> undergraduate at{" "}
+            <span className="text-white">{PROFILE.college}</span> with hands-on skills across
+            Python, MongoDB, NLP, Machine Learning, and Deep Learning.
+          </p>
+          <p className="mt-6 text-[oklch(0.75_0.02_260)]">
+            Seeking an SDE or ML internship where data-driven problem solving translates into
+            production-ready systems — and where I can grow into a strong, versatile software
+            engineer.
+          </p>
+
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
+            {STRENGTHS.map((s, i) => (
+              <motion.div
+                key={s.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="rounded-2xl border border-[oklch(0.55_0.25_260/0.2)] bg-[oklch(0.15_0.05_260/0.4)] p-5"
+              >
+                <div className="mb-2 text-[10px] uppercase tracking-[0.25em] text-[oklch(0.7_0.15_260)]">
+                  0{i + 1}
+                </div>
+                <div className="text-sm font-semibold text-white">{s.title}</div>
+                <p className="mt-2 text-xs leading-relaxed text-[oklch(0.72_0.03_260)]">{s.body}</p>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="glass rounded-3xl p-8"
+        >
+          <div className="mb-6 flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-[oklch(0.7_0.15_260)]">
+            <GraduationCap className="h-4 w-4" /> Education
+          </div>
+          <div className="relative border-l border-[oklch(0.55_0.25_260/0.3)] pl-6">
+            <span className="absolute -left-[7px] top-1 h-3 w-3 rounded-full bg-[oklch(0.55_0.25_260)] shadow-[0_0_20px_oklch(0.55_0.25_260)]" />
+            <div className="text-sm font-semibold text-white">{PROFILE.degree}</div>
+            <div className="mt-1 text-xs text-[oklch(0.75_0.02_260)]">{PROFILE.college}</div>
+            <div className="mt-0.5 text-xs text-[oklch(0.65_0.03_260)]">{PROFILE.university}</div>
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[oklch(0.55_0.22_25/0.4)] px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-[oklch(0.85_0.1_25)]">
+              CGPA {PROFILE.cgpa}
+            </div>
+            <p className="mt-4 text-xs text-[oklch(0.7_0.02_260)]">
+              Currently in pre-final year, pursuing AI & ML coursework.
+            </p>
+          </div>
+        </motion.div>
+      </div>
+    </Section>
+  );
+}
+
+function Skills() {
+  return (
+    <Section id="skills" eyebrow="Arsenal" title="A precision toolkit for AI systems.">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {SKILLS.map((s, i) => {
+          const Icon = s.icon;
+          return (
+            <motion.div
+              key={s.group}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: i * 0.08 }}
+              whileHover={{ y: -6 }}
+              className="glass group relative overflow-hidden rounded-3xl p-6"
+            >
+              <div
+                className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full opacity-0 blur-2xl transition group-hover:opacity-60"
+                style={{ background: "oklch(0.55 0.25 260 / 0.6)" }}
+              />
+              <div className="relative flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[oklch(0.55_0.25_260/0.15)] text-[oklch(0.8_0.15_260)]">
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] uppercase tracking-[0.3em] text-[oklch(0.7_0.03_260)]">
+                      Domain
+                    </div>
+                    <div className="text-base font-semibold text-white">{s.group}</div>
+                  </div>
+                </div>
+                <div className="display text-2xl text-[oklch(0.7_0.15_260)]">{s.level}</div>
+              </div>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {s.items.map((it) => (
+                  <span
+                    key={it}
+                    className="rounded-full border border-[oklch(0.7_0.05_260/0.25)] bg-[oklch(0.2_0.05_260/0.6)] px-3 py-1 text-[11px] text-[oklch(0.85_0.02_260)]"
+                  >
+                    {it}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-5 h-[3px] w-full overflow-hidden rounded-full bg-[oklch(0.25_0.03_260)]">
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${s.level}%` }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+                  className="h-full"
+                  style={{
+                    background: "linear-gradient(90deg, oklch(0.7 0.22 260), oklch(0.55 0.22 25))",
+                  }}
+                />
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+    </Section>
+  );
+}
+
+function Focus() {
+  return (
+    <Section id="focus" eyebrow="Current Focus" title="Where I'm sharpening the edge.">
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        {FOCUS_AREAS.map((f, i) => (
+          <motion.article
+            key={f.title}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.7, delay: i * 0.1 }}
+            whileHover={{ y: -8, rotateX: 4, rotateY: -4 }}
+            style={{ transformStyle: "preserve-3d" }}
+            className="glass group relative overflow-hidden rounded-3xl p-8"
+          >
+            <div
+              className="pointer-events-none absolute inset-0 opacity-0 transition group-hover:opacity-100"
+              style={{
+                background:
+                  "radial-gradient(circle at 30% 20%, oklch(0.55 0.25 260 / 0.25), transparent 60%)",
+              }}
+            />
+            <div className="relative">
+              <div className="mb-6 flex items-start justify-between">
+                <div className="display text-4xl text-[oklch(0.55_0.15_260)]">0{i + 1}</div>
+                <Rocket className="h-5 w-5 text-[oklch(0.7_0.15_260)]" />
+              </div>
+              <h3 className="display text-xl text-white">{f.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-[oklch(0.75_0.03_260)]">{f.body}</p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {f.tags.map((t) => (
+                  <span
+                    key={t}
+                    className="rounded-full border border-[oklch(0.55_0.25_260/0.3)] px-2.5 py-0.5 text-[10px] uppercase tracking-[0.2em] text-[oklch(0.8_0.1_260)]"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </motion.article>
+        ))}
+      </div>
+
+      <motion.a
+        href={PROFILE.github}
+        target="_blank"
+        rel="noreferrer"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="glass mt-8 flex items-center justify-between rounded-3xl p-6 transition hover:glow-ring"
+      >
+        <div className="flex items-center gap-4">
+          <Github className="h-6 w-6 text-white" />
+          <div>
+            <div className="text-sm font-semibold text-white">github.com/{PROFILE.githubHandle}</div>
+            <div className="text-xs text-[oklch(0.7_0.03_260)]">Live repositories, experiments, and study notes</div>
+          </div>
+        </div>
+        <ChevronRight className="h-5 w-5 text-[oklch(0.7_0.15_260)]" />
+      </motion.a>
+    </Section>
+  );
+}
+
+function Contact() {
+  const items = [
+    { icon: Mail, label: "Email", value: PROFILE.email, href: `mailto:${PROFILE.email}` },
+    { icon: Phone, label: "Phone", value: PROFILE.phone, href: `tel:${PROFILE.phone}` },
+    { icon: Github, label: "GitHub", value: PROFILE.githubHandle, href: PROFILE.github },
+    { icon: MapPin, label: "Location", value: PROFILE.location, href: "#" },
+  ];
+  return (
+    <Section id="contact" eyebrow="Signal In" title="Open channel. Let's build.">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="glass rounded-3xl p-8"
+        >
+          <p className="text-lg text-[oklch(0.88_0.02_260)]">
+            Recruiting for AI, ML, or SDE internships? I'm ready to plug into your team and ship
+            work that matters.
+          </p>
+          <div className="mt-8 space-y-3">
+            {items.map((it) => {
+              const Icon = it.icon;
+              return (
+                <a
+                  key={it.label}
+                  href={it.href}
+                  target={it.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  className="group flex items-center justify-between rounded-2xl border border-[oklch(0.55_0.25_260/0.2)] bg-[oklch(0.15_0.05_260/0.4)] p-4 transition hover:border-[oklch(0.55_0.25_260/0.6)] hover:bg-[oklch(0.55_0.25_260/0.08)]"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[oklch(0.55_0.25_260/0.15)] text-[oklch(0.8_0.15_260)]">
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <div className="text-[10px] uppercase tracking-[0.25em] text-[oklch(0.7_0.03_260)]">
+                        {it.label}
+                      </div>
+                      <div className="text-sm font-medium text-white">{it.value}</div>
+                    </div>
+                  </div>
+                  <ArrowUpRight className="h-4 w-4 text-[oklch(0.7_0.15_260)] transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        <motion.form
+          initial={{ opacity: 0, x: 30 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            const f = e.currentTarget as HTMLFormElement;
+            const name = (f.elements.namedItem("name") as HTMLInputElement)?.value ?? "";
+            const msg = (f.elements.namedItem("message") as HTMLTextAreaElement)?.value ?? "";
+            window.location.href = `mailto:${PROFILE.email}?subject=Recruiting ${encodeURIComponent(
+              name,
+            )}&body=${encodeURIComponent(msg)}`;
+          }}
+          className="glass rounded-3xl p-8"
+        >
+          <div className="mb-6 text-xs uppercase tracking-[0.3em] text-[oklch(0.7_0.15_260)]">
+            Transmission
+          </div>
+          <div className="space-y-4">
+            {[
+              { name: "name", label: "Your name", type: "text" },
+              { name: "email", label: "Email", type: "email" },
+            ].map((f) => (
+              <label key={f.name} className="block">
+                <span className="text-[10px] uppercase tracking-[0.25em] text-[oklch(0.7_0.03_260)]">
+                  {f.label}
+                </span>
+                <input
+                  required
+                  name={f.name}
+                  type={f.type}
+                  className="mt-1 w-full rounded-xl border border-[oklch(0.55_0.25_260/0.25)] bg-[oklch(0.12_0.04_260/0.6)] px-4 py-3 text-sm text-white outline-none transition focus:border-[oklch(0.55_0.25_260)] focus:glow-ring"
+                />
+              </label>
+            ))}
+            <label className="block">
+              <span className="text-[10px] uppercase tracking-[0.25em] text-[oklch(0.7_0.03_260)]">
+                Message
+              </span>
+              <textarea
+                required
+                name="message"
+                rows={4}
+                className="mt-1 w-full resize-none rounded-xl border border-[oklch(0.55_0.25_260/0.25)] bg-[oklch(0.12_0.04_260/0.6)] px-4 py-3 text-sm text-white outline-none transition focus:border-[oklch(0.55_0.25_260)] focus:glow-ring"
+              />
+            </label>
+            <button
+              type="submit"
+              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[oklch(0.55_0.25_260)] px-6 py-3 text-sm font-semibold text-white transition hover:shadow-[0_20px_60px_-10px_oklch(0.55_0.25_260)]"
+            >
+              Send Transmission <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </button>
+          </div>
+        </motion.form>
+      </div>
+    </Section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="relative border-t border-[oklch(0.55_0.25_260/0.15)] px-6 py-10">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
+        <div className="flex items-center gap-3">
+          <ShieldSvg size={28} />
+          <span className="text-xs uppercase tracking-[0.3em] text-[oklch(0.75_0.02_260)]">
+            {PROFILE.name} — {new Date().getFullYear()}
+          </span>
+        </div>
+        <a
+          href="#top"
+          className="glass rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-white transition hover:glow-ring"
+        >
+          Back to Base ↑
+        </a>
+      </div>
+    </footer>
   );
 }
