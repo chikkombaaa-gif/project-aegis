@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import {
   ArrowUpRight,
   Download,
-  Github,
+  GitBranch as Github,
   Mail,
   MapPin,
   Phone,
