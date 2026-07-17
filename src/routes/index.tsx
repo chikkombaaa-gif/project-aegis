@@ -20,6 +20,9 @@ import {
 import { Background } from "@/components/portfolio/Background";
 import { Shield, ShieldSvg } from "@/components/portfolio/Shield";
 import { Loader } from "@/components/portfolio/Loader";
+import barathAsset from "@/assets/barath.png.asset.json";
+
+const PORTRAIT_URL = barathAsset.url;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -185,6 +188,126 @@ function Navbar() {
 
 function Hero() {
   return (
+    <HeroInner />
+  );
+}
+
+function Portrait() {
+  const ref = (typeof window !== "undefined") ? null : null;
+  return (
+    <motion.div
+      className="relative"
+      whileHover={{ scale: 1.02 }}
+      transition={{ type: "spring", stiffness: 120, damping: 14 }}
+    >
+      {/* Rotating shield halo */}
+      <div className="pointer-events-none absolute -inset-8 flex items-center justify-center">
+        <div className="animate-spin-slow opacity-70">
+          <ShieldSvg size={520} />
+        </div>
+      </div>
+
+      {/* Glow */}
+      <div
+        className="pointer-events-none absolute -inset-6 rounded-[2rem] blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle at 30% 20%, oklch(0.55 0.25 260 / 0.55), transparent 60%), radial-gradient(circle at 80% 90%, oklch(0.55 0.22 25 / 0.4), transparent 60%)",
+        }}
+      />
+
+      {/* Frame */}
+      <div
+        className="glass relative overflow-hidden rounded-[1.75rem] p-2"
+        style={{ boxShadow: "var(--shadow-elevated)" }}
+      >
+        <div className="relative overflow-hidden rounded-[1.4rem]">
+          <img
+            src={PORTRAIT_URL}
+            alt="Barath V — AI & ML Engineer"
+            className="block h-[520px] w-[400px] object-cover object-center transition duration-[1200ms] ease-out will-change-transform hover:scale-[1.06]"
+            loading="eager"
+          />
+          {/* Cinematic overlay */}
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, transparent 40%, oklch(0.08 0.04 260 / 0.85) 100%), radial-gradient(ellipse at 50% 0%, oklch(0.55 0.25 260 / 0.15), transparent 60%)",
+            }}
+          />
+          {/* Scanlines */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-overlay"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(0deg, oklch(0.9 0.05 260) 0 1px, transparent 1px 4px)",
+            }}
+          />
+          {/* Corner brackets */}
+          {[
+            "left-3 top-3 border-l border-t",
+            "right-3 top-3 border-r border-t",
+            "left-3 bottom-3 border-l border-b",
+            "right-3 bottom-3 border-r border-b",
+          ].map((c) => (
+            <span
+              key={c}
+              className={`absolute h-5 w-5 border-[oklch(0.7_0.22_260)] ${c}`}
+            />
+          ))}
+
+          {/* Bottom HUD */}
+          <div className="absolute inset-x-4 bottom-4 flex items-end justify-between">
+            <div>
+              <div className="text-[9px] uppercase tracking-[0.35em] text-[oklch(0.75_0.05_260)]">
+                Operator ID • 001
+              </div>
+              <div className="display mt-1 text-lg text-white">Barath V</div>
+            </div>
+            <div className="flex flex-col items-end gap-1 text-right">
+              <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.1_25)]">
+                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.65_0.25_25)]" />
+                Live
+              </span>
+              <span className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.75_0.05_260)]">
+                CH • IND
+              </span>
+            </div>
+          </div>
+
+          {/* Floating shield badge */}
+          <motion.div
+            className="absolute -bottom-6 -right-6"
+            animate={{ y: [0, -8, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          >
+            <div
+              className="rounded-full p-2"
+              style={{ background: "oklch(0.12 0.04 260 / 0.7)", backdropFilter: "blur(12px)" }}
+            >
+              <ShieldSvg size={72} />
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Orbiting dot */}
+      <motion.span
+        className="pointer-events-none absolute left-1/2 top-1/2 h-2 w-2 rounded-full bg-[oklch(0.75_0.22_260)]"
+        style={{ boxShadow: "0 0 20px oklch(0.7 0.22 260)" }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
+        // orbit via transform-origin
+      >
+        <span className="absolute -translate-x-[280px]" />
+      </motion.span>
+    </motion.div>
+  );
+}
+
+function HeroInner() {
+  return (
     <section id="top" className="relative flex min-h-screen items-center px-6 pt-32 md:pt-24">
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-2">
         <motion.div
@@ -241,7 +364,7 @@ function Hero() {
           transition={{ duration: 1.2, delay: 2.1, ease: [0.16, 1, 0.3, 1] }}
           className="flex justify-center"
         >
-          <Shield size={440} />
+          <Portrait />
         </motion.div>
       </div>
     </section>
