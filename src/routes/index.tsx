@@ -20,6 +20,9 @@ import {
 import { Background } from "@/components/portfolio/Background";
 import { Shield, ShieldSvg } from "@/components/portfolio/Shield";
 import { Loader } from "@/components/portfolio/Loader";
+import barathAsset from "@/assets/barath.png.asset.json";
+
+const PORTRAIT_URL = barathAsset.url;
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -241,7 +244,7 @@ function Hero() {
           transition={{ duration: 1.2, delay: 2.1, ease: [0.16, 1, 0.3, 1] }}
           className="flex justify-center"
         >
-          <Shield size={440} />
+          <Portrait />
         </motion.div>
       </div>
     </section>
