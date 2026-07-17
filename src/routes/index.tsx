@@ -20,6 +20,9 @@ import {
 import { Background } from "@/components/portfolio/Background";
 import { Shield, ShieldSvg } from "@/components/portfolio/Shield";
 import { Loader } from "@/components/portfolio/Loader";
+import { CustomCursor } from "@/components/portfolio/CustomCursor";
+import { Marquee } from "@/components/portfolio/Marquee";
+import { useLenis } from "@/hooks/useLenis";
 import barathAsset from "@/assets/barath.png.asset.json";
 
 const PORTRAIT_URL = barathAsset.url;
@@ -106,12 +109,14 @@ const FOCUS_AREAS = [
 function Index() {
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+  useLenis();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 20 });
 
   return (
     <>
       {mounted && <Loader />}
+      {mounted && <CustomCursor />}
       <Background />
 
       {/* scroll progress */}
@@ -132,6 +137,7 @@ function Index() {
 
       <main className="relative">
         <Hero />
+        <Marquee />
         <About />
         <Skills />
         <Focus />
