@@ -1,6 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useSpring } from "framer-motion";
-import { useEffect, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   Download,
@@ -22,6 +29,8 @@ import { Shield, ShieldSvg } from "@/components/portfolio/Shield";
 import { Loader } from "@/components/portfolio/Loader";
 import { CustomCursor } from "@/components/portfolio/CustomCursor";
 import { Marquee } from "@/components/portfolio/Marquee";
+import { Magnetic } from "@/components/portfolio/Magnetic";
+import { TextReveal } from "@/components/portfolio/TextReveal";
 import { useLenis } from "@/hooks/useLenis";
 const PORTRAIT_URL = "/assets/barath.png";
 
