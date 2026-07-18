@@ -262,12 +262,40 @@ function Hero() {
 }
 
 function Portrait() {
-  const ref = (typeof window !== "undefined") ? null : null;
+  const ref = useRef<HTMLDivElement>(null);
+  const mx = useMotionValue(0.5);
+  const my = useMotionValue(0.5);
+  const rx = useSpring(useTransform(my, [0, 1], [10, -10]), {
+    stiffness: 120,
+    damping: 14,
+  });
+  const ry = useSpring(useTransform(mx, [0, 1], [-12, 12]), {
+    stiffness: 120,
+    damping: 14,
+  });
+  const sweepX = useSpring(useTransform(mx, [0, 1], ["-20%", "120%"]), {
+    stiffness: 80,
+    damping: 20,
+  });
+
+  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const r = ref.current?.getBoundingClientRect();
+    if (!r) return;
+    mx.set((e.clientX - r.left) / r.width);
+    my.set((e.clientY - r.top) / r.height);
+  };
+  const onLeave = () => {
+    mx.set(0.5);
+    my.set(0.5);
+  };
+
   return (
     <motion.div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
       className="relative"
-      whileHover={{ scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 120, damping: 14 }}
+      style={{ perspective: 1200 }}
     >
       {/* Rotating shield halo */}
       <div className="pointer-events-none absolute -inset-8 flex items-center justify-center">
@@ -286,16 +314,35 @@ function Portrait() {
       />
 
       {/* Frame */}
-      <div
+      <motion.div
         className="glass relative overflow-hidden rounded-[1.75rem] p-2"
-        style={{ boxShadow: "var(--shadow-elevated)" }}
+        style={{
+          boxShadow: "var(--shadow-elevated)",
+          rotateX: rx,
+          rotateY: ry,
+          transformStyle: "preserve-3d",
+        }}
       >
-        <div className="relative overflow-hidden rounded-[1.4rem]">
+        <motion.div
+          className="relative overflow-hidden rounded-[1.4rem]"
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        >
           <img
             src={PORTRAIT_URL}
             alt="Barath V — AI & ML Engineer"
             className="block h-[520px] w-[400px] object-cover object-center transition duration-[1200ms] ease-out will-change-transform hover:scale-[1.06]"
             loading="eager"
+          />
+          {/* Light sweep */}
+          <motion.div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(115deg, transparent 40%, oklch(0.95 0.05 260 / 0.18) 50%, transparent 60%)",
+              x: sweepX,
+              mixBlendMode: "screen",
+            }}
           />
           {/* Cinematic overlay */}
           <div
@@ -358,8 +405,8 @@ function Portrait() {
               <ShieldSvg size={72} />
             </div>
           </motion.div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Orbiting dot */}
       <motion.span
