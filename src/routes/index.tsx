@@ -429,14 +429,18 @@ function HeroInner() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 2 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.22_260/0.35)] bg-[oklch(0.55_0.25_260/0.08)] px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-[oklch(0.85_0.05_260)]">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.7_0.22_260)]" />
             Available for internships
           </div>
-          <h1 className="display text-5xl leading-[0.95] md:text-7xl">
-            <span className="text-gradient">{PROFILE.name}</span>
+          <h1 className="display overflow-hidden text-5xl leading-[1.05] md:text-7xl">
+            <TextReveal
+              text={PROFILE.name}
+              className="text-gradient inline-block"
+              delay={0.5}
+            />
           </h1>
           <p className="mt-4 max-w-lg text-lg font-medium text-[oklch(0.85_0.02_260)]">
             {PROFILE.role}
@@ -446,26 +450,32 @@ function HeroInner() {
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
-            <a
-              href="#focus"
-              className="group inline-flex items-center gap-2 rounded-full bg-[oklch(0.55_0.25_260)] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_oklch(0.55_0.25_260)] transition hover:shadow-[0_20px_60px_-10px_oklch(0.55_0.25_260)]"
-            >
-              View Work <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-            <a
-              href={`mailto:${PROFILE.email}`}
-              className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:glow-ring"
-            >
-              Contact <Mail className="h-4 w-4" />
-            </a>
-            <a
-              href={PROFILE.github}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.55_0.22_25/0.5)] px-6 py-3 text-sm font-semibold text-[oklch(0.85_0.1_25)] transition hover:bg-[oklch(0.55_0.22_25/0.15)]"
-            >
-              <Github className="h-4 w-4" /> GitHub
-            </a>
+            <Magnetic>
+              <a
+                href="#focus"
+                className="group inline-flex items-center gap-2 rounded-full bg-[oklch(0.55_0.25_260)] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_oklch(0.55_0.25_260)] transition hover:shadow-[0_20px_60px_-10px_oklch(0.55_0.25_260)]"
+              >
+                View Work <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href={`mailto:${PROFILE.email}`}
+                className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:glow-ring"
+              >
+                Contact <Mail className="h-4 w-4" />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href={PROFILE.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.55_0.22_25/0.5)] px-6 py-3 text-sm font-semibold text-[oklch(0.85_0.1_25)] transition hover:bg-[oklch(0.55_0.22_25/0.15)]"
+              >
+                <Github className="h-4 w-4" /> GitHub
+              </a>
+            </Magnetic>
           </div>
 
           <div className="mt-12 flex flex-wrap gap-x-8 gap-y-2 text-xs uppercase tracking-[0.25em] text-[oklch(0.7_0.03_260)]">
@@ -477,7 +487,7 @@ function HeroInner() {
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 2.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="flex justify-center"
         >
           <Portrait />
