@@ -23,9 +23,7 @@ import { Loader } from "@/components/portfolio/Loader";
 import { CustomCursor } from "@/components/portfolio/CustomCursor";
 import { Marquee } from "@/components/portfolio/Marquee";
 import { useLenis } from "@/hooks/useLenis";
-import barathAsset from "@/assets/barath.png.asset.json";
-
-const PORTRAIT_URL = barathAsset.url;
+const PORTRAIT_URL = "/assets/barath.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
