@@ -1,6 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useSpring } from "framer-motion";
-import { useEffect, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   Download,
@@ -22,6 +29,8 @@ import { Shield, ShieldSvg } from "@/components/portfolio/Shield";
 import { Loader } from "@/components/portfolio/Loader";
 import { CustomCursor } from "@/components/portfolio/CustomCursor";
 import { Marquee } from "@/components/portfolio/Marquee";
+import { Magnetic } from "@/components/portfolio/Magnetic";
+import { TextReveal } from "@/components/portfolio/TextReveal";
 import { useLenis } from "@/hooks/useLenis";
 const PORTRAIT_URL = "/assets/barath.png";
 
@@ -142,7 +151,63 @@ function Index() {
         <Contact />
         <Footer />
       </main>
+      <MouseGlow />
+      <ScrollTop />
     </>
+  );
+}
+
+function MouseGlow() {
+  const x = useMotionValue(-500);
+  const y = useMotionValue(-500);
+  const sx = useSpring(x, { stiffness: 60, damping: 20, mass: 0.6 });
+  const sy = useSpring(y, { stiffness: 60, damping: 20, mass: 0.6 });
+  useEffect(() => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    const on = (e: MouseEvent) => {
+      x.set(e.clientX);
+      y.set(e.clientY);
+    };
+    window.addEventListener("mousemove", on);
+    return () => window.removeEventListener("mousemove", on);
+  }, [x, y]);
+  const bg = useTransform(
+    [sx, sy],
+    ([px, py]) =>
+      `radial-gradient(500px circle at ${px}px ${py}px, oklch(0.55 0.25 260 / 0.18), transparent 55%)`,
+  );
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-[1] mix-blend-screen"
+      style={{ background: bg }}
+    />
+  );
+}
+
+function ScrollTop() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const on = () => setShow(window.scrollY > 600);
+    window.addEventListener("scroll", on);
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.a
+          href="#top"
+          initial={{ opacity: 0, y: 20, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.8 }}
+          transition={{ type: "spring", stiffness: 260, damping: 22 }}
+          className="glass fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:glow-ring"
+          aria-label="Scroll to top"
+        >
+          <ArrowUpRight className="h-4 w-4 -rotate-45" />
+        </motion.a>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -197,12 +262,40 @@ function Hero() {
 }
 
 function Portrait() {
-  const ref = (typeof window !== "undefined") ? null : null;
+  const ref = useRef<HTMLDivElement>(null);
+  const mx = useMotionValue(0.5);
+  const my = useMotionValue(0.5);
+  const rx = useSpring(useTransform(my, [0, 1], [10, -10]), {
+    stiffness: 120,
+    damping: 14,
+  });
+  const ry = useSpring(useTransform(mx, [0, 1], [-12, 12]), {
+    stiffness: 120,
+    damping: 14,
+  });
+  const sweepX = useSpring(useTransform(mx, [0, 1], ["-20%", "120%"]), {
+    stiffness: 80,
+    damping: 20,
+  });
+
+  const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const r = ref.current?.getBoundingClientRect();
+    if (!r) return;
+    mx.set((e.clientX - r.left) / r.width);
+    my.set((e.clientY - r.top) / r.height);
+  };
+  const onLeave = () => {
+    mx.set(0.5);
+    my.set(0.5);
+  };
+
   return (
     <motion.div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
       className="relative"
-      whileHover={{ scale: 1.02 }}
-      transition={{ type: "spring", stiffness: 120, damping: 14 }}
+      style={{ perspective: 1200 }}
     >
       {/* Rotating shield halo */}
       <div className="pointer-events-none absolute -inset-8 flex items-center justify-center">
@@ -221,16 +314,35 @@ function Portrait() {
       />
 
       {/* Frame */}
-      <div
+      <motion.div
         className="glass relative overflow-hidden rounded-[1.75rem] p-2"
-        style={{ boxShadow: "var(--shadow-elevated)" }}
+        style={{
+          boxShadow: "var(--shadow-elevated)",
+          rotateX: rx,
+          rotateY: ry,
+          transformStyle: "preserve-3d",
+        }}
       >
-        <div className="relative overflow-hidden rounded-[1.4rem]">
+        <motion.div
+          className="relative overflow-hidden rounded-[1.4rem]"
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+        >
           <img
             src={PORTRAIT_URL}
             alt="Barath V — AI & ML Engineer"
             className="block h-[520px] w-[400px] object-cover object-center transition duration-[1200ms] ease-out will-change-transform hover:scale-[1.06]"
             loading="eager"
+          />
+          {/* Light sweep */}
+          <motion.div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(115deg, transparent 40%, oklch(0.95 0.05 260 / 0.18) 50%, transparent 60%)",
+              x: sweepX,
+              mixBlendMode: "screen",
+            }}
           />
           {/* Cinematic overlay */}
           <div
@@ -293,8 +405,8 @@ function Portrait() {
               <ShieldSvg size={72} />
             </div>
           </motion.div>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Orbiting dot */}
       <motion.span
@@ -317,14 +429,18 @@ function HeroInner() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 2 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.22_260/0.35)] bg-[oklch(0.55_0.25_260/0.08)] px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-[oklch(0.85_0.05_260)]">
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.7_0.22_260)]" />
             Available for internships
           </div>
-          <h1 className="display text-5xl leading-[0.95] md:text-7xl">
-            <span className="text-gradient">{PROFILE.name}</span>
+          <h1 className="display overflow-hidden text-5xl leading-[1.05] md:text-7xl">
+            <TextReveal
+              text={PROFILE.name}
+              className="text-gradient inline-block"
+              delay={0.5}
+            />
           </h1>
           <p className="mt-4 max-w-lg text-lg font-medium text-[oklch(0.85_0.02_260)]">
             {PROFILE.role}
@@ -334,26 +450,32 @@ function HeroInner() {
           </p>
 
           <div className="mt-10 flex flex-wrap gap-3">
-            <a
-              href="#focus"
-              className="group inline-flex items-center gap-2 rounded-full bg-[oklch(0.55_0.25_260)] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_oklch(0.55_0.25_260)] transition hover:shadow-[0_20px_60px_-10px_oklch(0.55_0.25_260)]"
-            >
-              View Work <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-            <a
-              href={`mailto:${PROFILE.email}`}
-              className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:glow-ring"
-            >
-              Contact <Mail className="h-4 w-4" />
-            </a>
-            <a
-              href={PROFILE.github}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.55_0.22_25/0.5)] px-6 py-3 text-sm font-semibold text-[oklch(0.85_0.1_25)] transition hover:bg-[oklch(0.55_0.22_25/0.15)]"
-            >
-              <Github className="h-4 w-4" /> GitHub
-            </a>
+            <Magnetic>
+              <a
+                href="#focus"
+                className="group inline-flex items-center gap-2 rounded-full bg-[oklch(0.55_0.25_260)] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_oklch(0.55_0.25_260)] transition hover:shadow-[0_20px_60px_-10px_oklch(0.55_0.25_260)]"
+              >
+                View Work <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href={`mailto:${PROFILE.email}`}
+                className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:glow-ring"
+              >
+                Contact <Mail className="h-4 w-4" />
+              </a>
+            </Magnetic>
+            <Magnetic>
+              <a
+                href={PROFILE.github}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.55_0.22_25/0.5)] px-6 py-3 text-sm font-semibold text-[oklch(0.85_0.1_25)] transition hover:bg-[oklch(0.55_0.22_25/0.15)]"
+              >
+                <Github className="h-4 w-4" /> GitHub
+              </a>
+            </Magnetic>
           </div>
 
           <div className="mt-12 flex flex-wrap gap-x-8 gap-y-2 text-xs uppercase tracking-[0.25em] text-[oklch(0.7_0.03_260)]">
@@ -365,7 +487,7 @@ function HeroInner() {
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 2.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="flex justify-center"
         >
           <Portrait />
