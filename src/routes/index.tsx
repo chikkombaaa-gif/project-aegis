@@ -151,7 +151,63 @@ function Index() {
         <Contact />
         <Footer />
       </main>
+      <MouseGlow />
+      <ScrollTop />
     </>
+  );
+}
+
+function MouseGlow() {
+  const x = useMotionValue(-500);
+  const y = useMotionValue(-500);
+  const sx = useSpring(x, { stiffness: 60, damping: 20, mass: 0.6 });
+  const sy = useSpring(y, { stiffness: 60, damping: 20, mass: 0.6 });
+  useEffect(() => {
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+    const on = (e: MouseEvent) => {
+      x.set(e.clientX);
+      y.set(e.clientY);
+    };
+    window.addEventListener("mousemove", on);
+    return () => window.removeEventListener("mousemove", on);
+  }, [x, y]);
+  const bg = useTransform(
+    [sx, sy],
+    ([px, py]) =>
+      `radial-gradient(500px circle at ${px}px ${py}px, oklch(0.55 0.25 260 / 0.18), transparent 55%)`,
+  );
+  return (
+    <motion.div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 z-[1] mix-blend-screen"
+      style={{ background: bg }}
+    />
+  );
+}
+
+function ScrollTop() {
+  const [show, setShow] = useState(false);
+  useEffect(() => {
+    const on = () => setShow(window.scrollY > 600);
+    window.addEventListener("scroll", on);
+    return () => window.removeEventListener("scroll", on);
+  }, []);
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.a
+          href="#top"
+          initial={{ opacity: 0, y: 20, scale: 0.8 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 20, scale: 0.8 }}
+          transition={{ type: "spring", stiffness: 260, damping: 22 }}
+          className="glass fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:glow-ring"
+          aria-label="Scroll to top"
+        >
+          <ArrowUpRight className="h-4 w-4 -rotate-45" />
+        </motion.a>
+      )}
+    </AnimatePresence>
   );
 }
 
