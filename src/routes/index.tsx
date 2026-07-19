@@ -297,12 +297,55 @@ function Portrait() {
       className="relative"
       style={{ perspective: 1200 }}
     >
-      {/* Rotating shield halo */}
-      <div className="pointer-events-none absolute -inset-8 flex items-center justify-center">
-        <div className="animate-spin-slow opacity-70">
-          <ShieldSvg size={520} />
+      {/* Rotating shield halo — deep back */}
+      <div className="pointer-events-none absolute -inset-16 flex items-center justify-center">
+        <div className="animate-spin-slow opacity-40">
+          <ShieldSvg size={640} />
         </div>
       </div>
+
+      {/* Counter-rotating targeting ring */}
+      <motion.svg
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        width={560}
+        height={560}
+        viewBox="-100 -100 200 200"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+      >
+        <circle r="92" fill="none" stroke="oklch(0.7 0.22 260 / 0.35)" strokeWidth="0.4" strokeDasharray="2 4" />
+        <circle r="86" fill="none" stroke="oklch(0.55 0.22 25 / 0.35)" strokeWidth="0.3" strokeDasharray="1 6" />
+        {Array.from({ length: 12 }).map((_, i) => (
+          <line
+            key={i}
+            x1="0" y1="-96" x2="0" y2="-88"
+            stroke="oklch(0.8 0.05 260 / 0.5)"
+            strokeWidth="0.6"
+            transform={`rotate(${i * 30})`}
+          />
+        ))}
+      </motion.svg>
+
+      {/* Orbiting particles */}
+      {[0, 1, 2, 3, 4, 5].map((i) => (
+        <motion.span
+          key={i}
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-1/2 h-1 w-1 rounded-full"
+          style={{
+            background: i % 2 ? "oklch(0.75 0.22 260)" : "oklch(0.75 0.22 25)",
+            boxShadow: `0 0 12px ${i % 2 ? "oklch(0.7 0.22 260)" : "oklch(0.7 0.22 25)"}`,
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 18 + i * 3, ease: "linear", repeat: Infinity, delay: -i * 2 }}
+        >
+          <span
+            className="absolute block h-1 w-1 rounded-full bg-current"
+            style={{ transform: `translate(${290 + (i % 3) * 14}px, 0)` }}
+          />
+        </motion.span>
+      ))}
 
       {/* Glow */}
       <div
@@ -423,9 +466,39 @@ function Portrait() {
 }
 
 function HeroInner() {
+  const heroRef = useRef<HTMLElement>(null);
+  const { scrollYProgress: hp } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const heroY = useTransform(hp, [0, 1], [0, 120]);
+  const heroOpacity = useTransform(hp, [0, 0.8], [1, 0]);
+  const heroBlur = useTransform(hp, [0, 1], ["blur(0px)", "blur(6px)"]);
+
   return (
-    <section id="top" className="relative flex min-h-screen items-center px-6 pt-32 md:pt-24">
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-2">
+    <section
+      id="top"
+      ref={heroRef}
+      className="relative flex min-h-screen items-center overflow-hidden px-6 pt-32 md:pt-24"
+    >
+      {/* Cinematic gigantic backdrop word */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-16 flex justify-center"
+        style={{ y: heroY, opacity: useTransform(hp, [0, 0.6], [0.08, 0]) }}
+      >
+        <span
+          className="display select-none text-[22vw] font-black leading-none tracking-tighter text-white/[0.04]"
+          style={{ WebkitTextStroke: "1px oklch(0.7 0.15 260 / 0.15)" }}
+        >
+          CAPTAIN
+        </span>
+      </motion.div>
+
+      <motion.div
+        style={{ y: heroY, opacity: heroOpacity, filter: heroBlur }}
+        className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-2"
+      >
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -435,6 +508,9 @@ function HeroInner() {
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.7_0.22_260)]" />
             Available for internships
           </div>
+          <div className="mb-3 text-[10px] uppercase tracking-[0.5em] text-[oklch(0.7_0.03_260)]">
+            <TextReveal text="Operator File — 001" delay={0.35} />
+          </div>
           <h1 className="display overflow-hidden text-5xl leading-[1.05] md:text-7xl">
             <TextReveal
               text={PROFILE.name}
@@ -442,9 +518,15 @@ function HeroInner() {
               delay={0.5}
             />
           </h1>
-          <p className="mt-4 max-w-lg text-lg font-medium text-[oklch(0.85_0.02_260)]">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.1, duration: 0.8 }}
+            className="mt-4 max-w-lg text-lg font-medium text-[oklch(0.85_0.02_260)]"
+          >
+            <span className="inline-block h-2 w-2 translate-y-[-2px] rotate-45 bg-[oklch(0.55_0.22_25)] shadow-[0_0_10px_oklch(0.55_0.22_25)]" />{" "}
             {PROFILE.role}
-          </p>
+          </motion.p>
           <p className="mt-6 max-w-xl text-sm leading-relaxed text-[oklch(0.72_0.03_260)] md:text-base">
             {PROFILE.tagline}
           </p>
@@ -492,7 +574,30 @@ function HeroInner() {
         >
           <Portrait />
         </motion.div>
-      </div>
+      </motion.div>
+
+      {/* Scroll cue */}
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.6, duration: 0.8 }}
+        style={{ opacity: useTransform(hp, [0, 0.15], [1, 0]) }}
+        className="pointer-events-none absolute bottom-6 left-1/2 z-10 -translate-x-1/2"
+      >
+        <div className="flex flex-col items-center gap-2">
+          <span className="text-[9px] uppercase tracking-[0.4em] text-[oklch(0.7_0.03_260)]">
+            Scroll
+          </span>
+          <div className="relative h-8 w-[1px] overflow-hidden bg-[oklch(0.55_0.25_260/0.25)]">
+            <motion.div
+              className="absolute inset-x-0 top-0 h-3"
+              style={{ background: "linear-gradient(180deg, transparent, oklch(0.75 0.22 260))" }}
+              animate={{ y: ["-100%", "300%"] }}
+              transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 }
