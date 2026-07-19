@@ -153,7 +153,83 @@ function Index() {
       </main>
       <MouseGlow />
       <ScrollTop />
+      <SectionDots />
     </>
+  );
+}
+
+function SectionDots() {
+  const sections = [
+    { id: "top", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "skills", label: "Skills" },
+    { id: "focus", label: "Focus" },
+    { id: "contact", label: "Contact" },
+  ];
+  const [active, setActive] = useState("top");
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
+    );
+    sections.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) obs.observe(el);
+    });
+    return () => obs.disconnect();
+  }, []);
+  return (
+    <nav
+      aria-label="Section navigation"
+      className="pointer-events-auto fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 md:block"
+    >
+      <ul className="flex flex-col items-end gap-4">
+        {sections.map((s) => {
+          const on = active === s.id;
+          return (
+            <li key={s.id}>
+              <a
+                href={`#${s.id}`}
+                aria-label={`Go to ${s.label}`}
+                className="group flex items-center gap-3"
+              >
+                <span
+                  className={`text-[9px] uppercase tracking-[0.35em] transition ${
+                    on
+                      ? "text-white opacity-100"
+                      : "text-[oklch(0.7_0.03_260)] opacity-0 group-hover:opacity-100"
+                  }`}
+                >
+                  {s.label}
+                </span>
+                <motion.span
+                  animate={{ scale: on ? 1 : 0.7 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="relative block"
+                >
+                  <span
+                    className={`block h-2 w-2 rounded-full transition ${
+                      on
+                        ? "bg-[oklch(0.75_0.22_260)]"
+                        : "bg-[oklch(0.5_0.05_260)] group-hover:bg-[oklch(0.75_0.22_260)]"
+                    }`}
+                    style={{
+                      boxShadow: on
+                        ? "0 0 14px oklch(0.7 0.22 260), 0 0 28px oklch(0.55 0.25 260/0.7)"
+                        : undefined,
+                    }}
+                  />
+                </motion.span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 }
 
