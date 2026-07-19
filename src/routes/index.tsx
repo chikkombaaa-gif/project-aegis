@@ -297,12 +297,55 @@ function Portrait() {
       className="relative"
       style={{ perspective: 1200 }}
     >
-      {/* Rotating shield halo */}
-      <div className="pointer-events-none absolute -inset-8 flex items-center justify-center">
-        <div className="animate-spin-slow opacity-70">
-          <ShieldSvg size={520} />
+      {/* Rotating shield halo — deep back */}
+      <div className="pointer-events-none absolute -inset-16 flex items-center justify-center">
+        <div className="animate-spin-slow opacity-40">
+          <ShieldSvg size={640} />
         </div>
       </div>
+
+      {/* Counter-rotating targeting ring */}
+      <motion.svg
+        aria-hidden
+        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+        width={560}
+        height={560}
+        viewBox="-100 -100 200 200"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+      >
+        <circle r="92" fill="none" stroke="oklch(0.7 0.22 260 / 0.35)" strokeWidth="0.4" strokeDasharray="2 4" />
+        <circle r="86" fill="none" stroke="oklch(0.55 0.22 25 / 0.35)" strokeWidth="0.3" strokeDasharray="1 6" />
+        {Array.from({ length: 12 }).map((_, i) => (
+          <line
+            key={i}
+            x1="0" y1="-96" x2="0" y2="-88"
+            stroke="oklch(0.8 0.05 260 / 0.5)"
+            strokeWidth="0.6"
+            transform={`rotate(${i * 30})`}
+          />
+        ))}
+      </motion.svg>
+
+      {/* Orbiting particles */}
+      {[0, 1, 2, 3, 4, 5].map((i) => (
+        <motion.span
+          key={i}
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-1/2 h-1 w-1 rounded-full"
+          style={{
+            background: i % 2 ? "oklch(0.75 0.22 260)" : "oklch(0.75 0.22 25)",
+            boxShadow: `0 0 12px ${i % 2 ? "oklch(0.7 0.22 260)" : "oklch(0.7 0.22 25)"}`,
+          }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 18 + i * 3, ease: "linear", repeat: Infinity, delay: -i * 2 }}
+        >
+          <span
+            className="absolute block h-1 w-1 rounded-full bg-current"
+            style={{ transform: `translate(${290 + (i % 3) * 14}px, 0)` }}
+          />
+        </motion.span>
+      ))}
 
       {/* Glow */}
       <div
