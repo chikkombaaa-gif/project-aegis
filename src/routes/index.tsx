@@ -1099,13 +1099,40 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="relative border-t border-[oklch(0.55_0.25_260/0.15)] px-6 py-10">
+    <footer className="relative overflow-hidden border-t border-[oklch(0.55_0.25_260/0.15)] px-6 pb-10 pt-24">
+      {/* Kinetic signature */}
+      <motion.div
+        aria-hidden
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+        className="pointer-events-none mx-auto mb-14 max-w-[1600px] px-6 text-center"
+      >
+        <div
+          className="display text-[18vw] font-black leading-[0.85] tracking-tighter"
+          style={{
+            background:
+              "linear-gradient(180deg, oklch(0.9 0.05 260 / 0.15), oklch(0.55 0.25 260 / 0.35) 60%, transparent)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            color: "transparent",
+            WebkitTextStroke: "1px oklch(0.7 0.18 260 / 0.35)",
+          }}
+        >
+          BARATH.V
+        </div>
+      </motion.div>
+
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
         <div className="flex items-center gap-3">
           <ShieldSvg size={28} />
           <span className="text-xs uppercase tracking-[0.3em] text-[oklch(0.75_0.02_260)]">
             {PROFILE.name} — {new Date().getFullYear()}
           </span>
+        </div>
+        <div className="hidden text-[10px] uppercase tracking-[0.35em] text-[oklch(0.6_0.03_260)] md:block">
+          Crafted with precision • Chennai, IN
         </div>
         <a
           href="#top"
