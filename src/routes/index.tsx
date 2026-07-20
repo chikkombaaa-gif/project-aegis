@@ -478,59 +478,25 @@ function Portrait() {
                 "linear-gradient(180deg, transparent 40%, oklch(0.08 0.04 260 / 0.85) 100%), radial-gradient(ellipse at 50% 0%, oklch(0.55 0.25 260 / 0.15), transparent 60%)",
             }}
           />
-          {/* Scanlines */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-overlay"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(0deg, oklch(0.9 0.05 260) 0 1px, transparent 1px 4px)",
-            }}
-          />
-          {/* Corner brackets */}
-          {[
-            "left-3 top-3 border-l border-t",
-            "right-3 top-3 border-r border-t",
-            "left-3 bottom-3 border-l border-b",
-            "right-3 bottom-3 border-r border-b",
-          ].map((c) => (
-            <span
-              key={c}
-              className={`absolute h-5 w-5 border-[oklch(0.7_0.22_260)] ${c}`}
-            />
-          ))}
-
-          {/* Bottom HUD */}
+          {/* Name plate */}
           <div className="absolute inset-x-4 bottom-4 flex items-end justify-between">
             <div>
               <div className="text-[9px] uppercase tracking-[0.35em] text-[oklch(0.75_0.05_260)]">
-                Operator ID • 001
+                AI & ML Engineer
               </div>
               <div className="display mt-1 text-lg text-white">Barath V</div>
             </div>
             <div className="flex flex-col items-end gap-1 text-right">
               <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.1_25)]">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.65_0.25_25)]" />
-                Live
+                Open to work
               </span>
               <span className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.75_0.05_260)]">
-                CH • IND
+                Chennai, IN
               </span>
             </div>
           </div>
 
-          {/* Floating shield badge */}
-          <motion.div
-            className="absolute -bottom-6 -right-6"
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <div
-              className="rounded-full p-2"
-              style={{ background: "oklch(0.12 0.04 260 / 0.7)", backdropFilter: "blur(12px)" }}
-            >
-              <ShieldSvg size={72} />
-            </div>
-          </motion.div>
         </motion.div>
       </motion.div>
 
@@ -544,80 +510,6 @@ function Portrait() {
       >
         <span className="absolute -translate-x-[280px]" />
       </motion.span>
-
-      {/* Flanking HUD panels */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.4, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="pointer-events-none absolute -left-40 top-8 hidden w-36 xl:block"
-      >
-        <div className="glass rounded-xl p-3">
-          <div className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.7_0.15_260)]">
-            Vitals
-          </div>
-          <div className="mt-2 space-y-2">
-            {[
-              { k: "CPU", v: 92 },
-              { k: "GPU", v: 78 },
-              { k: "MEM", v: 64 },
-            ].map((r) => (
-              <div key={r.k}>
-                <div className="flex justify-between text-[9px] text-[oklch(0.75_0.03_260)]">
-                  <span>{r.k}</span>
-                  <span>{r.v}%</span>
-                </div>
-                <div className="mt-1 h-[2px] w-full overflow-hidden rounded-full bg-[oklch(0.25_0.03_260)]">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${r.v}%` }}
-                    transition={{ delay: 1.6, duration: 1.2, ease: "easeOut" }}
-                    className="h-full"
-                    style={{
-                      background:
-                        "linear-gradient(90deg, oklch(0.7 0.22 260), oklch(0.55 0.22 25))",
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="mt-3 rounded-xl border border-[oklch(0.55_0.25_260/0.25)] px-3 py-2 text-[9px] uppercase tracking-[0.3em] text-[oklch(0.75_0.05_260)]">
-          <span className="mr-1 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.65_0.22_260)]" />
-          Uplink stable
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.4, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="pointer-events-none absolute -right-40 bottom-8 hidden w-36 xl:block"
-      >
-        <div className="glass rounded-xl p-3">
-          <div className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.1_25)]">
-            Loadout
-          </div>
-          <div className="mt-2 space-y-1.5 text-[10px] text-[oklch(0.85_0.02_260)]">
-            {["Python.exe", "NLP.core", "MongoDB.link", "DL.module"].map((s, i) => (
-              <motion.div
-                key={s}
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.5 + i * 0.1 }}
-                className="flex items-center gap-2"
-              >
-                <span className="h-1 w-1 rounded-full bg-[oklch(0.65_0.22_260)]" />
-                {s}
-              </motion.div>
-            ))}
-          </div>
-        </div>
-        <div className="mt-3 rounded-xl border border-[oklch(0.55_0.22_25/0.35)] px-3 py-2 text-center text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.1_25)]">
-          Cleared for Deploy
-        </div>
-      </motion.div>
     </motion.div>
   );
 }
