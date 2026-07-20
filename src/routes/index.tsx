@@ -674,7 +674,7 @@ function Section({
 
 function About() {
   return (
-    <Section id="about" eyebrow="Mission Brief" title="Engineer, learner, operator.">
+    <Section id="about" eyebrow="About" title="Engineer, learner, builder.">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -744,7 +744,7 @@ function About() {
 
 function Skills() {
   return (
-    <Section id="skills" eyebrow="Arsenal" title="A precision toolkit for AI systems.">
+    <Section id="skills" eyebrow="Skills" title="A precise toolkit for AI systems.">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         {SKILLS.map((s, i) => {
           const Icon = s.icon;
@@ -808,7 +808,7 @@ function Skills() {
 
 function Focus() {
   return (
-    <Section id="focus" eyebrow="Current Focus" title="Where I'm sharpening the edge.">
+    <Section id="focus" eyebrow="Work" title="What I'm building right now.">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {FOCUS_AREAS.map((f, i) => (
           <motion.article
@@ -880,7 +880,7 @@ function Contact() {
     { icon: MapPin, label: "Location", value: PROFILE.location, href: "#" },
   ];
   return (
-    <Section id="contact" eyebrow="Signal In" title="Open channel. Let's build.">
+    <Section id="contact" eyebrow="Contact" title="Let's build something together.">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -890,8 +890,8 @@ function Contact() {
           className="glass rounded-3xl p-8"
         >
           <p className="text-lg text-[oklch(0.88_0.02_260)]">
-            Recruiting for AI, ML, or SDE internships? I'm ready to plug into your team and ship
-            work that matters.
+            Hiring for AI, ML, or software engineering internships? I'm ready to join your
+            team and ship work that matters.
           </p>
           <div className="mt-8 space-y-3">
             {items.map((it) => {
@@ -939,7 +939,7 @@ function Contact() {
           className="glass rounded-3xl p-8"
         >
           <div className="mb-6 text-xs uppercase tracking-[0.3em] text-[oklch(0.7_0.15_260)]">
-            Transmission
+            Send a message
           </div>
           <div className="space-y-4">
             {[
@@ -973,7 +973,7 @@ function Contact() {
               type="submit"
               className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[oklch(0.55_0.25_260)] px-6 py-3 text-sm font-semibold text-white transition hover:shadow-[0_20px_60px_-10px_oklch(0.55_0.25_260)]"
             >
-              Send Transmission <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              Send message <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </button>
           </div>
         </motion.form>
@@ -1023,7 +1023,7 @@ function Footer() {
           href="#top"
           className="glass rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-white transition hover:glow-ring"
         >
-          Back to Base ↑
+          Back to top ↑
         </a>
       </div>
     </footer>
