@@ -296,7 +296,12 @@ function Navbar() {
     window.addEventListener("scroll", on);
     return () => window.removeEventListener("scroll", on);
   }, []);
-  const links = ["about", "skills", "focus", "contact"];
+  const links = [
+    { id: "about", label: "About" },
+    { id: "skills", label: "Skills" },
+    { id: "focus", label: "Work" },
+    { id: "contact", label: "Contact" },
+  ];
   return (
     <header
       className={`fixed left-0 right-0 top-0 z-40 transition-all ${
@@ -313,11 +318,11 @@ function Navbar() {
         <nav className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
             <a
-              key={l}
-              href={`#${l}`}
+              key={l.id}
+              href={`#${l.id}`}
               className="group relative text-xs uppercase tracking-[0.25em] text-[oklch(0.8_0.02_260)] transition hover:text-white"
             >
-              {l}
+              {l.label}
               <span className="absolute -bottom-1 left-0 h-px w-0 bg-[oklch(0.7_0.22_260)] transition-all group-hover:w-full" />
             </a>
           ))}
@@ -326,7 +331,7 @@ function Navbar() {
           href={`mailto:${PROFILE.email}`}
           className="glass rounded-full px-4 py-2 text-xs uppercase tracking-[0.25em] transition hover:glow-ring"
         >
-          Recruit
+          Get in touch
         </a>
       </div>
     </header>
