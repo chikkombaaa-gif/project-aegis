@@ -29,6 +29,7 @@ import { Shield, ShieldSvg } from "@/components/portfolio/Shield";
 import { Loader } from "@/components/portfolio/Loader";
 import { CustomCursor } from "@/components/portfolio/CustomCursor";
 import { Marquee } from "@/components/portfolio/Marquee";
+import { Stats } from "@/components/portfolio/Stats";
 import { Magnetic } from "@/components/portfolio/Magnetic";
 import { TextReveal } from "@/components/portfolio/TextReveal";
 import { useLenis } from "@/hooks/useLenis";
@@ -146,6 +147,7 @@ function Index() {
         <Hero />
         <Marquee />
         <About />
+        <Stats />
         <Skills />
         <Focus />
         <Contact />
