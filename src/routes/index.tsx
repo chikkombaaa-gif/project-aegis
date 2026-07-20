@@ -638,20 +638,6 @@ function HeroInner() {
       ref={heroRef}
       className="relative flex min-h-screen items-center overflow-hidden px-6 pt-32 md:pt-24"
     >
-      {/* Cinematic gigantic backdrop word */}
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-16 flex justify-center"
-        style={{ y: heroY, opacity: useTransform(hp, [0, 0.6], [0.08, 0]) }}
-      >
-        <span
-          className="display select-none text-[22vw] font-black leading-none tracking-tighter text-white/[0.04]"
-          style={{ WebkitTextStroke: "1px oklch(0.7 0.15 260 / 0.15)" }}
-        >
-          CAPTAIN
-        </span>
-      </motion.div>
-
       <motion.div
         style={{ y: heroY, opacity: heroOpacity, filter: heroBlur }}
         className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-2"
@@ -666,7 +652,7 @@ function HeroInner() {
             Available for internships
           </div>
           <div className="mb-3 text-[10px] uppercase tracking-[0.5em] text-[oklch(0.7_0.03_260)]">
-            <TextReveal text="Operator File — 001" delay={0.35} />
+            <TextReveal text="AI & Machine Learning" delay={0.35} />
           </div>
           <h1 className="display overflow-hidden text-5xl leading-[1.05] md:text-7xl">
             <TextReveal
