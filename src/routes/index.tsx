@@ -296,7 +296,12 @@ function Navbar() {
     window.addEventListener("scroll", on);
     return () => window.removeEventListener("scroll", on);
   }, []);
-  const links = ["about", "skills", "focus", "contact"];
+  const links = [
+    { id: "about", label: "About" },
+    { id: "skills", label: "Skills" },
+    { id: "focus", label: "Work" },
+    { id: "contact", label: "Contact" },
+  ];
   return (
     <header
       className={`fixed left-0 right-0 top-0 z-40 transition-all ${
@@ -313,11 +318,11 @@ function Navbar() {
         <nav className="hidden items-center gap-8 md:flex">
           {links.map((l) => (
             <a
-              key={l}
-              href={`#${l}`}
+              key={l.id}
+              href={`#${l.id}`}
               className="group relative text-xs uppercase tracking-[0.25em] text-[oklch(0.8_0.02_260)] transition hover:text-white"
             >
-              {l}
+              {l.label}
               <span className="absolute -bottom-1 left-0 h-px w-0 bg-[oklch(0.7_0.22_260)] transition-all group-hover:w-full" />
             </a>
           ))}
@@ -326,7 +331,7 @@ function Navbar() {
           href={`mailto:${PROFILE.email}`}
           className="glass rounded-full px-4 py-2 text-xs uppercase tracking-[0.25em] transition hover:glow-ring"
         >
-          Recruit
+          Get in touch
         </a>
       </div>
     </header>
@@ -473,59 +478,25 @@ function Portrait() {
                 "linear-gradient(180deg, transparent 40%, oklch(0.08 0.04 260 / 0.85) 100%), radial-gradient(ellipse at 50% 0%, oklch(0.55 0.25 260 / 0.15), transparent 60%)",
             }}
           />
-          {/* Scanlines */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.12] mix-blend-overlay"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(0deg, oklch(0.9 0.05 260) 0 1px, transparent 1px 4px)",
-            }}
-          />
-          {/* Corner brackets */}
-          {[
-            "left-3 top-3 border-l border-t",
-            "right-3 top-3 border-r border-t",
-            "left-3 bottom-3 border-l border-b",
-            "right-3 bottom-3 border-r border-b",
-          ].map((c) => (
-            <span
-              key={c}
-              className={`absolute h-5 w-5 border-[oklch(0.7_0.22_260)] ${c}`}
-            />
-          ))}
-
-          {/* Bottom HUD */}
+          {/* Name plate */}
           <div className="absolute inset-x-4 bottom-4 flex items-end justify-between">
             <div>
               <div className="text-[9px] uppercase tracking-[0.35em] text-[oklch(0.75_0.05_260)]">
-                Operator ID • 001
+                AI & ML Engineer
               </div>
               <div className="display mt-1 text-lg text-white">Barath V</div>
             </div>
             <div className="flex flex-col items-end gap-1 text-right">
               <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.1_25)]">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.65_0.25_25)]" />
-                Live
+                Open to work
               </span>
               <span className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.75_0.05_260)]">
-                CH • IND
+                Chennai, IN
               </span>
             </div>
           </div>
 
-          {/* Floating shield badge */}
-          <motion.div
-            className="absolute -bottom-6 -right-6"
-            animate={{ y: [0, -8, 0] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <div
-              className="rounded-full p-2"
-              style={{ background: "oklch(0.12 0.04 260 / 0.7)", backdropFilter: "blur(12px)" }}
-            >
-              <ShieldSvg size={72} />
-            </div>
-          </motion.div>
         </motion.div>
       </motion.div>
 
@@ -539,80 +510,6 @@ function Portrait() {
       >
         <span className="absolute -translate-x-[280px]" />
       </motion.span>
-
-      {/* Flanking HUD panels */}
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.4, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="pointer-events-none absolute -left-40 top-8 hidden w-36 xl:block"
-      >
-        <div className="glass rounded-xl p-3">
-          <div className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.7_0.15_260)]">
-            Vitals
-          </div>
-          <div className="mt-2 space-y-2">
-            {[
-              { k: "CPU", v: 92 },
-              { k: "GPU", v: 78 },
-              { k: "MEM", v: 64 },
-            ].map((r) => (
-              <div key={r.k}>
-                <div className="flex justify-between text-[9px] text-[oklch(0.75_0.03_260)]">
-                  <span>{r.k}</span>
-                  <span>{r.v}%</span>
-                </div>
-                <div className="mt-1 h-[2px] w-full overflow-hidden rounded-full bg-[oklch(0.25_0.03_260)]">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${r.v}%` }}
-                    transition={{ delay: 1.6, duration: 1.2, ease: "easeOut" }}
-                    className="h-full"
-                    style={{
-                      background:
-                        "linear-gradient(90deg, oklch(0.7 0.22 260), oklch(0.55 0.22 25))",
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="mt-3 rounded-xl border border-[oklch(0.55_0.25_260/0.25)] px-3 py-2 text-[9px] uppercase tracking-[0.3em] text-[oklch(0.75_0.05_260)]">
-          <span className="mr-1 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.65_0.22_260)]" />
-          Uplink stable
-        </div>
-      </motion.div>
-
-      <motion.div
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ delay: 1.4, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-        className="pointer-events-none absolute -right-40 bottom-8 hidden w-36 xl:block"
-      >
-        <div className="glass rounded-xl p-3">
-          <div className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.1_25)]">
-            Loadout
-          </div>
-          <div className="mt-2 space-y-1.5 text-[10px] text-[oklch(0.85_0.02_260)]">
-            {["Python.exe", "NLP.core", "MongoDB.link", "DL.module"].map((s, i) => (
-              <motion.div
-                key={s}
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 1.5 + i * 0.1 }}
-                className="flex items-center gap-2"
-              >
-                <span className="h-1 w-1 rounded-full bg-[oklch(0.65_0.22_260)]" />
-                {s}
-              </motion.div>
-            ))}
-          </div>
-        </div>
-        <div className="mt-3 rounded-xl border border-[oklch(0.55_0.22_25/0.35)] px-3 py-2 text-center text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.1_25)]">
-          Cleared for Deploy
-        </div>
-      </motion.div>
     </motion.div>
   );
 }
@@ -633,20 +530,6 @@ function HeroInner() {
       ref={heroRef}
       className="relative flex min-h-screen items-center overflow-hidden px-6 pt-32 md:pt-24"
     >
-      {/* Cinematic gigantic backdrop word */}
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-16 flex justify-center"
-        style={{ y: heroY, opacity: useTransform(hp, [0, 0.6], [0.08, 0]) }}
-      >
-        <span
-          className="display select-none text-[22vw] font-black leading-none tracking-tighter text-white/[0.04]"
-          style={{ WebkitTextStroke: "1px oklch(0.7 0.15 260 / 0.15)" }}
-        >
-          CAPTAIN
-        </span>
-      </motion.div>
-
       <motion.div
         style={{ y: heroY, opacity: heroOpacity, filter: heroBlur }}
         className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-2"
@@ -661,7 +544,7 @@ function HeroInner() {
             Available for internships
           </div>
           <div className="mb-3 text-[10px] uppercase tracking-[0.5em] text-[oklch(0.7_0.03_260)]">
-            <TextReveal text="Operator File — 001" delay={0.35} />
+            <TextReveal text="AI & Machine Learning" delay={0.35} />
           </div>
           <h1 className="display overflow-hidden text-5xl leading-[1.05] md:text-7xl">
             <TextReveal
@@ -791,7 +674,7 @@ function Section({
 
 function About() {
   return (
-    <Section id="about" eyebrow="Mission Brief" title="Engineer, learner, operator.">
+    <Section id="about" eyebrow="About" title="Engineer, learner, builder.">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -861,7 +744,7 @@ function About() {
 
 function Skills() {
   return (
-    <Section id="skills" eyebrow="Arsenal" title="A precision toolkit for AI systems.">
+    <Section id="skills" eyebrow="Skills" title="A precise toolkit for AI systems.">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         {SKILLS.map((s, i) => {
           const Icon = s.icon;
@@ -925,7 +808,7 @@ function Skills() {
 
 function Focus() {
   return (
-    <Section id="focus" eyebrow="Current Focus" title="Where I'm sharpening the edge.">
+    <Section id="focus" eyebrow="Work" title="What I'm building right now.">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         {FOCUS_AREAS.map((f, i) => (
           <motion.article
@@ -997,7 +880,7 @@ function Contact() {
     { icon: MapPin, label: "Location", value: PROFILE.location, href: "#" },
   ];
   return (
-    <Section id="contact" eyebrow="Signal In" title="Open channel. Let's build.">
+    <Section id="contact" eyebrow="Contact" title="Let's build something together.">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -1007,8 +890,8 @@ function Contact() {
           className="glass rounded-3xl p-8"
         >
           <p className="text-lg text-[oklch(0.88_0.02_260)]">
-            Recruiting for AI, ML, or SDE internships? I'm ready to plug into your team and ship
-            work that matters.
+            Hiring for AI, ML, or software engineering internships? I'm ready to join your
+            team and ship work that matters.
           </p>
           <div className="mt-8 space-y-3">
             {items.map((it) => {
@@ -1056,7 +939,7 @@ function Contact() {
           className="glass rounded-3xl p-8"
         >
           <div className="mb-6 text-xs uppercase tracking-[0.3em] text-[oklch(0.7_0.15_260)]">
-            Transmission
+            Send a message
           </div>
           <div className="space-y-4">
             {[
@@ -1090,7 +973,7 @@ function Contact() {
               type="submit"
               className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[oklch(0.55_0.25_260)] px-6 py-3 text-sm font-semibold text-white transition hover:shadow-[0_20px_60px_-10px_oklch(0.55_0.25_260)]"
             >
-              Send Transmission <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              Send message <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </button>
           </div>
         </motion.form>
@@ -1140,7 +1023,7 @@ function Footer() {
           href="#top"
           className="glass rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.3em] text-white transition hover:glow-ring"
         >
-          Back to Base ↑
+          Back to top ↑
         </a>
       </div>
     </footer>
