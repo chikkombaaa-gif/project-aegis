@@ -25,10 +25,6 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Background } from "@/components/portfolio/Background";
-import { Shield, ShieldSvg } from "@/components/portfolio/Shield";
-import { Loader } from "@/components/portfolio/Loader";
-import { CustomCursor } from "@/components/portfolio/CustomCursor";
-import { Marquee } from "@/components/portfolio/Marquee";
 import { Stats } from "@/components/portfolio/Stats";
 import { Magnetic } from "@/components/portfolio/Magnetic";
 import { TextReveal } from "@/components/portfolio/TextReveal";
@@ -115,16 +111,12 @@ const FOCUS_AREAS = [
 ];
 
 function Index() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
   useLenis();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 20 });
 
   return (
     <>
-      {mounted && <Loader />}
-      {mounted && <CustomCursor />}
       <Background />
 
       {/* scroll progress */}
@@ -145,7 +137,6 @@ function Index() {
 
       <main className="relative">
         <Hero />
-        <Marquee />
         <About />
         <Stats />
         <Skills />
@@ -153,7 +144,6 @@ function Index() {
         <Contact />
         <Footer />
       </main>
-      <MouseGlow />
       <ScrollTop />
       <SectionDots />
     </>
@@ -279,7 +269,7 @@ function ScrollTop() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.8 }}
           transition={{ type: "spring", stiffness: 260, damping: 22 }}
-          className="glass fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:glow-ring"
+          className="glass fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full text-white/80 transition hover:text-white hover:glow-ring"
           aria-label="Scroll to top"
         >
           <ArrowUpRight className="h-4 w-4 -rotate-45" />
@@ -309,10 +299,12 @@ function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#top" className="flex items-center gap-3">
-          <ShieldSvg size={32} />
-          <span className="display text-sm uppercase tracking-[0.35em] text-[oklch(0.9_0.02_260)]">
-            Barath.V
+        <a href="#top" className="flex items-center gap-2.5">
+          <span className="flex h-8 w-8 items-center justify-center rounded-md border border-[oklch(0.75_0.05_260/0.25)] bg-[oklch(0.2_0.05_260/0.6)] text-[11px] font-semibold tracking-widest text-white">
+            BV
+          </span>
+          <span className="text-xs font-medium tracking-[0.2em] text-[oklch(0.9_0.02_260)]">
+            Barath Velu
           </span>
         </a>
         <nav className="hidden items-center gap-8 md:flex">
@@ -380,62 +372,12 @@ function Portrait() {
       className="relative"
       style={{ perspective: 1200 }}
     >
-      {/* Rotating shield halo — deep back */}
-      <div className="pointer-events-none absolute -inset-16 flex items-center justify-center">
-        <div className="animate-spin-slow opacity-40">
-          <ShieldSvg size={640} />
-        </div>
-      </div>
-
-      {/* Counter-rotating targeting ring */}
-      <motion.svg
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
-        width={560}
-        height={560}
-        viewBox="-100 -100 200 200"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 40, ease: "linear", repeat: Infinity }}
-      >
-        <circle r="92" fill="none" stroke="oklch(0.7 0.22 260 / 0.35)" strokeWidth="0.4" strokeDasharray="2 4" />
-        <circle r="86" fill="none" stroke="oklch(0.55 0.22 25 / 0.35)" strokeWidth="0.3" strokeDasharray="1 6" />
-        {Array.from({ length: 12 }).map((_, i) => (
-          <line
-            key={i}
-            x1="0" y1="-96" x2="0" y2="-88"
-            stroke="oklch(0.8 0.05 260 / 0.5)"
-            strokeWidth="0.6"
-            transform={`rotate(${i * 30})`}
-          />
-        ))}
-      </motion.svg>
-
-      {/* Orbiting particles */}
-      {[0, 1, 2, 3, 4, 5].map((i) => (
-        <motion.span
-          key={i}
-          aria-hidden
-          className="pointer-events-none absolute left-1/2 top-1/2 h-1 w-1 rounded-full"
-          style={{
-            background: i % 2 ? "oklch(0.75 0.22 260)" : "oklch(0.75 0.22 25)",
-            boxShadow: `0 0 12px ${i % 2 ? "oklch(0.7 0.22 260)" : "oklch(0.7 0.22 25)"}`,
-          }}
-          animate={{ rotate: 360 }}
-          transition={{ duration: 18 + i * 3, ease: "linear", repeat: Infinity, delay: -i * 2 }}
-        >
-          <span
-            className="absolute block h-1 w-1 rounded-full bg-current"
-            style={{ transform: `translate(${290 + (i % 3) * 14}px, 0)` }}
-          />
-        </motion.span>
-      ))}
-
-      {/* Glow */}
+      {/* Soft ambient glow */}
       <div
-        className="pointer-events-none absolute -inset-6 rounded-[2rem] blur-3xl"
+        className="pointer-events-none absolute -inset-10 rounded-[2rem] blur-3xl"
         style={{
           background:
-            "radial-gradient(circle at 30% 20%, oklch(0.55 0.25 260 / 0.55), transparent 60%), radial-gradient(circle at 80% 90%, oklch(0.55 0.22 25 / 0.4), transparent 60%)",
+            "radial-gradient(circle at 30% 20%, oklch(0.55 0.25 260 / 0.35), transparent 65%), radial-gradient(circle at 80% 90%, oklch(0.4 0.08 260 / 0.35), transparent 65%)",
         }}
       />
 
@@ -500,16 +442,6 @@ function Portrait() {
         </motion.div>
       </motion.div>
 
-      {/* Orbiting dot */}
-      <motion.span
-        className="pointer-events-none absolute left-1/2 top-1/2 h-2 w-2 rounded-full bg-[oklch(0.75_0.22_260)]"
-        style={{ boxShadow: "0 0 20px oklch(0.7 0.22 260)" }}
-        animate={{ rotate: 360 }}
-        transition={{ duration: 14, repeat: Infinity, ease: "linear" }}
-        // orbit via transform-origin
-      >
-        <span className="absolute -translate-x-[280px]" />
-      </motion.span>
     </motion.div>
   );
 }
@@ -557,9 +489,8 @@ function HeroInner() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.1, duration: 0.8 }}
-            className="mt-4 max-w-lg text-lg font-medium text-[oklch(0.85_0.02_260)]"
+            className="mt-4 max-w-lg text-lg font-normal text-[oklch(0.85_0.02_260)]"
           >
-            <span className="inline-block h-2 w-2 translate-y-[-2px] rotate-45 bg-[oklch(0.55_0.22_25)] shadow-[0_0_10px_oklch(0.55_0.22_25)]" />{" "}
             {PROFILE.role}
           </motion.p>
           <p className="mt-6 max-w-xl text-sm leading-relaxed text-[oklch(0.72_0.03_260)] md:text-base">
@@ -995,25 +926,27 @@ function Footer() {
         className="pointer-events-none mx-auto mb-14 max-w-[1600px] px-6 text-center"
       >
         <div
-          className="display text-[18vw] font-black leading-[0.85] tracking-tighter"
+          className="display text-[12vw] leading-[0.9] tracking-tight"
           style={{
             background:
-              "linear-gradient(180deg, oklch(0.9 0.05 260 / 0.15), oklch(0.55 0.25 260 / 0.35) 60%, transparent)",
+              "linear-gradient(180deg, oklch(0.9 0.03 260 / 0.18), transparent 90%)",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             color: "transparent",
-            WebkitTextStroke: "1px oklch(0.7 0.18 260 / 0.35)",
+            WebkitTextStroke: "1px oklch(0.75 0.05 260 / 0.28)",
           }}
         >
-          BARATH.V
+          Barath Velu
         </div>
       </motion.div>
 
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
         <div className="flex items-center gap-3">
-          <ShieldSvg size={28} />
-          <span className="text-xs uppercase tracking-[0.3em] text-[oklch(0.75_0.02_260)]">
-            {PROFILE.name} — {new Date().getFullYear()}
+          <span className="flex h-7 w-7 items-center justify-center rounded-md border border-[oklch(0.75_0.05_260/0.25)] text-[10px] font-semibold tracking-widest text-white/85">
+            BV
+          </span>
+          <span className="text-xs tracking-[0.2em] text-[oklch(0.75_0.02_260)]">
+            © {new Date().getFullYear()} {PROFILE.name}
           </span>
         </div>
         <div className="hidden text-[10px] uppercase tracking-[0.35em] text-[oklch(0.6_0.03_260)] md:block">
