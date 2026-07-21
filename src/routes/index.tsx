@@ -25,10 +25,6 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Background } from "@/components/portfolio/Background";
-import { Shield, ShieldSvg } from "@/components/portfolio/Shield";
-import { Loader } from "@/components/portfolio/Loader";
-import { CustomCursor } from "@/components/portfolio/CustomCursor";
-import { Marquee } from "@/components/portfolio/Marquee";
 import { Stats } from "@/components/portfolio/Stats";
 import { Magnetic } from "@/components/portfolio/Magnetic";
 import { TextReveal } from "@/components/portfolio/TextReveal";
@@ -115,16 +111,12 @@ const FOCUS_AREAS = [
 ];
 
 function Index() {
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
   useLenis();
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 20 });
 
   return (
     <>
-      {mounted && <Loader />}
-      {mounted && <CustomCursor />}
       <Background />
 
       {/* scroll progress */}
@@ -145,7 +137,6 @@ function Index() {
 
       <main className="relative">
         <Hero />
-        <Marquee />
         <About />
         <Stats />
         <Skills />
@@ -153,7 +144,6 @@ function Index() {
         <Contact />
         <Footer />
       </main>
-      <MouseGlow />
       <ScrollTop />
       <SectionDots />
     </>
