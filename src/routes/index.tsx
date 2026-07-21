@@ -269,7 +269,7 @@ function ScrollTop() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.8 }}
           transition={{ type: "spring", stiffness: 260, damping: 22 }}
-          className="glass fixed bottom-6 right-6 z-40 flex h-12 w-12 items-center justify-center rounded-full text-white transition hover:glow-ring"
+          className="glass fixed bottom-6 right-6 z-40 flex h-11 w-11 items-center justify-center rounded-full text-white/80 transition hover:text-white hover:glow-ring"
           aria-label="Scroll to top"
         >
           <ArrowUpRight className="h-4 w-4 -rotate-45" />
@@ -299,10 +299,12 @@ function Navbar() {
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#top" className="flex items-center gap-3">
-          <ShieldSvg size={32} />
-          <span className="display text-sm uppercase tracking-[0.35em] text-[oklch(0.9_0.02_260)]">
-            Barath.V
+        <a href="#top" className="flex items-center gap-2.5">
+          <span className="flex h-8 w-8 items-center justify-center rounded-md border border-[oklch(0.75_0.05_260/0.25)] bg-[oklch(0.2_0.05_260/0.6)] text-[11px] font-semibold tracking-widest text-white">
+            BV
+          </span>
+          <span className="text-xs font-medium tracking-[0.2em] text-[oklch(0.9_0.02_260)]">
+            Barath Velu
           </span>
         </a>
         <nav className="hidden items-center gap-8 md:flex">
