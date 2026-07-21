@@ -943,9 +943,11 @@ function Footer() {
 
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
         <div className="flex items-center gap-3">
-          <ShieldSvg size={28} />
-          <span className="text-xs uppercase tracking-[0.3em] text-[oklch(0.75_0.02_260)]">
-            {PROFILE.name} — {new Date().getFullYear()}
+          <span className="flex h-7 w-7 items-center justify-center rounded-md border border-[oklch(0.75_0.05_260/0.25)] text-[10px] font-semibold tracking-widest text-white/85">
+            BV
+          </span>
+          <span className="text-xs tracking-[0.2em] text-[oklch(0.75_0.02_260)]">
+            © {new Date().getFullYear()} {PROFILE.name}
           </span>
         </div>
         <div className="hidden text-[10px] uppercase tracking-[0.35em] text-[oklch(0.6_0.03_260)] md:block">
