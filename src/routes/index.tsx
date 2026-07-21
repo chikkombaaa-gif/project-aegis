@@ -489,9 +489,8 @@ function HeroInner() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.1, duration: 0.8 }}
-            className="mt-4 max-w-lg text-lg font-medium text-[oklch(0.85_0.02_260)]"
+            className="mt-4 max-w-lg text-lg font-normal text-[oklch(0.85_0.02_260)]"
           >
-            <span className="inline-block h-2 w-2 translate-y-[-2px] rotate-45 bg-[oklch(0.55_0.22_25)] shadow-[0_0_10px_oklch(0.55_0.22_25)]" />{" "}
             {PROFILE.role}
           </motion.p>
           <p className="mt-6 max-w-xl text-sm leading-relaxed text-[oklch(0.72_0.03_260)] md:text-base">
@@ -927,17 +926,17 @@ function Footer() {
         className="pointer-events-none mx-auto mb-14 max-w-[1600px] px-6 text-center"
       >
         <div
-          className="display text-[18vw] font-black leading-[0.85] tracking-tighter"
+          className="display text-[12vw] leading-[0.9] tracking-tight"
           style={{
             background:
-              "linear-gradient(180deg, oklch(0.9 0.05 260 / 0.15), oklch(0.55 0.25 260 / 0.35) 60%, transparent)",
+              "linear-gradient(180deg, oklch(0.9 0.03 260 / 0.18), transparent 90%)",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             color: "transparent",
-            WebkitTextStroke: "1px oklch(0.7 0.18 260 / 0.35)",
+            WebkitTextStroke: "1px oklch(0.75 0.05 260 / 0.28)",
           }}
         >
-          BARATH.V
+          Barath Velu
         </div>
       </motion.div>
 
