@@ -126,10 +126,7 @@ function Index() {
       >
         <div
           className="h-full w-full"
-          style={{
-            background: "linear-gradient(90deg, oklch(0.7 0.22 260), oklch(0.55 0.22 25))",
-            boxShadow: "0 0 12px oklch(0.7 0.22 260)",
-          }}
+          style={{ background: "oklch(0.72 0.09 250)" }}
         />
       </motion.div>
 
