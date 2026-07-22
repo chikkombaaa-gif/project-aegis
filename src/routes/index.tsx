@@ -655,7 +655,7 @@ function About() {
             <div className="text-sm font-semibold text-white">{PROFILE.degree}</div>
             <div className="mt-1 text-xs text-[oklch(0.75_0.02_260)]">{PROFILE.college}</div>
             <div className="mt-0.5 text-xs text-[oklch(0.65_0.03_260)]">{PROFILE.university}</div>
-            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[oklch(0.55_0.22_25/0.4)] px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-[oklch(0.85_0.1_25)]">
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.01_260/0.2)] px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-[oklch(0.85_0.01_260)]">
               CGPA {PROFILE.cgpa}
             </div>
             <p className="mt-4 text-xs text-[oklch(0.7_0.02_260)]">
@@ -895,7 +895,7 @@ function Contact() {
             </label>
             <button
               type="submit"
-              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[oklch(0.55_0.25_260)] px-6 py-3 text-sm font-semibold text-white transition hover:shadow-[0_20px_60px_-10px_oklch(0.55_0.25_260)]"
+              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-[oklch(0.15_0.005_260)] transition hover:bg-[oklch(0.92_0.005_260)]"
             >
               Send message <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </button>
