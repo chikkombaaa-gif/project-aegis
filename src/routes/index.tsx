@@ -426,11 +426,11 @@ function Portrait() {
               <div className="display mt-1 text-lg text-white">Barath V</div>
             </div>
             <div className="flex flex-col items-end gap-1 text-right">
-              <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.1_25)]">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.65_0.25_25)]" />
+              <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.05_150)]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.7_0.13_150)]" />
                 Open to work
               </span>
-              <span className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.75_0.05_260)]">
+              <span className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.7_0.01_260)]">
                 Chennai, IN
               </span>
             </div>
@@ -586,13 +586,11 @@ function Section({
           transition={{ duration: 0.8 }}
           className="mb-14"
         >
-          <div className="mb-3 flex items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-[oklch(0.7_0.15_260)]">
-            <span className="h-px w-8 bg-[oklch(0.55_0.25_260)]" />
+          <div className="mb-3 flex items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-[oklch(0.7_0.01_260)]">
+            <span className="h-px w-8 bg-[oklch(0.72_0.09_250)]" />
             {eyebrow}
           </div>
-          <h2 className="display max-w-3xl text-4xl md:text-5xl">
-            <span className="text-gradient">{title}</span>
-          </h2>
+          <h2 className="display max-w-3xl text-4xl text-white md:text-5xl">{title}</h2>
         </motion.div>
         {children}
       </div>
@@ -714,16 +712,14 @@ function Skills() {
                   </span>
                 ))}
               </div>
-              <div className="mt-5 h-[3px] w-full overflow-hidden rounded-full bg-[oklch(0.25_0.03_260)]">
+              <div className="mt-5 h-[3px] w-full overflow-hidden rounded-full bg-[oklch(0.22_0.005_260)]">
                 <motion.div
                   initial={{ width: 0 }}
                   whileInView={{ width: `${s.level}%` }}
                   viewport={{ once: true }}
                   transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
                   className="h-full"
-                  style={{
-                    background: "linear-gradient(90deg, oklch(0.7 0.22 260), oklch(0.55 0.22 25))",
-                  }}
+                  style={{ background: "oklch(0.72 0.09 250)" }}
                 />
               </div>
             </motion.div>
