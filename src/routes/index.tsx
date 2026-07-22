@@ -126,10 +126,7 @@ function Index() {
       >
         <div
           className="h-full w-full"
-          style={{
-            background: "linear-gradient(90deg, oklch(0.7 0.22 260), oklch(0.55 0.22 25))",
-            boxShadow: "0 0 12px oklch(0.7 0.22 260)",
-          }}
+          style={{ background: "oklch(0.72 0.09 250)" }}
         />
       </motion.div>
 
@@ -429,11 +426,11 @@ function Portrait() {
               <div className="display mt-1 text-lg text-white">Barath V</div>
             </div>
             <div className="flex flex-col items-end gap-1 text-right">
-              <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.1_25)]">
-                <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.65_0.25_25)]" />
+              <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.05_150)]">
+                <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.7_0.13_150)]" />
                 Open to work
               </span>
-              <span className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.75_0.05_260)]">
+              <span className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.7_0.01_260)]">
                 Chennai, IN
               </span>
             </div>
@@ -471,8 +468,8 @@ function HeroInner() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.4 }}
         >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.22_260/0.35)] bg-[oklch(0.55_0.25_260/0.08)] px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-[oklch(0.85_0.05_260)]">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.7_0.22_260)]" />
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.01_260/0.2)] bg-[oklch(0.2_0.005_260/0.5)] px-3 py-1 text-[10px] uppercase tracking-[0.3em] text-[oklch(0.85_0.01_260)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[oklch(0.72_0.09_250)]" />
             Available for internships
           </div>
           <div className="mb-3 text-[10px] uppercase tracking-[0.5em] text-[oklch(0.7_0.03_260)]">
@@ -501,7 +498,7 @@ function HeroInner() {
             <Magnetic>
               <a
                 href="#focus"
-                className="group inline-flex items-center gap-2 rounded-full bg-[oklch(0.55_0.25_260)] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_40px_-10px_oklch(0.55_0.25_260)] transition hover:shadow-[0_20px_60px_-10px_oklch(0.55_0.25_260)]"
+                className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[oklch(0.15_0.005_260)] transition hover:bg-[oklch(0.92_0.005_260)]"
               >
                 View Work <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
@@ -509,7 +506,7 @@ function HeroInner() {
             <Magnetic>
               <a
                 href={`mailto:${PROFILE.email}`}
-                className="glass inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white transition hover:glow-ring"
+                className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.01_260/0.2)] px-6 py-3 text-sm font-medium text-white transition hover:border-[oklch(0.7_0.01_260/0.4)]"
               >
                 Contact <Mail className="h-4 w-4" />
               </a>
@@ -519,7 +516,7 @@ function HeroInner() {
                 href={PROFILE.github}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.55_0.22_25/0.5)] px-6 py-3 text-sm font-semibold text-[oklch(0.85_0.1_25)] transition hover:bg-[oklch(0.55_0.22_25/0.15)]"
+                className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.01_260/0.2)] px-6 py-3 text-sm font-medium text-[oklch(0.85_0.01_260)] transition hover:border-[oklch(0.7_0.01_260/0.4)]"
               >
                 <Github className="h-4 w-4" /> GitHub
               </a>
@@ -589,13 +586,11 @@ function Section({
           transition={{ duration: 0.8 }}
           className="mb-14"
         >
-          <div className="mb-3 flex items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-[oklch(0.7_0.15_260)]">
-            <span className="h-px w-8 bg-[oklch(0.55_0.25_260)]" />
+          <div className="mb-3 flex items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-[oklch(0.7_0.01_260)]">
+            <span className="h-px w-8 bg-[oklch(0.72_0.09_250)]" />
             {eyebrow}
           </div>
-          <h2 className="display max-w-3xl text-4xl md:text-5xl">
-            <span className="text-gradient">{title}</span>
-          </h2>
+          <h2 className="display max-w-3xl text-4xl text-white md:text-5xl">{title}</h2>
         </motion.div>
         {children}
       </div>
@@ -660,7 +655,7 @@ function About() {
             <div className="text-sm font-semibold text-white">{PROFILE.degree}</div>
             <div className="mt-1 text-xs text-[oklch(0.75_0.02_260)]">{PROFILE.college}</div>
             <div className="mt-0.5 text-xs text-[oklch(0.65_0.03_260)]">{PROFILE.university}</div>
-            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[oklch(0.55_0.22_25/0.4)] px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-[oklch(0.85_0.1_25)]">
+            <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.01_260/0.2)] px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-[oklch(0.85_0.01_260)]">
               CGPA {PROFILE.cgpa}
             </div>
             <p className="mt-4 text-xs text-[oklch(0.7_0.02_260)]">
@@ -717,16 +712,14 @@ function Skills() {
                   </span>
                 ))}
               </div>
-              <div className="mt-5 h-[3px] w-full overflow-hidden rounded-full bg-[oklch(0.25_0.03_260)]">
+              <div className="mt-5 h-[3px] w-full overflow-hidden rounded-full bg-[oklch(0.22_0.005_260)]">
                 <motion.div
                   initial={{ width: 0 }}
                   whileInView={{ width: `${s.level}%` }}
                   viewport={{ once: true }}
                   transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
                   className="h-full"
-                  style={{
-                    background: "linear-gradient(90deg, oklch(0.7 0.22 260), oklch(0.55 0.22 25))",
-                  }}
+                  style={{ background: "oklch(0.72 0.09 250)" }}
                 />
               </div>
             </motion.div>
@@ -902,7 +895,7 @@ function Contact() {
             </label>
             <button
               type="submit"
-              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-[oklch(0.55_0.25_260)] px-6 py-3 text-sm font-semibold text-white transition hover:shadow-[0_20px_60px_-10px_oklch(0.55_0.25_260)]"
+              className="group flex w-full items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-sm font-semibold text-[oklch(0.15_0.005_260)] transition hover:bg-[oklch(0.92_0.005_260)]"
             >
               Send message <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </button>
