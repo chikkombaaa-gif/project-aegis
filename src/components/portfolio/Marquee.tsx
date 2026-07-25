@@ -1,47 +1,43 @@
 import { motion } from "framer-motion";
 
 const ITEMS = [
-  "PYTHON",
+  "Python",
   "NLP",
-  "MACHINE LEARNING",
-  "DEEP LEARNING",
-  "MONGODB",
-  "DATA PIPELINES",
-  "MODEL EVALUATION",
-  "AI ENGINEERING",
+  "Machine Learning",
+  "MongoDB",
+  "Scikit-learn",
+  "Deep Learning",
+  "Feature Engineering",
+  "Model Evaluation",
+  "Data Pipelines",
+  "Clean Code",
+  "Git",
+  "Pandas",
+  "NumPy",
+  "Production ML",
 ];
 
 export function Marquee() {
-  const row = [...ITEMS, ...ITEMS, ...ITEMS];
+  const row = [...ITEMS, ...ITEMS];
   return (
-    <section
-      aria-hidden
-      className="relative -my-6 overflow-hidden border-y border-[oklch(0.55_0.25_260/0.2)] bg-[oklch(0.09_0.04_260/0.7)] py-6"
-    >
+    <div className="relative overflow-hidden border-y border-[oklch(0.55_0.25_260/0.12)] bg-[oklch(0.10_0.04_260/0.55)] py-4">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[oklch(0.10_0.04_260)] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-[oklch(0.10_0.04_260)] to-transparent" />
       <motion.div
-        className="flex whitespace-nowrap"
-        animate={{ x: ["0%", "-33.333%"] }}
+        className="flex w-max gap-10 whitespace-nowrap"
+        animate={{ x: ["0%", "-50%"] }}
         transition={{ duration: 40, ease: "linear", repeat: Infinity }}
       >
-        {row.map((t, i) => (
+        {row.map((item, i) => (
           <span
-            key={i}
-            className="display mx-8 flex items-center gap-8 text-3xl uppercase tracking-[0.3em] text-[oklch(0.9_0.02_260)] md:text-5xl"
+            key={`${item}-${i}`}
+            className="text-[11px] uppercase tracking-[0.35em] text-[oklch(0.72_0.04_260)]"
           >
-            {t}
-            <span
-              className="inline-block h-2 w-2 rotate-45"
-              style={{
-                background:
-                  i % 2 === 0
-                    ? "oklch(0.55 0.25 260)"
-                    : "oklch(0.55 0.22 25)",
-                boxShadow: "0 0 12px currentColor",
-              }}
-            />
+            {item}
+            <span className="ml-10 text-[oklch(0.55_0.15_260)]">·</span>
           </span>
         ))}
       </motion.div>
-    </section>
+    </div>
   );
 }
