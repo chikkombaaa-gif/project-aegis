@@ -10,7 +10,6 @@ import {
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
-  Download,
   Github,
   Mail,
   MapPin,
@@ -20,13 +19,12 @@ import {
   Database,
   Code2,
   Cpu,
-  Rocket,
   GraduationCap,
-  ChevronRight,
   ExternalLink,
   Layers,
   Zap,
-  BookOpen,
+  Target,
+  CheckCircle2,
 } from "lucide-react";
 import { Background } from "@/components/portfolio/Background";
 import { Stats } from "@/components/portfolio/Stats";
@@ -39,17 +37,17 @@ const PORTRAIT_URL = "/assets/barath.png";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Barath V — AI & ML Engineer" },
+      { title: "Barath V — AI & ML Engineer | Python · NLP · Production ML" },
       {
         name: "description",
         content:
-          "Portfolio of Barath V — BE CSE (AI & ML) undergraduate specializing in Python, NLP, Machine Learning, Deep Learning, and MongoDB. Building production-ready intelligent systems.",
+          "Barath V — Pre-final year BE CSE (AI & ML) engineer building production-ready NLP pipelines, supervised ML systems, and data-backed intelligent applications with Python and MongoDB.",
       },
       { property: "og:title", content: "Barath V — AI & ML Engineer" },
       {
         property: "og:description",
         content:
-          "Pre-final year AI & ML engineer crafting production-grade NLP and Machine Learning systems.",
+          "Production-oriented AI & ML engineer. Python, NLP, Machine Learning, MongoDB. Open for high-impact SDE & ML roles.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -64,7 +62,7 @@ const PROFILE = {
   fullName: "Barath Velu",
   role: "AI & Machine Learning Engineer",
   tagline:
-    "Pre-final year BE CSE (AI & ML) undergraduate engineering production-ready NLP and ML systems with Python and MongoDB.",
+    "I design and ship production-ready NLP and ML systems — clean Python, solid evaluation, and data pipelines that hold up beyond the notebook.",
   email: "barathvelu777@gmail.com",
   phone: "7550140875",
   location: "Chennai, Tamil Nadu",
@@ -74,57 +72,86 @@ const PROFILE = {
   college: "Jeppiaar Engineering College",
   degree: "B.E. Computer Science & Engineering (AI & ML)",
   university: "Affiliated to Anna University",
-  resumeUrl: "#contact", // replace with /resume.pdf when available
 };
 
 const SKILLS: { group: string; icon: any; items: string[]; level: number }[] = [
-  { group: "Languages", icon: Code2, items: ["Python", "SQL basics"], level: 90 },
-  { group: "AI / NLP", icon: Brain, items: ["Natural Language Processing", "Text Analytics", "Tokenization"], level: 85 },
-  { group: "Machine Learning", icon: Cpu, items: ["Supervised Learning", "Feature Engineering", "Model Evaluation"], level: 82 },
-  { group: "Deep Learning", icon: Sparkles, items: ["Neural Networks", "Representation Learning"], level: 76 },
-  { group: "Databases", icon: Database, items: ["MongoDB", "Data Pipelines"], level: 84 },
-  { group: "Tools", icon: Layers, items: ["Scikit-learn", "Pandas", "NumPy", "Git"], level: 88 },
+  {
+    group: "Languages",
+    icon: Code2,
+    items: ["Python", "SQL"],
+    level: 92,
+  },
+  {
+    group: "NLP",
+    icon: Brain,
+    items: ["Text Classification", "Preprocessing", "Tokenization", "Text Analytics"],
+    level: 88,
+  },
+  {
+    group: "Machine Learning",
+    icon: Cpu,
+    items: ["Supervised Learning", "Feature Engineering", "Cross-Validation", "Model Selection"],
+    level: 86,
+  },
+  {
+    group: "Deep Learning",
+    icon: Sparkles,
+    items: ["Neural Networks", "Representation Learning"],
+    level: 78,
+  },
+  {
+    group: "Data & Storage",
+    icon: Database,
+    items: ["MongoDB", "Data Pipelines", "ETL patterns"],
+    level: 85,
+  },
+  {
+    group: "Engineering",
+    icon: Layers,
+    items: ["Scikit-learn", "Pandas", "NumPy", "Git", "Clean Code"],
+    level: 90,
+  },
 ];
 
-const STRENGTHS = [
+const VALUE = [
   {
-    title: "Programming & Backend",
-    body: "Ships clean Python applications and data pipelines backed by MongoDB for reliable storage and retrieval.",
+    title: "Ship, don't just experiment",
+    body: "I treat models as products. Evaluation metrics, data handling, and inference paths are designed together — not as afterthoughts.",
   },
   {
-    title: "Machine Learning & Deep Learning",
-    body: "Designs predictive systems that turn raw data into decisions — with careful evaluation and iteration.",
+    title: "Python that scales to systems",
+    body: "Readable, modular Python backed by MongoDB. Pipelines that can move from prototype to something a team can actually run.",
   },
   {
-    title: "Natural Language Processing",
-    body: "Builds end-to-end NLP workflows that transform unstructured text into structured, actionable insight.",
+    title: "NLP with real-world intent",
+    body: "From raw text to structured insight. Classification, analytics, and preprocessing built for the messiness of real data.",
   },
 ];
 
 const PROJECTS = [
   {
-    title: "NLP Text Classification Pipeline",
+    title: "End-to-End NLP Classification Pipeline",
     status: "Active",
     year: "2025–26",
     tags: ["Python", "NLP", "MongoDB", "Scikit-learn"],
-    body: "End-to-end pipeline for text classification — from raw ingestion and preprocessing to model training, evaluation, and inference with MongoDB-backed storage.",
-    highlight: "Production-oriented design",
+    body: "Full pipeline from raw text ingestion → preprocessing → feature extraction → model training → evaluation → inference. MongoDB used for durable storage of documents and predictions. Built with production structure in mind: clear stages, reproducible evaluation, and a path to serving.",
+    outcome: "Production-oriented architecture · Reproducible evaluation",
   },
   {
     title: "Supervised ML Prediction System",
     status: "Completed",
     year: "2025",
-    tags: ["Python", "ML", "Feature Engineering"],
-    body: "Full supervised learning workflow with careful data handling, feature design, cross-validation, and metric-driven model selection.",
-    highlight: "Strong evaluation focus",
+    tags: ["Python", "ML", "Feature Engineering", "Validation"],
+    body: "Complete supervised learning workflow: data cleaning, feature design, train/validation splits, cross-validation, and metric-driven model selection. Emphasis on avoiding leakage and reporting honest performance — not inflated notebook scores.",
+    outcome: "Strong evaluation discipline · Leakage-aware design",
   },
   {
-    title: "Deep Learning Prototypes",
-    status: "Exploring",
+    title: "Deep Learning Representation Experiments",
+    status: "In Progress",
     year: "2026",
     tags: ["Python", "Neural Nets", "Representation Learning"],
-    body: "Experimental neural network prototypes exploring representation learning on structured and text data for better generalization.",
-    highlight: "Research-driven",
+    body: "Exploring neural architectures for better representations on structured and text data. Focus on understanding what the model learns and how it generalizes — not just chasing leaderboard metrics.",
+    outcome: "Research mindset · Generalization focus",
   },
 ];
 
@@ -137,7 +164,6 @@ function Index() {
     <>
       <Background />
 
-      {/* scroll progress */}
       <motion.div
         style={{ scaleX }}
         className="fixed left-0 right-0 top-0 z-50 h-[2px] origin-left"
@@ -282,7 +308,9 @@ function Navbar() {
   return (
     <header
       className={`fixed left-0 right-0 top-0 z-40 transition-all ${
-        scrolled ? "backdrop-blur-xl border-b border-[oklch(0.55_0.25_260/0.12)]" : ""
+        scrolled
+          ? "border-b border-[oklch(0.55_0.25_260/0.12)] backdrop-blur-xl"
+          : ""
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -308,10 +336,10 @@ function Navbar() {
         </nav>
         <Magnetic>
           <a
-            href={`mailto:${PROFILE.email}`}
+            href={`mailto:${PROFILE.email}?subject=Opportunity%20for%20Barath%20V`}
             className="glass rounded-full px-4 py-2 text-xs uppercase tracking-[0.25em] transition hover:glow-ring"
           >
-            Get in touch
+            Hire me
           </a>
         </Magnetic>
       </div>
@@ -355,7 +383,6 @@ function Portrait() {
       className="relative"
       style={{ perspective: 1200 }}
     >
-      {/* Soft ambient glow */}
       <div
         className="pointer-events-none absolute -inset-10 rounded-[2rem] blur-3xl"
         style={{
@@ -364,7 +391,6 @@ function Portrait() {
         }}
       />
 
-      {/* Frame */}
       <motion.div
         className="glass relative overflow-hidden rounded-[1.75rem] p-2"
         style={{
@@ -385,7 +411,6 @@ function Portrait() {
             className="block h-[480px] w-[360px] object-cover object-center transition duration-[1200ms] ease-out will-change-transform hover:scale-[1.05] md:h-[520px] md:w-[400px]"
             loading="eager"
           />
-          {/* Light sweep */}
           <motion.div
             className="pointer-events-none absolute inset-0"
             style={{
@@ -395,7 +420,6 @@ function Portrait() {
               mixBlendMode: "screen",
             }}
           />
-          {/* Cinematic overlay */}
           <div
             className="pointer-events-none absolute inset-0"
             style={{
@@ -403,7 +427,6 @@ function Portrait() {
                 "linear-gradient(180deg, transparent 40%, oklch(0.08 0.04 260 / 0.85) 100%), radial-gradient(ellipse at 50% 0%, oklch(0.55 0.25 260 / 0.15), transparent 60%)",
             }}
           />
-          {/* Name plate */}
           <div className="absolute inset-x-4 bottom-4 flex items-end justify-between">
             <div>
               <div className="text-[9px] uppercase tracking-[0.35em] text-[oklch(0.75_0.05_260)]">
@@ -414,7 +437,7 @@ function Portrait() {
             <div className="flex flex-col items-end gap-1 text-right">
               <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.05_150)]">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.7_0.13_150)]" />
-                Open to work
+                Open to offers
               </span>
               <span className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.7_0.01_260)]">
                 Chennai, IN
@@ -450,33 +473,33 @@ function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.25 }}
         >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.01_260/0.2)] bg-[oklch(0.2_0.005_260/0.5)] px-3.5 py-1.5 text-[10px] uppercase tracking-[0.3em] text-[oklch(0.85_0.01_260)]">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.01_260/0.2)] bg-[oklch(0.2_0.005_260/0.5)] px-3.5 py-1.5 text-[10px] uppercase tracking-[0.28em] text-[oklch(0.85_0.01_260)]">
             <span className="relative flex h-1.5 w-1.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[oklch(0.72_0.09_250)] opacity-60" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[oklch(0.72_0.09_250)]" />
             </span>
-            Available for internships · SDE & ML
+            Open for SDE & ML roles · High-impact teams
           </div>
 
           <div className="mb-3 text-[10px] uppercase tracking-[0.5em] text-[oklch(0.7_0.03_260)]">
-            <TextReveal text="AI & Machine Learning" delay={0.3} />
+            <TextReveal text="AI · ML · Production Systems" delay={0.28} />
           </div>
 
           <h1 className="display overflow-hidden text-5xl leading-[1.05] md:text-7xl">
             <TextReveal
               text={PROFILE.name}
               className="text-gradient inline-block"
-              delay={0.45}
+              delay={0.4}
             />
           </h1>
 
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.0, duration: 0.8 }}
-            className="mt-4 max-w-lg text-lg font-normal text-[oklch(0.85_0.02_260)]"
+            transition={{ delay: 0.95, duration: 0.8 }}
+            className="mt-4 max-w-lg text-xl font-normal text-[oklch(0.88_0.02_260)]"
           >
             {PROFILE.role}
           </motion.p>
@@ -484,8 +507,8 @@ function Hero() {
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.15, duration: 0.8 }}
-            className="mt-5 max-w-xl text-sm leading-relaxed text-[oklch(0.72_0.03_260)] md:text-base"
+            transition={{ delay: 1.1, duration: 0.8 }}
+            className="mt-5 max-w-xl text-sm leading-relaxed text-[oklch(0.72_0.03_260)] md:text-[15px]"
           >
             {PROFILE.tagline}
           </motion.p>
@@ -493,7 +516,7 @@ function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, duration: 0.7 }}
+            transition={{ delay: 1.25, duration: 0.7 }}
             className="mt-10 flex flex-wrap gap-3"
           >
             <Magnetic>
@@ -501,13 +524,13 @@ function Hero() {
                 href="#projects"
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-[oklch(0.15_0.005_260)] transition hover:bg-[oklch(0.92_0.005_260)]"
               >
-                View Work{" "}
+                See my work{" "}
                 <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </a>
             </Magnetic>
             <Magnetic>
               <a
-                href={`mailto:${PROFILE.email}`}
+                href={`mailto:${PROFILE.email}?subject=Opportunity%20for%20Barath%20V`}
                 className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.01_260/0.25)] px-6 py-3.5 text-sm font-medium text-white transition hover:border-[oklch(0.7_0.01_260/0.45)] hover:bg-[oklch(0.2_0.03_260/0.4)]"
               >
                 Contact <Mail className="h-4 w-4" />
@@ -528,7 +551,7 @@ function Hero() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.5, duration: 0.8 }}
+            transition={{ delay: 1.45, duration: 0.8 }}
             className="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-xs uppercase tracking-[0.25em] text-[oklch(0.7_0.03_260)]"
           >
             <span className="flex items-center gap-2">
@@ -538,7 +561,7 @@ function Hero() {
               <GraduationCap className="h-3.5 w-3.5" /> CGPA {PROFILE.cgpa}
             </span>
             <span className="flex items-center gap-2">
-              <Zap className="h-3.5 w-3.5 text-[oklch(0.72_0.09_250)]" /> Pre-final year
+              <Target className="h-3.5 w-3.5 text-[oklch(0.72_0.09_250)]" /> Pre-final year
             </span>
           </motion.div>
         </motion.div>
@@ -546,18 +569,17 @@ function Hero() {
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
           className="flex justify-center"
         >
           <Portrait />
         </motion.div>
       </motion.div>
 
-      {/* Scroll cue */}
       <motion.div
         initial={{ opacity: 0, y: -8 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.7, duration: 0.8 }}
+        transition={{ delay: 1.65, duration: 0.8 }}
         style={{ opacity: useTransform(hp, [0, 0.15], [1, 0]) }}
         className="pointer-events-none absolute bottom-8 left-1/2 z-10 -translate-x-1/2"
       >
@@ -617,7 +639,7 @@ function Section({
 
 function About() {
   return (
-    <Section id="about" eyebrow="About" title="Engineer, learner, builder.">
+    <Section id="about" eyebrow="About" title="I build systems that ship.">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -628,18 +650,18 @@ function About() {
         >
           <p className="text-lg leading-relaxed text-[oklch(0.88_0.02_260)]">
             Pre-final year{" "}
-            <span className="text-white">BE CSE (AI & ML)</span> undergraduate at{" "}
-            <span className="text-white">{PROFILE.college}</span> with hands-on skills across
-            Python, MongoDB, NLP, Machine Learning, and Deep Learning.
+            <span className="text-white">BE CSE (AI & ML)</span> at{" "}
+            <span className="text-white">{PROFILE.college}</span>. I work at the
+            intersection of machine learning and software engineering — writing Python that
+            turns data into decisions and keeps working after the demo.
           </p>
-          <p className="mt-6 text-[oklch(0.75_0.02_260)]">
-            Seeking an SDE or ML internship where data-driven problem solving translates into
-            production-ready systems — and where I can grow into a strong, versatile software
-            engineer who ships.
+          <p className="mt-5 text-[oklch(0.75_0.02_260)]">
+            Looking for a high-caliber SDE or ML role where ownership, code quality, and real
+            impact matter. I want to join a team that ships, and contribute from day one.
           </p>
 
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {STRENGTHS.map((s, i) => (
+            {VALUE.map((s, i) => (
               <motion.div
                 key={s.title}
                 initial={{ opacity: 0, y: 20 }}
@@ -648,7 +670,8 @@ function About() {
                 transition={{ delay: i * 0.1 }}
                 className="rounded-2xl border border-[oklch(0.55_0.25_260/0.2)] bg-[oklch(0.15_0.05_260/0.4)] p-5"
               >
-                <div className="mb-2 text-[10px] uppercase tracking-[0.25em] text-[oklch(0.7_0.15_260)]">
+                <div className="mb-2 flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-[oklch(0.7_0.15_260)]">
+                  <CheckCircle2 className="h-3.5 w-3.5" />
                   0{i + 1}
                 </div>
                 <div className="text-sm font-semibold text-white">{s.title}</div>
@@ -664,7 +687,7 @@ function About() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.15 }}
+          transition={{ duration: 0.6, delay: 0.12 }}
           className="glass rounded-3xl p-8"
         >
           <div className="mb-6 flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-[oklch(0.7_0.15_260)]">
@@ -681,18 +704,18 @@ function About() {
               CGPA {PROFILE.cgpa}
             </div>
             <p className="mt-4 text-xs leading-relaxed text-[oklch(0.7_0.02_260)]">
-              Currently in pre-final year, actively building projects and seeking internship
-              opportunities.
+              Pre-final year. Actively building production-style ML systems and seeking roles
+              with serious ownership.
             </p>
           </div>
 
-          <div className="mt-8 rounded-2xl border border-[oklch(0.55_0.25_260/0.2)] bg-[oklch(0.15_0.05_260/0.35)] p-4">
+          <div className="mt-8 rounded-2xl border border-[oklch(0.55_0.25_260/0.25)] bg-[oklch(0.15_0.05_260/0.4)] p-4">
             <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-[oklch(0.7_0.15_260)]">
-              <BookOpen className="h-3.5 w-3.5" /> Currently
+              <Zap className="h-3.5 w-3.5" /> Focus now
             </div>
-            <p className="mt-2 text-xs leading-relaxed text-[oklch(0.8_0.02_260)]">
-              Deepening NLP pipelines & production ML practices while exploring representation
-              learning.
+            <p className="mt-2 text-xs leading-relaxed text-[oklch(0.82_0.02_260)]">
+              Production NLP pipelines, rigorous ML evaluation, and the engineering habits that
+              turn prototypes into reliable systems.
             </p>
           </div>
         </motion.div>
@@ -703,7 +726,7 @@ function About() {
 
 function Skills() {
   return (
-    <Section id="skills" eyebrow="Skills" title="A precise toolkit for AI systems.">
+    <Section id="skills" eyebrow="Capabilities" title="Tools I use to deliver.">
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         {SKILLS.map((s, i) => {
           const Icon = s.icon;
@@ -713,7 +736,7 @@ function Skills() {
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.6, delay: i * 0.07 }}
+              transition={{ duration: 0.6, delay: i * 0.06 }}
               whileHover={{ y: -6 }}
               className="glass group relative overflow-hidden rounded-3xl p-6"
             >
@@ -750,7 +773,7 @@ function Skills() {
                   initial={{ width: 0 }}
                   whileInView={{ width: `${s.level}%` }}
                   viewport={{ once: true }}
-                  transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
+                  transition={{ duration: 1.15, ease: "easeOut", delay: 0.15 }}
                   className="h-full"
                   style={{ background: "oklch(0.72 0.09 250)" }}
                 />
@@ -765,8 +788,8 @@ function Skills() {
 
 function Projects() {
   return (
-    <Section id="projects" eyebrow="Selected Work" title="What I'm building right now.">
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+    <Section id="projects" eyebrow="Selected Work" title="Evidence of how I work.">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         {PROJECTS.map((p, i) => (
           <motion.article
             key={p.title}
@@ -791,8 +814,8 @@ function Projects() {
                   <span
                     className={`rounded-full px-2.5 py-0.5 text-[9px] uppercase tracking-[0.2em] ${
                       p.status === "Active"
-                        ? "border border-[oklch(0.7_0.13_150/0.4)] text-[oklch(0.8_0.12_150)]"
-                        : p.status === "Exploring"
+                        ? "border border-[oklch(0.7_0.13_150/0.45)] text-[oklch(0.8_0.12_150)]"
+                        : p.status === "In Progress"
                           ? "border border-[oklch(0.7_0.15_260/0.4)] text-[oklch(0.8_0.12_260)]"
                           : "border border-[oklch(0.65_0.05_260/0.4)] text-[oklch(0.75_0.04_260)]"
                     }`}
@@ -810,15 +833,15 @@ function Projects() {
                 {p.body}
               </p>
 
-              <div className="mt-5 text-[10px] uppercase tracking-[0.2em] text-[oklch(0.7_0.12_260)]">
-                {p.highlight}
+              <div className="mt-5 border-t border-[oklch(0.55_0.25_260/0.15)] pt-4 text-[10px] uppercase tracking-[0.18em] text-[oklch(0.72_0.1_260)]">
+                {p.outcome}
               </div>
 
               <div className="mt-4 flex flex-wrap gap-2">
                 {p.tags.map((t) => (
                   <span
                     key={t}
-                    className="rounded-full border border-[oklch(0.55_0.25_260/0.3)] px-2.5 py-0.5 text-[10px] uppercase tracking-[0.15em] text-[oklch(0.8_0.1_260)]"
+                    className="rounded-full border border-[oklch(0.55_0.25_260/0.3)] px-2.5 py-0.5 text-[10px] uppercase tracking-[0.12em] text-[oklch(0.8_0.1_260)]"
                   >
                     {t}
                   </span>
@@ -847,12 +870,12 @@ function Projects() {
               github.com/{PROFILE.githubHandle}
             </div>
             <div className="text-xs text-[oklch(0.7_0.03_260)]">
-              Repositories, experiments & study notes
+              Code, experiments, and implementation details
             </div>
           </div>
         </div>
         <div className="flex items-center gap-2 text-[oklch(0.7_0.15_260)] transition group-hover:translate-x-1">
-          <span className="hidden text-xs uppercase tracking-[0.2em] sm:inline">View all</span>
+          <span className="hidden text-xs uppercase tracking-[0.2em] sm:inline">Open</span>
           <ExternalLink className="h-5 w-5" />
         </div>
       </motion.a>
@@ -866,7 +889,7 @@ function Contact() {
       icon: Mail,
       label: "Email",
       value: PROFILE.email,
-      href: `mailto:${PROFILE.email}`,
+      href: `mailto:${PROFILE.email}?subject=Opportunity%20for%20Barath%20V`,
     },
     {
       icon: Phone,
@@ -889,7 +912,7 @@ function Contact() {
   ];
 
   return (
-    <Section id="contact" eyebrow="Contact" title="Let's build something together.">
+    <Section id="contact" eyebrow="Contact" title="Ready when you are.">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -899,8 +922,11 @@ function Contact() {
           className="glass rounded-3xl p-8"
         >
           <p className="text-lg leading-relaxed text-[oklch(0.88_0.02_260)]">
-            Hiring for AI, ML, or software engineering internships? I'm ready to join your team
-            and ship work that matters.
+            Hiring for AI, ML, or software engineering roles with real ownership? I am prepared
+            to join, contribute, and ship.
+          </p>
+          <p className="mt-4 text-sm text-[oklch(0.72_0.03_260)]">
+            Prefer a direct conversation. Send a note or reach out on any channel below.
           </p>
 
           <div className="mt-8 space-y-3">
@@ -943,19 +969,19 @@ function Contact() {
             const name = (f.elements.namedItem("name") as HTMLInputElement)?.value ?? "";
             const msg =
               (f.elements.namedItem("message") as HTMLTextAreaElement)?.value ?? "";
-            window.location.href = `mailto:${PROFILE.email}?subject=Recruiting ${encodeURIComponent(
+            window.location.href = `mailto:${PROFILE.email}?subject=Opportunity%20from%20${encodeURIComponent(
               name,
             )}&body=${encodeURIComponent(msg)}`;
           }}
           className="glass rounded-3xl p-8"
         >
           <div className="mb-6 text-xs uppercase tracking-[0.3em] text-[oklch(0.7_0.15_260)]">
-            Send a message
+            Direct message
           </div>
           <div className="space-y-4">
             {[
               { name: "name", label: "Your name", type: "text" },
-              { name: "email", label: "Email", type: "email" },
+              { name: "email", label: "Work email", type: "email" },
             ].map((f) => (
               <label key={f.name} className="block">
                 <span className="text-[10px] uppercase tracking-[0.25em] text-[oklch(0.7_0.03_260)]">
@@ -977,7 +1003,8 @@ function Contact() {
                 required
                 name="message"
                 rows={4}
-                className="mt-1.5 w-full resize-none rounded-xl border border-[oklch(0.55_0.25_260/0.25)] bg-[oklch(0.12_0.04_260/0.6)] px-4 py-3 text-sm text-white outline-none transition focus:border-[oklch(0.55_0.25_260)] focus:glow-ring"
+                placeholder="Role, team, or what you're looking for…"
+                className="mt-1.5 w-full resize-none rounded-xl border border-[oklch(0.55_0.25_260/0.25)] bg-[oklch(0.12_0.04_260/0.6)] px-4 py-3 text-sm text-white outline-none transition placeholder:text-[oklch(0.5_0.02_260)] focus:border-[oklch(0.55_0.25_260)] focus:glow-ring"
               />
             </label>
             <button
@@ -1030,7 +1057,7 @@ function Footer() {
           </span>
         </div>
         <div className="hidden text-[10px] uppercase tracking-[0.35em] text-[oklch(0.6_0.03_260)] md:block">
-          Crafted with precision · Chennai, IN
+          Built for impact · Chennai, IN
         </div>
         <a
           href="#top"
