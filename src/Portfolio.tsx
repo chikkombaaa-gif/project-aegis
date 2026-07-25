@@ -29,6 +29,7 @@ import { Background } from "@/components/portfolio/Background";
 import { Stats } from "@/components/portfolio/Stats";
 import { Magnetic } from "@/components/portfolio/Magnetic";
 import { TextReveal } from "@/components/portfolio/TextReveal";
+import { Marquee } from "@/components/portfolio/Marquee";
 import { useLenis } from "@/hooks/useLenis";
 
 const PORTRAIT_URL = "/assets/barath.png";
@@ -38,7 +39,7 @@ const PROFILE = {
   fullName: "Barath Velu",
   role: "AI & Machine Learning Engineer",
   tagline:
-    "I design and ship production-ready NLP and ML systems — clean Python, solid evaluation, and data pipelines that hold up beyond the notebook.",
+    "I build production-ready NLP and ML systems — clean Python, rigorous evaluation, and pipelines that survive outside the notebook.",
   email: "barathvelu777@gmail.com",
   phone: "7550140875",
   location: "Chennai, Tamil Nadu",
@@ -87,15 +88,15 @@ const SKILLS: { group: string; icon: any; items: string[]; level: number }[] = [
 const VALUE = [
   {
     title: "Ship, don't just experiment",
-    body: "I treat models as products. Evaluation metrics, data handling, and inference paths are designed together — not as afterthoughts.",
+    body: "Models are products. Metrics, data handling, and inference are designed together — never as afterthoughts.",
   },
   {
-    title: "Python that scales to systems",
-    body: "Readable, modular Python backed by MongoDB. Pipelines that can move from prototype to something a team can actually run.",
+    title: "Python that becomes systems",
+    body: "Modular, readable Python with MongoDB. Pipelines that move from prototype to something a team can run.",
   },
   {
-    title: "NLP with real-world intent",
-    body: "From raw text to structured insight. Classification, analytics, and preprocessing built for the messiness of real data.",
+    title: "NLP for real data",
+    body: "From raw text to structured insight. Classification and analytics built for messy, real-world inputs.",
   },
 ];
 
@@ -105,24 +106,24 @@ const PROJECTS = [
     status: "Active",
     year: "2025–26",
     tags: ["Python", "NLP", "MongoDB", "Scikit-learn"],
-    body: "Full pipeline from raw text ingestion → preprocessing → feature extraction → model training → evaluation → inference. MongoDB used for durable storage of documents and predictions. Built with production structure in mind: clear stages, reproducible evaluation, and a path to serving.",
-    outcome: "Production-oriented architecture · Reproducible evaluation",
+    body: "Complete pipeline: ingestion → preprocessing → features → training → evaluation → inference. MongoDB for durable document and prediction storage. Structured for reproducibility and a clear path to serving.",
+    outcome: "Production architecture · Reproducible evaluation",
   },
   {
     title: "Supervised ML Prediction System",
     status: "Completed",
     year: "2025",
     tags: ["Python", "ML", "Feature Engineering", "Validation"],
-    body: "Complete supervised learning workflow: data cleaning, feature design, train/validation splits, cross-validation, and metric-driven model selection. Emphasis on avoiding leakage and reporting honest performance — not inflated notebook scores.",
-    outcome: "Strong evaluation discipline · Leakage-aware design",
+    body: "Full supervised workflow with leakage-aware splits, cross-validation, and metric-driven model selection. Honest performance reporting — not inflated notebook scores.",
+    outcome: "Evaluation discipline · Leakage-aware design",
   },
   {
     title: "Deep Learning Representation Experiments",
     status: "In Progress",
     year: "2026",
     tags: ["Python", "Neural Nets", "Representation Learning"],
-    body: "Exploring neural architectures for better representations on structured and text data. Focus on understanding what the model learns and how it generalizes — not just chasing leaderboard metrics.",
-    outcome: "Research mindset · Generalization focus",
+    body: "Neural architectures for stronger representations on structured and text data. Focus on what the model learns and how it generalizes — not leaderboard chasing.",
+    outcome: "Research mindset · Generalization first",
   },
 ];
 
@@ -134,15 +135,13 @@ export default function Portfolio() {
   return (
     <>
       <Background />
-      <motion.div
-        style={{ scaleX }}
-        className="fixed left-0 right-0 top-0 z-50 h-[2px] origin-left"
-      >
+      <motion.div style={{ scaleX }} className="fixed left-0 right-0 top-0 z-50 h-[2px] origin-left">
         <div className="h-full w-full" style={{ background: "oklch(0.72 0.09 250)" }} />
       </motion.div>
       <Navbar />
       <main className="relative">
         <Hero />
+        <Marquee />
         <About />
         <Stats />
         <Skills />
@@ -181,31 +180,18 @@ function SectionDots() {
     return () => obs.disconnect();
   }, []);
   return (
-    <nav
-      aria-label="Section navigation"
-      className="pointer-events-auto fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 md:block"
-    >
+    <nav aria-label="Section navigation" className="pointer-events-auto fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 md:block">
       <ul className="flex flex-col items-end gap-4">
         {sections.map((s) => {
           const on = active === s.id;
           return (
             <li key={s.id}>
               <a href={`#${s.id}`} aria-label={`Go to ${s.label}`} className="group flex items-center gap-3">
-                <span
-                  className={`text-[9px] uppercase tracking-[0.35em] transition ${
-                    on ? "text-white opacity-100" : "text-[oklch(0.7_0.03_260)] opacity-0 group-hover:opacity-100"
-                  }`}
-                >
-                  {s.label}
-                </span>
+                <span className={`text-[9px] uppercase tracking-[0.35em] transition ${on ? "text-white opacity-100" : "text-[oklch(0.7_0.03_260)] opacity-0 group-hover:opacity-100"}`}>{s.label}</span>
                 <motion.span animate={{ scale: on ? 1 : 0.7 }} transition={{ type: "spring", stiffness: 300, damping: 20 }} className="relative block">
                   <span
-                    className={`block h-2 w-2 rounded-full transition ${
-                      on ? "bg-[oklch(0.75_0.22_260)]" : "bg-[oklch(0.5_0.05_260)] group-hover:bg-[oklch(0.75_0.22_260)]"
-                    }`}
-                    style={{
-                      boxShadow: on ? "0 0 14px oklch(0.7 0.22 260), 0 0 28px oklch(0.55 0.25 260/0.7)" : undefined,
-                    }}
+                    className={`block h-2 w-2 rounded-full transition ${on ? "bg-[oklch(0.75_0.22_260)]" : "bg-[oklch(0.5_0.05_260)] group-hover:bg-[oklch(0.75_0.22_260)]"}`}
+                    style={{ boxShadow: on ? "0 0 14px oklch(0.7 0.22 260), 0 0 28px oklch(0.55 0.25 260/0.7)" : undefined }}
                   />
                 </motion.span>
               </a>
@@ -260,9 +246,7 @@ function Navbar() {
     <header className={`fixed left-0 right-0 top-0 z-40 transition-all ${scrolled ? "border-b border-[oklch(0.55_0.25_260/0.12)] backdrop-blur-xl" : ""}`}>
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <a href="#top" className="flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-md border border-[oklch(0.75_0.05_260/0.25)] bg-[oklch(0.2_0.05_260/0.6)] text-[11px] font-semibold tracking-widest text-white">
-            BV
-          </span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-md border border-[oklch(0.75_0.05_260/0.25)] bg-[oklch(0.2_0.05_260/0.6)] text-[11px] font-semibold tracking-widest text-white">BV</span>
           <span className="text-xs font-medium tracking-[0.2em] text-[oklch(0.9_0.02_260)]">Barath Velu</span>
         </a>
         <nav className="hidden items-center gap-8 md:flex">
@@ -308,7 +292,7 @@ function Portrait() {
         className="pointer-events-none absolute -inset-10 rounded-[2rem] blur-3xl"
         style={{
           background:
-            "radial-gradient(circle at 30% 20%, oklch(0.55 0.25 260 / 0.4), transparent 65%), radial-gradient(circle at 80% 90%, oklch(0.4 0.08 260 / 0.4), transparent 65%)",
+            "radial-gradient(circle at 30% 20%, oklch(0.55 0.25 260 / 0.45), transparent 65%), radial-gradient(circle at 80% 90%, oklch(0.4 0.08 260 / 0.4), transparent 65%)",
         }}
       />
       <motion.div className="glass relative overflow-hidden rounded-[1.75rem] p-2" style={{ boxShadow: "var(--shadow-elevated)", rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}>
@@ -370,7 +354,7 @@ function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[oklch(0.72_0.09_250)] opacity-60" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[oklch(0.72_0.09_250)]" />
             </span>
-            Open for SDE & ML roles · High-impact teams
+            Open for SDE & ML · High-impact teams
           </div>
           <div className="mb-3 text-[10px] uppercase tracking-[0.5em] text-[oklch(0.7_0.03_260)]">
             <TextReveal text="AI · ML · Production Systems" delay={0.28} />
@@ -446,10 +430,10 @@ function About() {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }} className="glass col-span-1 rounded-3xl p-8 md:col-span-2">
           <p className="text-lg leading-relaxed text-[oklch(0.88_0.02_260)]">
-            Pre-final year <span className="text-white">BE CSE (AI & ML)</span> at <span className="text-white">{PROFILE.college}</span>. I work at the intersection of machine learning and software engineering — writing Python that turns data into decisions and keeps working after the demo.
+            Pre-final year <span className="text-white">BE CSE (AI & ML)</span> at <span className="text-white">{PROFILE.college}</span>. I work where machine learning meets software engineering — Python that turns data into decisions and keeps working after the demo.
           </p>
           <p className="mt-5 text-[oklch(0.75_0.02_260)]">
-            Looking for a high-caliber SDE or ML role where ownership, code quality, and real impact matter. I want to join a team that ships, and contribute from day one.
+            Seeking a high-caliber SDE or ML role with real ownership. I want a team that ships — and to contribute from day one.
           </p>
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
             {VALUE.map((s, i) => (
@@ -473,13 +457,13 @@ function About() {
             <div className="mt-1 text-xs text-[oklch(0.75_0.02_260)]">{PROFILE.college}</div>
             <div className="mt-0.5 text-xs text-[oklch(0.65_0.03_260)]">{PROFILE.university}</div>
             <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.01_260/0.2)] px-3 py-1 text-[10px] uppercase tracking-[0.25em] text-[oklch(0.85_0.01_260)]">CGPA {PROFILE.cgpa}</div>
-            <p className="mt-4 text-xs leading-relaxed text-[oklch(0.7_0.02_260)]">Pre-final year. Actively building production-style ML systems and seeking roles with serious ownership.</p>
+            <p className="mt-4 text-xs leading-relaxed text-[oklch(0.7_0.02_260)]">Pre-final year. Building production-style ML systems. Seeking roles with serious ownership.</p>
           </div>
           <div className="mt-8 rounded-2xl border border-[oklch(0.55_0.25_260/0.25)] bg-[oklch(0.15_0.05_260/0.4)] p-4">
             <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-[oklch(0.7_0.15_260)]">
               <Zap className="h-3.5 w-3.5" /> Focus now
             </div>
-            <p className="mt-2 text-xs leading-relaxed text-[oklch(0.82_0.02_260)]">Production NLP pipelines, rigorous ML evaluation, and the engineering habits that turn prototypes into reliable systems.</p>
+            <p className="mt-2 text-xs leading-relaxed text-[oklch(0.82_0.02_260)]">Production NLP pipelines, rigorous ML evaluation, and engineering habits that turn prototypes into reliable systems.</p>
           </div>
         </motion.div>
       </div>
@@ -587,8 +571,8 @@ function Contact() {
     <Section id="contact" eyebrow="Contact" title="Ready when you are.">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }} className="glass rounded-3xl p-8">
-          <p className="text-lg leading-relaxed text-[oklch(0.88_0.02_260)]">Hiring for AI, ML, or software engineering roles with real ownership? I am prepared to join, contribute, and ship.</p>
-          <p className="mt-4 text-sm text-[oklch(0.72_0.03_260)]">Prefer a direct conversation. Send a note or reach out on any channel below.</p>
+          <p className="text-lg leading-relaxed text-[oklch(0.88_0.02_260)]">Hiring for AI, ML, or software engineering with real ownership? I am ready to join, contribute, and ship.</p>
+          <p className="mt-4 text-sm text-[oklch(0.72_0.03_260)]">Prefer a direct conversation. Reach out on any channel below.</p>
           <div className="mt-8 space-y-3">
             {items.map((it) => {
               const Icon = it.icon;
