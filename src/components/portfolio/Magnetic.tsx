@@ -3,7 +3,7 @@ import { useRef, type ReactNode } from "react";
 
 export function Magnetic({
   children,
-  strength = 0.35,
+  strength = 0.28,
   className,
 }: {
   children: ReactNode;
@@ -13,8 +13,9 @@ export function Magnetic({
   const ref = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const sx = useSpring(x, { stiffness: 220, damping: 18, mass: 0.4 });
-  const sy = useSpring(y, { stiffness: 220, damping: 18, mass: 0.4 });
+  // Soft, controlled spring — premium feel, not playful bounce
+  const sx = useSpring(x, { stiffness: 180, damping: 22, mass: 0.35 });
+  const sy = useSpring(y, { stiffness: 180, damping: 22, mass: 0.35 });
 
   const reduced =
     typeof window !== "undefined" &&
