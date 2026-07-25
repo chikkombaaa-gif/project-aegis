@@ -1,46 +1,47 @@
-# Project Aegis — Barath V Portfolio
+# Project Aegis
 
-Personal portfolio for **Barath Velu** — AI & Machine Learning engineer.
+Personal portfolio of **Barath Velu** — AI & Machine Learning Engineer.
 
-Live: [vbarathportfolio.vercel.app](https://vbarathportfolio.vercel.app/)
+**Live:** [vbarathportfolio.vercel.app](https://vbarathportfolio.vercel.app/)
+
+---
 
 ## Stack
 
-- **React 19** + **TypeScript** + **Vite 6**
-- **Tailwind CSS 4** (Vite plugin)
-- **Framer Motion** — animations, scroll, magnetic interactions
-- **Lenis** — smooth scrolling (respects `prefers-reduced-motion`)
-- **Lucide React** — icons
+| Layer | Tech |
+|-------|------|
+| UI | React 19, TypeScript |
+| Build | Vite 6 |
+| Styles | Tailwind CSS 4 |
+| Motion | Framer Motion, Lenis |
+| Icons | Lucide React |
+| Deploy | Vercel |
 
-## Scripts
+## Quick start
 
 ```bash
 npm install
-npm run dev      # local dev server
-npm run build    # production build → dist/
-npm run preview  # preview production build
+npm run dev      # http://localhost:5173
+npm run build    # production → dist/
+npm run preview  # preview build
+npm run typecheck
 ```
 
-## Structure
+## Project layout
 
 ```
 src/
-  main.tsx              # entry
-  App.tsx               # re-exports Portfolio
-  Portfolio.tsx         # full single-page portfolio
-  styles.css            # Tailwind + design tokens
-  components/portfolio/ # Background, Stats, Magnetic, TextReveal, Marquee, …
-  hooks/useLenis.ts
-public/assets/          # portrait & favicon
+  main.tsx                 # entry
+  App.tsx                  # root component
+  Portfolio.tsx            # full single-page portfolio
+  styles.css               # design tokens + Tailwind
+  components/portfolio/    # Background, Stats, Magnetic, TextReveal, Marquee
+  hooks/useLenis.ts        # smooth scroll
+public/
+  assets/barath.png
+  favicon.ico
 ```
 
-## Design notes
+## License
 
-- Dark theme with OKLCH color system
-- Glass cards, soft gradients, starfield background
-- Section dots + scroll progress + Lenis-anchored nav
-- Contact form opens the user’s mail client (no backend)
-
-## Deploy
-
-Configured for Vercel (`vercel.json`). Push to `main` or connect the repo in the Vercel dashboard.
+MIT
