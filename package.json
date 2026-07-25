@@ -4,8 +4,19 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Personal portfolio of Barath Velu — AI & Machine Learning Engineer",
-  "author": "Barath Velu",
+  "author": "Barath Velu <barathvelu777@gmail.com>",
   "license": "MIT",
+  "homepage": "https://vbarathportfolio.vercel.app/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chikkombaaa-gif/project-aegis.git"
+  },
+  "bugs": {
+    "url": "https://github.com/chikkombaaa-gif/project-aegis/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",

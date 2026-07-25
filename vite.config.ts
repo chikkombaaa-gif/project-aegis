@@ -7,5 +7,15 @@ export default defineConfig({
   plugins: [tsConfigPaths(), tailwindcss(), react()],
   build: {
     outDir: "dist",
+    sourcemap: false,
+    target: "es2022",
+    cssMinify: true,
+  },
+  server: {
+    port: 5173,
+    open: false,
+  },
+  preview: {
+    port: 4173,
   },
 });
