@@ -22,18 +22,18 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 
 const STATS = [
   { label: "CGPA", value: 8.0, suffix: " / 10" },
-  { label: "Core Domains", value: 5, suffix: "" },
+  { label: "Core Domains", value: 6, suffix: "" },
   { label: "Years Coding", value: 3, suffix: "+" },
-  { label: "Focus Areas", value: 3, suffix: "" },
+  { label: "Projects in Focus", value: 3, suffix: "" },
 ];
 
 export function Stats() {
   return (
     <section
       aria-label="Key metrics"
-      className="relative border-y border-[oklch(0.55_0.25_260/0.15)] bg-[oklch(0.10_0.04_260/0.5)] px-6 py-14 backdrop-blur-sm"
+      className="relative border-y border-[oklch(0.55_0.25_260/0.15)] bg-[oklch(0.10_0.04_260/0.5)] px-6 py-16 backdrop-blur-sm"
     >
-      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-8 md:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl grid-cols-2 gap-10 md:grid-cols-4">
         {STATS.map((s, i) => (
           <motion.div
             key={s.label}
