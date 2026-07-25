@@ -20,21 +20,21 @@ const ITEMS = [
 export function Marquee() {
   const row = [...ITEMS, ...ITEMS];
   return (
-    <div className="relative overflow-hidden border-y border-[oklch(0.55_0.25_260/0.12)] bg-[oklch(0.10_0.04_260/0.55)] py-4">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-[oklch(0.10_0.04_260)] to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-[oklch(0.10_0.04_260)] to-transparent" />
+    <div className="relative overflow-hidden border-y border-[oklch(0.55_0.2_250/0.1)] bg-[oklch(0.09_0.04_260/0.55)] py-5">
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-[oklch(0.09_0.04_260)] to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-[oklch(0.09_0.04_260)] to-transparent" />
       <motion.div
-        className="flex w-max gap-10 whitespace-nowrap"
+        className="flex w-max gap-12 whitespace-nowrap"
         animate={{ x: ["0%", "-50%"] }}
-        transition={{ duration: 40, ease: "linear", repeat: Infinity }}
+        transition={{ duration: 48, ease: "linear", repeat: Infinity }}
       >
         {row.map((item, i) => (
           <span
             key={`${item}-${i}`}
-            className="text-[11px] uppercase tracking-[0.35em] text-[oklch(0.72_0.04_260)]"
+            className="text-[11px] font-medium uppercase tracking-[0.38em] text-[oklch(0.68_0.04_260)]"
           >
             {item}
-            <span className="ml-10 text-[oklch(0.55_0.15_260)]">·</span>
+            <span className="ml-12 text-[oklch(0.5_0.12_250)]">·</span>
           </span>
         ))}
       </motion.div>
