@@ -31,7 +31,7 @@ export function Stats() {
   return (
     <section
       aria-label="Key metrics"
-      className="relative border-y border-[oklch(0.55_0.2_250/0.12)] bg-[oklch(0.09_0.04_260/0.6)] px-6 py-18 backdrop-blur-md"
+      className="relative border-y border-[oklch(0.55_0.2_250/0.12)] bg-[oklch(0.09_0.04_260/0.6)] px-6 py-20 backdrop-blur-md"
     >
       <div className="mx-auto grid max-w-6xl grid-cols-2 gap-12 md:grid-cols-4 md:gap-10">
         {STATS.map((s, i) => (
