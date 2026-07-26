@@ -111,6 +111,8 @@ export type Project = {
   body: string;
   outcome: string;
   highlights: string[];
+  /** Optional deep-link to implementation */
+  href?: string;
 };
 
 export const PROJECTS: Project[] = [
@@ -126,6 +128,7 @@ export const PROJECTS: Project[] = [
       "Durable storage for inputs & outputs",
       "Evaluation wired into the loop",
     ],
+    href: "https://github.com/barathvelu1",
   },
   {
     title: "Supervised ML Prediction System",
@@ -139,6 +142,7 @@ export const PROJECTS: Project[] = [
       "CV-based model comparison",
       "Transparent performance reporting",
     ],
+    href: "https://github.com/barathvelu1",
   },
   {
     title: "Deep Learning Representation Experiments",
@@ -152,6 +156,7 @@ export const PROJECTS: Project[] = [
       "Generalization over vanity metrics",
       "Iterative, measured experiments",
     ],
+    href: "https://github.com/barathvelu1",
   },
 ];
 
