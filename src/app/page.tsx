@@ -1,0 +1,37 @@
+import { Navbar } from "@/components/layout/navbar";
+import { Footer } from "@/components/layout/footer";
+import { Loader } from "@/components/ui/loader";
+import { Cursor } from "@/components/ui/cursor";
+import { Hero } from "@/components/sections/hero";
+import { About } from "@/components/sections/about";
+import { Skills } from "@/components/sections/skills";
+import { Projects } from "@/components/sections/projects";
+import { Experience } from "@/components/sections/experience";
+import { Writing } from "@/components/sections/writing";
+import { Contact } from "@/components/sections/contact";
+
+export default function HomePage() {
+  return (
+    <>
+      <Loader />
+      <Cursor />
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[var(--fg)] focus:px-4 focus:py-2 focus:text-sm focus:text-[var(--bg)]"
+      >
+        Skip to content
+      </a>
+      <Navbar />
+      <main id="main">
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Experience />
+        <Writing />
+        <Contact />
+      </main>
+      <Footer />
+    </>
+  );
+}
