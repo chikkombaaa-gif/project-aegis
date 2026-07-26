@@ -7,24 +7,19 @@ import {
   useTransform,
 } from "framer-motion";
 import { useEffect, useRef, useState, type FormEvent, type ReactNode } from "react";
-import type { LucideIcon } from "lucide-react";
 import {
   ArrowUpRight,
   Github,
   Mail,
   MapPin,
   Phone,
-  Sparkles,
-  Brain,
-  Database,
-  Code2,
-  Cpu,
   GraduationCap,
   ExternalLink,
-  Layers,
   Zap,
   Target,
   CheckCircle2,
+  Menu,
+  X,
 } from "lucide-react";
 import { Background } from "@/components/portfolio/Background";
 import { Stats } from "@/components/portfolio/Stats";
@@ -32,126 +27,17 @@ import { Magnetic } from "@/components/portfolio/Magnetic";
 import { TextReveal } from "@/components/portfolio/TextReveal";
 import { Marquee } from "@/components/portfolio/Marquee";
 import { useLenis } from "@/hooks/useLenis";
-
-const PORTRAIT_URL = "/assets/barath.png";
-
-const PROFILE = {
-  name: "Barath V",
-  fullName: "Barath Velu",
-  role: "AI & Machine Learning Engineer",
-  tagline:
-    "I build production-ready NLP and ML systems — clean Python, rigorous evaluation, and pipelines that survive outside the notebook.",
-  email: "barathvelu777@gmail.com",
-  phone: "7550140875",
-  phoneDisplay: "+91 75501 40875",
-  location: "Chennai, Tamil Nadu",
-  github: "https://github.com/barathvelu1",
-  githubHandle: "barathvelu1",
-  cgpa: "8.0 / 10",
-  college: "Jeppiaar Engineering College",
-  degree: "B.E. Computer Science & Engineering (AI & ML)",
-  university: "Affiliated to Anna University",
-} as const;
-
-type SkillGroup = {
-  group: string;
-  icon: LucideIcon;
-  items: string[];
-  level: number;
-};
-
-const SKILLS: SkillGroup[] = [
-  { group: "Languages", icon: Code2, items: ["Python", "SQL"], level: 92 },
-  {
-    group: "NLP",
-    icon: Brain,
-    items: ["Text Classification", "Preprocessing", "Tokenization", "Text Analytics"],
-    level: 88,
-  },
-  {
-    group: "Machine Learning",
-    icon: Cpu,
-    items: ["Supervised Learning", "Feature Engineering", "Cross-Validation", "Model Selection"],
-    level: 86,
-  },
-  {
-    group: "Deep Learning",
-    icon: Sparkles,
-    items: ["Neural Networks", "Representation Learning"],
-    level: 78,
-  },
-  {
-    group: "Data & Storage",
-    icon: Database,
-    items: ["MongoDB", "Data Pipelines", "ETL patterns"],
-    level: 85,
-  },
-  {
-    group: "Engineering",
-    icon: Layers,
-    items: ["Scikit-learn", "Pandas", "NumPy", "Git", "Clean Code"],
-    level: 90,
-  },
-];
-
-const VALUE = [
-  {
-    title: "Ship, don't just experiment",
-    body: "Models are products. Metrics, data handling, and inference are designed together — never as afterthoughts.",
-  },
-  {
-    title: "Python that becomes systems",
-    body: "Modular, readable Python with MongoDB. Pipelines that move from prototype to something a team can run.",
-  },
-  {
-    title: "NLP for real data",
-    body: "From raw text to structured insight. Classification and analytics built for messy, real-world inputs.",
-  },
-] as const;
-
-type ProjectStatus = "Active" | "Completed" | "In Progress";
-
-type Project = {
-  title: string;
-  status: ProjectStatus;
-  year: string;
-  tags: string[];
-  body: string;
-  outcome: string;
-};
-
-const PROJECTS: Project[] = [
-  {
-    title: "End-to-End NLP Classification Pipeline",
-    status: "Active",
-    year: "2025–26",
-    tags: ["Python", "NLP", "MongoDB", "Scikit-learn"],
-    body: "Complete pipeline: ingestion → preprocessing → features → training → evaluation → inference. MongoDB for durable document and prediction storage. Structured for reproducibility and a clear path to serving.",
-    outcome: "Production architecture · Reproducible evaluation",
-  },
-  {
-    title: "Supervised ML Prediction System",
-    status: "Completed",
-    year: "2025",
-    tags: ["Python", "ML", "Feature Engineering", "Validation"],
-    body: "Full supervised workflow with leakage-aware splits, cross-validation, and metric-driven model selection. Honest performance reporting — not inflated notebook scores.",
-    outcome: "Evaluation discipline · Leakage-aware design",
-  },
-  {
-    title: "Deep Learning Representation Experiments",
-    status: "In Progress",
-    year: "2026",
-    tags: ["Python", "Neural Nets", "Representation Learning"],
-    body: "Neural architectures for stronger representations on structured and text data. Focus on what the model learns and how it generalizes — not leaderboard chasing.",
-    outcome: "Research mindset · Generalization first",
-  },
-];
-
-const STATUS_STYLES: Record<ProjectStatus, string> = {
-  Active: "border border-[oklch(0.7_0.13_150/0.45)] text-[oklch(0.8_0.12_150)]",
-  "In Progress": "border border-[oklch(0.7_0.15_260/0.4)] text-[oklch(0.8_0.12_260)]",
-  Completed: "border border-[oklch(0.65_0.05_260/0.4)] text-[oklch(0.75_0.04_260)]",
-};
+import {
+  PROFILE,
+  SKILLS,
+  VALUE,
+  PROJECTS,
+  STATUS_STYLES,
+  NAV_LINKS,
+  SECTIONS,
+  PORTRAIT_URL,
+  mailOpportunity,
+} from "@/data/content";
 
 export default function Portfolio() {
   useLenis();
@@ -160,6 +46,12 @@ export default function Portfolio() {
 
   return (
     <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-[oklch(0.15_0.005_260)]"
+      >
+        Skip to content
+      </a>
       <Background />
       <motion.div
         style={{ scaleX }}
@@ -169,7 +61,7 @@ export default function Portfolio() {
         <div className="h-full w-full" style={{ background: "oklch(0.72 0.09 250)" }} />
       </motion.div>
       <Navbar />
-      <main className="relative">
+      <main id="main" className="relative">
         <Hero />
         <Marquee />
         <About />
@@ -186,14 +78,7 @@ export default function Portfolio() {
 }
 
 function SectionDots() {
-  const sections = [
-    { id: "top", label: "Home" },
-    { id: "about", label: "About" },
-    { id: "skills", label: "Skills" },
-    { id: "projects", label: "Work" },
-    { id: "contact", label: "Contact" },
-  ] as const;
-  const [active, setActive] = useState<string>("top");
+  const [active, setActive] = useState("top");
 
   useEffect(() => {
     const obs = new IntersectionObserver(
@@ -204,7 +89,7 @@ function SectionDots() {
       },
       { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
     );
-    for (const s of sections) {
+    for (const s of SECTIONS) {
       const el = document.getElementById(s.id);
       if (el) obs.observe(el);
     }
@@ -217,7 +102,7 @@ function SectionDots() {
       className="pointer-events-auto fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 md:block"
     >
       <ul className="flex flex-col items-end gap-4">
-        {sections.map((s) => {
+        {SECTIONS.map((s) => {
           const on = active === s.id;
           return (
             <li key={s.id}>
@@ -294,6 +179,7 @@ function ScrollTop() {
 
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -302,21 +188,21 @@ function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const links = [
-    { id: "about", label: "About" },
-    { id: "skills", label: "Skills" },
-    { id: "projects", label: "Work" },
-    { id: "contact", label: "Contact" },
-  ] as const;
+  useEffect(() => {
+    document.body.style.overflow = open ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   return (
     <header
       className={`fixed left-0 right-0 top-0 z-40 transition-all ${
-        scrolled ? "border-b border-[oklch(0.55_0.25_260/0.12)] backdrop-blur-xl" : ""
+        scrolled || open ? "border-b border-[oklch(0.55_0.25_260/0.12)] backdrop-blur-xl" : ""
       }`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#top" className="flex items-center gap-2.5">
+        <a href="#top" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
           <span className="flex h-8 w-8 items-center justify-center rounded-md border border-[oklch(0.75_0.05_260/0.25)] bg-[oklch(0.2_0.05_260/0.6)] text-[11px] font-semibold tracking-widest text-white">
             BV
           </span>
@@ -325,7 +211,7 @@ function Navbar() {
           </span>
         </a>
         <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
-          {links.map((l) => (
+          {NAV_LINKS.map((l) => (
             <a
               key={l.id}
               href={`#${l.id}`}
@@ -336,15 +222,61 @@ function Navbar() {
             </a>
           ))}
         </nav>
-        <Magnetic>
-          <a
-            href={`mailto:${PROFILE.email}?subject=${encodeURIComponent("Opportunity for Barath V")}`}
-            className="glass rounded-full px-4 py-2 text-xs uppercase tracking-[0.25em] transition hover:glow-ring"
+        <div className="flex items-center gap-3">
+          <Magnetic>
+            <a
+              href={mailOpportunity()}
+              className="glass hidden rounded-full px-4 py-2 text-xs uppercase tracking-[0.25em] transition hover:glow-ring sm:inline-flex"
+            >
+              Hire me
+            </a>
+          </Magnetic>
+          <button
+            type="button"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-[oklch(0.7_0.01_260/0.25)] text-white md:hidden"
+            aria-label={open ? "Close menu" : "Open menu"}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
           >
-            Hire me
-          </a>
-        </Magnetic>
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
+
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="overflow-hidden border-t border-[oklch(0.55_0.25_260/0.12)] md:hidden"
+            aria-label="Mobile"
+          >
+            <ul className="flex flex-col gap-1 px-6 py-4">
+              {NAV_LINKS.map((l) => (
+                <li key={l.id}>
+                  <a
+                    href={`#${l.id}`}
+                    className="block rounded-xl px-3 py-3 text-sm uppercase tracking-[0.2em] text-[oklch(0.85_0.02_260)] transition hover:bg-[oklch(0.2_0.05_260/0.5)] hover:text-white"
+                    onClick={() => setOpen(false)}
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+              <li className="pt-2">
+                <a
+                  href={mailOpportunity()}
+                  className="flex items-center justify-center rounded-full bg-white px-4 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-[oklch(0.15_0.005_260)]"
+                  onClick={() => setOpen(false)}
+                >
+                  Hire me
+                </a>
+              </li>
+            </ul>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
@@ -353,14 +285,8 @@ function Portrait() {
   const ref = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0.5);
   const my = useMotionValue(0.5);
-  const rx = useSpring(useTransform(my, [0, 1], [10, -10]), {
-    stiffness: 120,
-    damping: 14,
-  });
-  const ry = useSpring(useTransform(mx, [0, 1], [-12, 12]), {
-    stiffness: 120,
-    damping: 14,
-  });
+  const rx = useSpring(useTransform(my, [0, 1], [10, -10]), { stiffness: 120, damping: 14 });
+  const ry = useSpring(useTransform(mx, [0, 1], [-12, 12]), { stiffness: 120, damping: 14 });
   const sweepX = useSpring(useTransform(mx, [0, 1], ["-20%", "120%"]), {
     stiffness: 80,
     damping: 20,
@@ -373,16 +299,14 @@ function Portrait() {
     my.set((e.clientY - r.top) / r.height);
   };
 
-  const onLeave = () => {
-    mx.set(0.5);
-    my.set(0.5);
-  };
-
   return (
     <motion.div
       ref={ref}
       onMouseMove={onMove}
-      onMouseLeave={onLeave}
+      onMouseLeave={() => {
+        mx.set(0.5);
+        my.set(0.5);
+      }}
       className="relative"
       style={{ perspective: 1200 }}
     >
@@ -527,7 +451,7 @@ function Hero() {
             </Magnetic>
             <Magnetic>
               <a
-                href={`mailto:${PROFILE.email}?subject=${encodeURIComponent("Opportunity for Barath V")}`}
+                href={mailOpportunity()}
                 className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.7_0.01_260/0.25)] px-6 py-3.5 text-sm font-medium text-white transition hover:border-[oklch(0.7_0.01_260/0.45)] hover:bg-[oklch(0.2_0.03_260/0.4)]"
               >
                 Contact <Mail className="h-4 w-4" aria-hidden />
@@ -742,7 +666,10 @@ function Skills() {
                     <div className="text-base font-semibold text-white">{s.group}</div>
                   </div>
                 </div>
-                <div className="display text-2xl text-[oklch(0.7_0.15_260)]" aria-label={`${s.level} percent`}>
+                <div
+                  className="display text-2xl text-[oklch(0.7_0.15_260)]"
+                  aria-label={`${s.level} percent`}
+                >
                   {s.level}
                 </div>
               </div>
@@ -872,30 +799,10 @@ function Projects() {
 
 function Contact() {
   const items = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: PROFILE.email,
-      href: `mailto:${PROFILE.email}?subject=${encodeURIComponent("Opportunity for Barath V")}`,
-    },
-    {
-      icon: Phone,
-      label: "Phone",
-      value: PROFILE.phoneDisplay,
-      href: `tel:+91${PROFILE.phone}`,
-    },
-    {
-      icon: Github,
-      label: "GitHub",
-      value: PROFILE.githubHandle,
-      href: PROFILE.github,
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: PROFILE.location,
-      href: undefined as string | undefined,
-    },
+    { icon: Mail, label: "Email", value: PROFILE.email, href: mailOpportunity() },
+    { icon: Phone, label: "Phone", value: PROFILE.phoneDisplay, href: `tel:+91${PROFILE.phone}` },
+    { icon: Github, label: "GitHub", value: PROFILE.githubHandle, href: PROFILE.github },
+    { icon: MapPin, label: "Location", value: PROFILE.location, href: undefined as string | undefined },
   ];
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -905,9 +812,7 @@ function Contact() {
     const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
     const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim();
     const subject = encodeURIComponent(`Opportunity from ${name || "portfolio visitor"}`);
-    const body = encodeURIComponent(
-      [`From: ${name}`, `Email: ${email}`, "", message].join("\n"),
-    );
+    const body = encodeURIComponent([`From: ${name}`, `Email: ${email}`, "", message].join("\n"));
     window.location.href = `mailto:${PROFILE.email}?subject=${subject}&body=${body}`;
   };
 
@@ -948,7 +853,10 @@ function Contact() {
                     </div>
                   </div>
                   {isLink && (
-                    <ArrowUpRight className="h-4 w-4 text-[oklch(0.7_0.15_260)] transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
+                    <ArrowUpRight
+                      className="h-4 w-4 text-[oklch(0.7_0.15_260)] transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      aria-hidden
+                    />
                   )}
                 </>
               );
@@ -1018,7 +926,10 @@ function Contact() {
               className="group flex w-full items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-[oklch(0.15_0.005_260)] transition hover:bg-[oklch(0.92_0.005_260)]"
             >
               Send message{" "}
-              <ArrowUpRight className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
+              <ArrowUpRight
+                className="h-4 w-4 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                aria-hidden
+              />
             </button>
           </div>
         </motion.form>
