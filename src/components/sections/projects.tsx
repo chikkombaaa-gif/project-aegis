@@ -77,7 +77,7 @@ export function Projects() {
           >
             <motion.div
               role="dialog"
-              aria-modal
+              aria-modal={true}
               aria-labelledby="case-title"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
