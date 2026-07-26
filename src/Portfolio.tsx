@@ -754,6 +754,17 @@ function Projects() {
                   <span className="text-[11px] tracking-[0.2em] text-[oklch(0.55_0.03_260)]">
                     {p.year}
                   </span>
+                  {p.href && (
+                    <a
+                      href={p.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-auto inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-[oklch(0.75_0.08_250)] transition hover:text-white"
+                    >
+                      <Github className="h-3.5 w-3.5" aria-hidden /> View code
+                      <ExternalLink className="h-3 w-3" aria-hidden />
+                    </a>
+                  )}
                 </div>
                 <h3 className="display text-2xl leading-snug text-white md:text-3xl">{p.title}</h3>
                 <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[oklch(0.72_0.03_260)] md:text-[15px]">
