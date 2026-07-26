@@ -1,18 +1,13 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
 export function Background() {
+  const reduced = useReducedMotion();
+
   return (
     <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      {/* Base depth */}
       <div className="absolute inset-0" style={{ background: "var(--gradient-hero)" }} />
-
-      {/* Soft grid */}
       <div className="absolute inset-0 grid-bg opacity-50" />
-
-      {/* Starfield */}
       <div className="starfield absolute inset-0 opacity-80" />
-
-      {/* —— Premium cloud layers —— */}
 
       {/* Large soft cloud — upper left */}
       <motion.div
@@ -23,12 +18,12 @@ export function Background() {
           filter: "blur(80px)",
         }}
         animate={{
-          x: [0, 50, 10, 0],
-          y: [0, 25, 40, 0],
-          scale: [1, 1.06, 1.02, 1],
+          x: reduced ? 0 : [0, 55, 12, 0],
+          y: reduced ? 0 : [0, 28, 42, 0],
+          scale: reduced ? 1 : [1, 1.07, 1.02, 1],
         }}
         transition={{
-          duration: 28,
+          duration: 32,
           repeat: Infinity,
           ease: "easeInOut",
         }}
@@ -43,15 +38,15 @@ export function Background() {
           filter: "blur(90px)",
         }}
         animate={{
-          x: [0, -35, -15, 0],
-          y: [0, 30, -10, 0],
-          scale: [1, 1.1, 0.98, 1],
+          x: reduced ? 0 : [0, -40, -12, 0],
+          y: reduced ? 0 : [0, 32, -12, 0],
+          scale: reduced ? 1 : [1, 1.12, 0.98, 1],
         }}
         transition={{
-          duration: 32,
+          duration: 36,
           repeat: Infinity,
           ease: "easeInOut",
-          delay: 3,
+          delay: 2,
         }}
       />
 
@@ -64,19 +59,19 @@ export function Background() {
           filter: "blur(100px)",
         }}
         animate={{
-          x: [0, 40, -20, 0],
-          y: [0, -20, 10, 0],
-          scale: [1, 1.05, 1.08, 1],
+          x: reduced ? 0 : [0, 45, -22, 0],
+          y: reduced ? 0 : [0, -22, 12, 0],
+          scale: reduced ? 1 : [1, 1.06, 1.1, 1],
         }}
         transition={{
-          duration: 36,
+          duration: 40,
           repeat: Infinity,
           ease: "easeInOut",
-          delay: 1.5,
+          delay: 1,
         }}
       />
 
-      {/* Accent glow cloud — small luminous */}
+      {/* Accent glow */}
       <motion.div
         className="absolute left-[40%] top-[35%] h-[30vh] w-[30vh] rounded-full"
         style={{
@@ -85,11 +80,11 @@ export function Background() {
           filter: "blur(60px)",
         }}
         animate={{
-          opacity: [0.4, 0.7, 0.45, 0.4],
-          scale: [1, 1.15, 1.05, 1],
+          opacity: reduced ? 0.5 : [0.35, 0.75, 0.45, 0.35],
+          scale: reduced ? 1 : [1, 1.18, 1.05, 1],
         }}
         transition={{
-          duration: 14,
+          duration: 16,
           repeat: Infinity,
           ease: "easeInOut",
         }}
