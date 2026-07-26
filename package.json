@@ -1,7 +1,7 @@
 {
   "name": "project-aegis",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.1.0",
   "type": "module",
   "description": "Personal portfolio of Barath Velu — AI & Machine Learning Engineer",
   "author": "Barath Velu <barathvelu777@gmail.com>",
@@ -14,6 +14,15 @@
   "bugs": {
     "url": "https://github.com/chikkombaaa-gif/project-aegis/issues"
   },
+  "keywords": [
+    "portfolio",
+    "react",
+    "typescript",
+    "machine-learning",
+    "nlp",
+    "vite",
+    "barath-velu"
+  ],
   "engines": {
     "node": ">=20"
   },

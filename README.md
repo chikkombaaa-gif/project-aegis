@@ -1,84 +1,90 @@
-# Project Aegis
+# Barath Velu — Portfolio
 
-Personal portfolio of **Barath Velu** — AI & Machine Learning Engineer.
+> AI & Machine Learning Engineer · Pre-final year · Chennai
 
-[![Live](https://img.shields.io/badge/live-vbarathportfolio.vercel.app-0A0A0A?style=flat-square&logo=vercel)](https://vbarathportfolio.vercel.app/)
-[![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-6-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev/)
-[![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](./LICENSE)
+Production-minded portfolio: NLP pipelines, supervised ML, clean Python engineering.
 
-**Live site:** [vbarathportfolio.vercel.app](https://vbarathportfolio.vercel.app/)
+[![Live](https://img.shields.io/badge/Live-vbarathportfolio.vercel.app-000?style=for-the-badge&logo=vercel&logoColor=white)](https://vbarathportfolio.vercel.app/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](./LICENSE)
+
+**Live:** [vbarathportfolio.vercel.app](https://vbarathportfolio.vercel.app/)  
+**Code (projects):** [github.com/barathvelu1](https://github.com/barathvelu1)
 
 ---
 
-## About
+## Highlights
 
-A production-oriented single-page portfolio focused on clarity, motion, and performance. Built for recruiters and engineering teams evaluating AI / ML talent.
-
-**Highlights**
-
-- Dark theme with OKLCH design tokens
-- Smooth scrolling (Lenis) with reduced-motion support
-- Scroll-driven and magnetic micro-interactions (Framer Motion)
-- Fully responsive, accessible section navigation
+- Dark, OKLCH design system with film grain and glass surfaces
+- Lenis smooth scroll + Framer Motion (magnetic CTAs, text masks, scroll reveals)
+- Hire-ready structure: About · Skills · Case-study work · Contact
+- Accessibility: skip link, focus-visible, `prefers-reduced-motion`
+- SEO: Open Graph, Twitter cards, JSON-LD Person schema
 
 ## Stack
 
-| Layer | Technology |
-|-------|------------|
-| UI | React 19, TypeScript |
-| Bundler | Vite 6 |
-| Styling | Tailwind CSS 4 |
-| Animation | Framer Motion, Lenis |
-| Icons | Lucide React |
-| Hosting | Vercel |
+| Layer | Choice |
+|-------|--------|
+| UI | React 19 + TypeScript (strict) |
+| Build | Vite 6 |
+| CSS | Tailwind CSS 4 |
+| Motion | Framer Motion 12 + Lenis |
+| Icons | Lucide |
+| Host | Vercel |
 
-## Getting started
-
-**Requirements:** Node.js 20+
+## Quick start
 
 ```bash
+# Node.js 20+
 npm install
-npm run dev        # http://localhost:5173
-npm run build      # production build → dist/
-npm run preview    # serve production build
-npm run typecheck  # TypeScript only
+npm run dev          # http://localhost:5173
+npm run build        # → dist/
+npm run preview      # serve dist
+npm run typecheck    # tsc --noEmit
 ```
 
-## Project structure
+## Repository layout
 
 ```
-.
-├── public/
-│   ├── assets/barath.png
-│   └── favicon.ico
+project-aegis/
+├── public/                 # Static assets, robots, sitemap, favicons
 ├── src/
-│   ├── main.tsx                 # App entry
-│   ├── App.tsx                  # Root export
-│   ├── Portfolio.tsx            # Full portfolio page
-│   ├── styles.css               # Tokens + Tailwind
-│   ├── components/portfolio/    # UI building blocks
-│   └── hooks/useLenis.ts        # Smooth scroll
+│   ├── data/content.ts     # Single source of truth (profile, skills, projects)
+│   ├── components/portfolio/
+│   ├── hooks/useLenis.ts
+│   ├── lib/motion.ts       # Shared easing / variants
+│   ├── Portfolio.tsx       # Page composition
+│   ├── App.tsx             # Loader + cursor + page
+│   └── styles.css          # Design tokens
 ├── index.html
 ├── vite.config.ts
-├── tsconfig.json
-└── vercel.json
+├── vercel.json
+└── .github/workflows/ci.yml
 ```
+
+## Scripts
+
+| Command | Purpose |
+|---------|---------|
+| `npm run dev` | Local development |
+| `npm run build` | Production bundle |
+| `npm run preview` | Preview production build |
+| `npm run typecheck` | TypeScript check only |
 
 ## Deploy
 
-Configured for Vercel (`vercel.json`). Connect the repo or push to `main` — the production site updates automatically.
+Vercel is configured via `vercel.json` (SPA rewrites, security headers, caching).
 
-```bash
-npm run build   # verify locally before deploy
-```
+Push to `main` → production updates automatically.
 
 ## Contact
 
-- **Email:** [barathvelu777@gmail.com](mailto:barathvelu777@gmail.com)
-- **GitHub:** [barathvelu1](https://github.com/barathvelu1)
-- **Location:** Chennai, India
+| | |
+|--|--|
+| Email | [barathvelu777@gmail.com](mailto:barathvelu777@gmail.com) |
+| GitHub | [barathvelu1](https://github.com/barathvelu1) |
+| Location | Chennai, Tamil Nadu, India |
 
 ## License
 

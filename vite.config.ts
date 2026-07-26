@@ -10,6 +10,21 @@ export default defineConfig({
     sourcemap: false,
     target: "es2022",
     cssMinify: true,
+    minify: "esbuild",
+    reportCompressedSize: true,
+    chunkSizeWarningLimit: 600,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          "vendor-react": ["react", "react-dom"],
+          "vendor-motion": ["framer-motion"],
+          "vendor-lenis": ["lenis"],
+        },
+        assetFileNames: "assets/[name]-[hash][extname]",
+        chunkFileNames: "assets/[name]-[hash].js",
+        entryFileNames: "assets/[name]-[hash].js",
+      },
+    },
   },
   server: {
     port: 5173,
