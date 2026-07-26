@@ -366,7 +366,7 @@ function Portrait() {
             <div className="flex flex-col items-end gap-1 text-right">
               <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.3em] text-[oklch(0.85_0.05_150)]">
                 <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.7_0.13_150)]" />
-                Open to offers
+                Open to hire
               </span>
               <span className="text-[9px] uppercase tracking-[0.3em] text-[oklch(0.7_0.01_260)]">
                 Chennai, IN
@@ -410,7 +410,7 @@ function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[oklch(0.72_0.09_250)] opacity-60" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[oklch(0.72_0.09_250)]" />
             </span>
-            Open for SDE & ML · High-impact teams
+            {PROFILE.availability}
           </div>
           <div className="mb-3 text-[10px] uppercase tracking-[0.5em] text-[oklch(0.7_0.03_260)]">
             <TextReveal text="AI · ML · Production Systems" delay={0.28} />
@@ -445,8 +445,11 @@ function Hero() {
                 href="#projects"
                 className="group inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-[oklch(0.15_0.005_260)] transition hover:bg-[oklch(0.92_0.005_260)]"
               >
-                See my work{" "}
-                <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden />
+                View work{" "}
+                <ArrowUpRight
+                  className="h-4 w-4 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  aria-hidden
+                />
               </a>
             </Magnetic>
             <Magnetic>
@@ -481,8 +484,8 @@ function Hero() {
               <GraduationCap className="h-3.5 w-3.5" aria-hidden /> CGPA {PROFILE.cgpa}
             </span>
             <span className="flex items-center gap-2">
-              <Target className="h-3.5 w-3.5 text-[oklch(0.72_0.09_250)]" aria-hidden /> Pre-final
-              year
+              <Target className="h-3.5 w-3.5 text-[oklch(0.72_0.09_250)]" aria-hidden />{" "}
+              {PROFILE.year}
             </span>
           </motion.div>
         </motion.div>
@@ -569,13 +572,13 @@ function About() {
         >
           <p className="text-lg leading-relaxed text-[oklch(0.88_0.02_260)]">
             Pre-final year <span className="text-white">BE CSE (AI & ML)</span> at{" "}
-            <span className="text-white">{PROFILE.college}</span>. I work where machine learning
-            meets software engineering — Python that turns data into decisions and keeps working
-            after the demo.
+            <span className="text-white">{PROFILE.college}</span>. I sit at the intersection of
+            machine learning and software engineering — Python that turns data into decisions and
+            keeps working after the demo ends.
           </p>
           <p className="mt-5 text-[oklch(0.75_0.02_260)]">
-            Seeking a high-caliber SDE or ML role with real ownership. I want a team that ships —
-            and to contribute from day one.
+            Looking for an SDE or ML role with real ownership. I want a team that ships product,
+            values rigorous evaluation, and lets strong juniors contribute from day one.
           </p>
           <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
             {VALUE.map((s, i) => (
@@ -615,8 +618,8 @@ function About() {
               CGPA {PROFILE.cgpa}
             </div>
             <p className="mt-4 text-xs leading-relaxed text-[oklch(0.7_0.02_260)]">
-              Pre-final year. Building production-style ML systems. Seeking roles with serious
-              ownership.
+              {PROFILE.year}. Building production-style ML systems. Targeting product teams with
+              serious ownership.
             </p>
           </div>
           <div className="mt-8 rounded-2xl border border-[oklch(0.55_0.25_260/0.25)] bg-[oklch(0.15_0.05_260/0.4)] p-4">
@@ -624,8 +627,8 @@ function About() {
               <Zap className="h-3.5 w-3.5" aria-hidden /> Focus now
             </div>
             <p className="mt-2 text-xs leading-relaxed text-[oklch(0.82_0.02_260)]">
-              Production NLP pipelines, rigorous ML evaluation, and engineering habits that turn
-              prototypes into reliable systems.
+              Production NLP pipelines, leakage-aware evaluation, and engineering habits that turn
+              prototypes into systems a team can run.
             </p>
           </div>
         </motion.div>
@@ -746,9 +749,21 @@ function Projects() {
                 </div>
               </div>
               <h3 className="display text-xl leading-snug text-white">{p.title}</h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-[oklch(0.75_0.03_260)]">
-                {p.body}
-              </p>
+              <p className="mt-3 text-sm leading-relaxed text-[oklch(0.75_0.03_260)]">{p.body}</p>
+              <ul className="mt-4 space-y-1.5">
+                {p.highlights.map((h) => (
+                  <li
+                    key={h}
+                    className="flex items-start gap-2 text-xs text-[oklch(0.78_0.03_260)]"
+                  >
+                    <CheckCircle2
+                      className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[oklch(0.7_0.12_250)]"
+                      aria-hidden
+                    />
+                    {h}
+                  </li>
+                ))}
+              </ul>
               <div className="mt-5 border-t border-[oklch(0.55_0.25_260/0.15)] pt-4 text-[10px] uppercase tracking-[0.18em] text-[oklch(0.72_0.1_260)]">
                 {p.outcome}
               </div>
@@ -784,7 +799,7 @@ function Projects() {
               github.com/{PROFILE.githubHandle}
             </div>
             <div className="text-xs text-[oklch(0.7_0.03_260)]">
-              Code, experiments, and implementation details
+              Source code, experiments, and implementation detail
             </div>
           </div>
         </div>
@@ -802,7 +817,12 @@ function Contact() {
     { icon: Mail, label: "Email", value: PROFILE.email, href: mailOpportunity() },
     { icon: Phone, label: "Phone", value: PROFILE.phoneDisplay, href: `tel:+91${PROFILE.phone}` },
     { icon: Github, label: "GitHub", value: PROFILE.githubHandle, href: PROFILE.github },
-    { icon: MapPin, label: "Location", value: PROFILE.location, href: undefined as string | undefined },
+    {
+      icon: MapPin,
+      label: "Location",
+      value: PROFILE.location,
+      href: undefined as string | undefined,
+    },
   ];
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -817,7 +837,7 @@ function Contact() {
   };
 
   return (
-    <Section id="contact" eyebrow="Contact" title="Ready when you are.">
+    <Section id="contact" eyebrow="Contact" title="Let's build something that ships.">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         <motion.div
           initial={{ opacity: 0, x: -30 }}
@@ -827,11 +847,12 @@ function Contact() {
           className="glass rounded-3xl p-8"
         >
           <p className="text-lg leading-relaxed text-[oklch(0.88_0.02_260)]">
-            Hiring for AI, ML, or software engineering with real ownership? I am ready to join,
+            Hiring for SDE, ML, or applied AI with real ownership? I am ready to join a product team,
             contribute, and ship.
           </p>
           <p className="mt-4 text-sm text-[oklch(0.72_0.03_260)]">
-            Prefer a direct conversation. Reach out on any channel below.
+            Open to full-time and strong internships. Prefer a direct conversation — use any channel
+            below or the form.
           </p>
           <div className="mt-8 space-y-3">
             {items.map((it) => {
@@ -917,7 +938,7 @@ function Contact() {
                 required
                 name="message"
                 rows={4}
-                placeholder="Role, team, or what you're looking for…"
+                placeholder="Role, team, stack, or what you're hiring for…"
                 className="mt-1.5 w-full resize-none rounded-xl border border-[oklch(0.55_0.25_260/0.25)] bg-[oklch(0.12_0.04_260/0.6)] px-4 py-3 text-sm text-white outline-none transition placeholder:text-[oklch(0.5_0.02_260)] focus:border-[oklch(0.55_0.25_260)] focus:glow-ring"
               />
             </label>
@@ -972,7 +993,7 @@ function Footer() {
           </span>
         </div>
         <div className="hidden text-[10px] uppercase tracking-[0.35em] text-[oklch(0.6_0.03_260)] md:block">
-          Built for impact · Chennai, IN
+          Built to ship · Chennai, IN
         </div>
         <a
           href="#top"
