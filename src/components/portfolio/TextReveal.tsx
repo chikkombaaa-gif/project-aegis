@@ -1,7 +1,5 @@
-import { motion } from "framer-motion";
-
-/** Premium ease — Apple-like deceleration */
-const ease = [0.22, 1, 0.36, 1] as const;
+import { motion, useReducedMotion } from "framer-motion";
+import { easeExpo } from "@/lib/motion";
 
 export function TextReveal({
   text,
@@ -12,7 +10,13 @@ export function TextReveal({
   className?: string;
   delay?: number;
 }) {
+  const reduced = useReducedMotion();
   const letters = Array.from(text);
+
+  if (reduced) {
+    return <span className={className}>{text}</span>;
+  }
+
   return (
     <motion.span
       className={className}
@@ -21,7 +25,7 @@ export function TextReveal({
       variants={{
         show: {
           transition: {
-            staggerChildren: 0.032,
+            staggerChildren: 0.028,
             delayChildren: delay,
           },
         },
@@ -29,30 +33,37 @@ export function TextReveal({
       aria-label={text}
     >
       {letters.map((ch, i) => (
-        <motion.span
-          key={i}
-          aria-hidden
-          className="inline-block will-change-transform"
-          variants={{
-            hidden: {
-              y: "100%",
-              opacity: 0,
-              filter: "blur(6px)",
-            },
-            show: {
-              y: 0,
-              opacity: 1,
-              filter: "blur(0px)",
-              transition: {
-                duration: 0.85,
-                ease,
+        <span key={i} className="inline-block overflow-hidden align-bottom leading-none">
+          <motion.span
+            aria-hidden
+            className="inline-block will-change-transform"
+            variants={{
+              hidden: {
+                y: "110%",
+                opacity: 0,
+                rotateX: 40,
+                filter: "blur(8px)",
               },
-            },
-          }}
-          style={{ whiteSpace: ch === " " ? "pre" : undefined }}
-        >
-          {ch}
-        </motion.span>
+              show: {
+                y: 0,
+                opacity: 1,
+                rotateX: 0,
+                filter: "blur(0px)",
+                transition: {
+                  duration: 0.95,
+                  ease: easeExpo,
+                },
+              },
+            }}
+            style={{
+              whiteSpace: ch === " " ? "pre" : undefined,
+              transformOrigin: "bottom",
+              display: "inline-block",
+            }}
+          >
+            {ch}
+          </motion.span>
+        </span>
       ))}
     </motion.span>
   );

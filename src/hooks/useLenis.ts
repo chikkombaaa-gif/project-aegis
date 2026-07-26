@@ -10,10 +10,15 @@ export function useLenis() {
     if (reduced) return;
 
     const lenis = new Lenis({
-      duration: 1.25,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.35,
+      easing: (t: number) => {
+        // Expo-ish out — buttery, award-site feel
+        return t === 1 ? 1 : 1 - Math.pow(2, -12 * t);
+      },
       smoothWheel: true,
-      touchMultiplier: 1.2,
+      wheelMultiplier: 0.95,
+      touchMultiplier: 1.15,
+      infinite: false,
     });
 
     let raf = 0;
@@ -31,7 +36,11 @@ export function useLenis() {
       const el = document.querySelector(href);
       if (!el) return;
       e.preventDefault();
-      lenis.scrollTo(el as HTMLElement, { offset: -72, duration: 1.5 });
+      lenis.scrollTo(el as HTMLElement, {
+        offset: -80,
+        duration: 1.6,
+        easing: (t: number) => (t === 1 ? 1 : 1 - Math.pow(2, -11 * t)),
+      });
     };
     document.addEventListener("click", onClick);
 

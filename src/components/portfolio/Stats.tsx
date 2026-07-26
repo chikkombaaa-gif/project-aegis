@@ -1,17 +1,37 @@
-import { motion, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import { useEffect, useRef } from "react";
+import { easeOut } from "@/lib/motion";
 
 function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
+  const reduced = useReducedMotion();
   const mv = useMotionValue(0);
-  const spring = useSpring(mv, { stiffness: 55, damping: 22, mass: 0.9 });
+  const spring = useSpring(mv, { stiffness: 60, damping: 24, mass: 0.85 });
   const rounded = useTransform(spring, (v) =>
     to % 1 === 0 ? Math.round(v).toString() : v.toFixed(1),
   );
+
   useEffect(() => {
     if (inView) mv.set(to);
   }, [inView, mv, to]);
+
+  if (reduced) {
+    return (
+      <span className="tabular-nums">
+        {to % 1 === 0 ? to : to.toFixed(1)}
+        {suffix}
+      </span>
+    );
+  }
+
   return (
     <span ref={ref} className="tabular-nums">
       <motion.span>{rounded}</motion.span>
@@ -37,10 +57,10 @@ export function Stats() {
         {STATS.map((s, i) => (
           <motion.div
             key={s.label}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 28, filter: "blur(6px)" }}
+            whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             viewport={{ once: true, margin: "-40px" }}
-            transition={{ delay: i * 0.1, duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ delay: i * 0.12, duration: 0.85, ease: easeOut }}
             className="relative flex flex-col items-start pl-1"
           >
             <div
