@@ -13,7 +13,8 @@ export const PROFILE = {
   fullName: "Barath Velu",
   role: "AI & Machine Learning Engineer",
   tagline:
-    "I build production-ready NLP and ML systems — clean Python, rigorous evaluation, and pipelines that survive outside the notebook.",
+    "I turn messy data into reliable ML systems — production-minded Python, honest evaluation, and NLP pipelines teams can actually run.",
+  availability: "Open to SDE & ML roles · Full-time & internships",
   email: "barathvelu777@gmail.com",
   phone: "7550140875",
   phoneDisplay: "+91 75501 40875",
@@ -24,6 +25,7 @@ export const PROFILE = {
   college: "Jeppiaar Engineering College",
   degree: "B.E. Computer Science & Engineering (AI & ML)",
   university: "Affiliated to Anna University",
+  year: "Pre-final year",
 } as const;
 
 export type SkillGroup = {
@@ -34,51 +36,68 @@ export type SkillGroup = {
 };
 
 export const SKILLS: SkillGroup[] = [
-  { group: "Languages", icon: Code2, items: ["Python", "SQL"], level: 92 },
+  {
+    group: "Languages",
+    icon: Code2,
+    items: ["Python", "SQL", "TypeScript basics"],
+    level: 92,
+  },
   {
     group: "NLP",
     icon: Brain,
-    items: ["Text Classification", "Preprocessing", "Tokenization", "Text Analytics"],
+    items: [
+      "Text Classification",
+      "Preprocessing",
+      "Tokenization",
+      "Feature Extraction",
+      "Text Analytics",
+    ],
     level: 88,
   },
   {
     group: "Machine Learning",
     icon: Cpu,
-    items: ["Supervised Learning", "Feature Engineering", "Cross-Validation", "Model Selection"],
+    items: [
+      "Supervised Learning",
+      "Feature Engineering",
+      "Cross-Validation",
+      "Model Selection",
+      "Metrics & Diagnostics",
+    ],
     level: 86,
   },
   {
     group: "Deep Learning",
     icon: Sparkles,
-    items: ["Neural Networks", "Representation Learning"],
+    items: ["Neural Networks", "Representation Learning", "Generalization focus"],
     level: 78,
   },
   {
     group: "Data & Storage",
     icon: Database,
-    items: ["MongoDB", "Data Pipelines", "ETL patterns"],
+    items: ["MongoDB", "Data Pipelines", "ETL patterns", "Document stores"],
     level: 85,
   },
   {
     group: "Engineering",
     icon: Layers,
-    items: ["Scikit-learn", "Pandas", "NumPy", "Git", "Clean Code"],
+    items: ["Scikit-learn", "Pandas", "NumPy", "Git", "Clean Architecture"],
     level: 90,
   },
 ];
 
 export const VALUE = [
   {
-    title: "Ship, don't just experiment",
-    body: "Models are products. Metrics, data handling, and inference are designed together — never as afterthoughts.",
+    title: "Ship systems, not demos",
+    body: "I design metrics, data flow, and inference together so models survive outside a notebook and can be owned by a team.",
   },
   {
-    title: "Python that becomes systems",
-    body: "Modular, readable Python with MongoDB. Pipelines that move from prototype to something a team can run.",
+    title: "Honest evaluation",
+    body: "Leakage-aware splits, cross-validation, and clear metrics. I report what the model actually does — not inflated scores.",
   },
   {
-    title: "NLP for real data",
-    body: "From raw text to structured insight. Classification and analytics built for messy, real-world inputs.",
+    title: "NLP on real text",
+    body: "Classification and analytics built for noisy, real-world inputs — from raw documents to decisions you can trust.",
   },
 ] as const;
 
@@ -91,6 +110,7 @@ export type Project = {
   tags: string[];
   body: string;
   outcome: string;
+  highlights: string[];
 };
 
 export const PROJECTS: Project[] = [
@@ -99,24 +119,39 @@ export const PROJECTS: Project[] = [
     status: "Active",
     year: "2025–26",
     tags: ["Python", "NLP", "MongoDB", "Scikit-learn"],
-    body: "Complete pipeline: ingestion → preprocessing → features → training → evaluation → inference. MongoDB for durable document and prediction storage. Structured for reproducibility and a clear path to serving.",
-    outcome: "Production architecture · Reproducible evaluation",
+    body: "Full pipeline from raw text to predictions: ingestion, cleaning, features, training, evaluation, and inference. MongoDB stores documents and outputs for a path toward serving — not a one-off script.",
+    outcome: "Reproducible pipeline · Storage-backed predictions",
+    highlights: [
+      "Modular stages you can swap or extend",
+      "Durable storage for inputs & outputs",
+      "Evaluation wired into the loop",
+    ],
   },
   {
     title: "Supervised ML Prediction System",
     status: "Completed",
     year: "2025",
     tags: ["Python", "ML", "Feature Engineering", "Validation"],
-    body: "Full supervised workflow with leakage-aware splits, cross-validation, and metric-driven model selection. Honest performance reporting — not inflated notebook scores.",
-    outcome: "Evaluation discipline · Leakage-aware design",
+    body: "End-to-end supervised workflow with careful train/validation design, cross-validation, and metric-driven model choice. Built to avoid leakage and overclaiming performance.",
+    outcome: "Leakage-aware design · Metric-first selection",
+    highlights: [
+      "Feature engineering with clear train/test boundaries",
+      "CV-based model comparison",
+      "Transparent performance reporting",
+    ],
   },
   {
     title: "Deep Learning Representation Experiments",
     status: "In Progress",
     year: "2026",
-    tags: ["Python", "Neural Nets", "Representation Learning"],
-    body: "Neural architectures for stronger representations on structured and text data. Focus on what the model learns and how it generalizes — not leaderboard chasing.",
-    outcome: "Research mindset · Generalization first",
+    tags: ["Python", "Neural Nets", "Representations"],
+    body: "Experiments on neural representations for structured and text data — emphasizing generalization and what the model learns, not leaderboard chasing.",
+    outcome: "Research rigor · Generalization first",
+    highlights: [
+      "Architecture & representation focus",
+      "Generalization over vanity metrics",
+      "Iterative, measured experiments",
+    ],
   },
 ];
 
@@ -143,6 +178,6 @@ export const SECTIONS = [
 
 export const PORTRAIT_URL = "/assets/barath.png";
 
-export function mailOpportunity(subject = "Opportunity for Barath V") {
+export function mailOpportunity(subject = "Opportunity for Barath V — SDE / ML") {
   return `mailto:${PROFILE.email}?subject=${encodeURIComponent(subject)}`;
 }

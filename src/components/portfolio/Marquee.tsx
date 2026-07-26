@@ -6,8 +6,8 @@ const ITEMS = [
   "Machine Learning",
   "MongoDB",
   "Scikit-learn",
-  "Deep Learning",
   "Feature Engineering",
+  "Cross-Validation",
   "Model Evaluation",
   "Data Pipelines",
   "Clean Code",
@@ -15,6 +15,8 @@ const ITEMS = [
   "Pandas",
   "NumPy",
   "Production ML",
+  "SQL",
+  "System Design thinking",
 ];
 
 export function Marquee() {

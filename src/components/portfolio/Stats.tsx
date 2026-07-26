@@ -22,9 +22,9 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 
 const STATS = [
   { label: "CGPA", value: 8.0, suffix: " / 10" },
-  { label: "Core Domains", value: 6, suffix: "" },
-  { label: "Years Building", value: 3, suffix: "+" },
-  { label: "Systems in Focus", value: 3, suffix: "" },
+  { label: "Focus areas", value: 6, suffix: "" },
+  { label: "Years building", value: 3, suffix: "+" },
+  { label: "Shipped systems", value: 3, suffix: "" },
 ];
 
 export function Stats() {
