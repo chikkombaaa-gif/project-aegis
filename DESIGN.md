@@ -24,7 +24,7 @@
 
 | Role | Font |
 |------|------|
-| Body | Geist Sans |
+| Body | Inter |
 | Display / headings | Syne |
 
 Tracking on display: `-0.03em`. Section labels: 11px uppercase ~0.35em tracking.
@@ -40,7 +40,7 @@ Base unit **8px**. Section vertical padding `py-24` / `md:py-32`. Content max wi
 - **Magnetic** — soft cursor pull on primary buttons
 - **Loader** — BV splash on first paint
 - **Cursor** — desktop-only follower (disabled on touch / reduced motion)
-- **Particles** — canvas node field (hero)
+- **Particles** — canvas neural-node field (hero)
 
 ## Motion
 
