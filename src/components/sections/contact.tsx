@@ -2,30 +2,78 @@
 
 import { FormEvent, useState } from "react";
 import { motion } from "framer-motion";
-import { CheckCircle2, Github, Mail, MapPin, Phone } from "lucide-react";
+import { CheckCircle2, Github, Loader2, Mail, MapPin, Phone } from "lucide-react";
 import { PROFILE } from "@/data/content";
 import { easeOut } from "@/lib/motion";
 
-export function Contact() {
-  const [sent, setSent] = useState(false);
+type Status = "idle" | "loading" | "success" | "error";
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+export function Contact() {
+  const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState<string | null>(null);
+
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError(null);
+
     const form = e.currentTarget;
-    const name = (form.elements.namedItem("name") as HTMLInputElement).value.trim();
-    const email = (form.elements.namedItem("email") as HTMLInputElement).value.trim();
-    const message = (form.elements.namedItem("message") as HTMLTextAreaElement).value.trim();
-    const subject = encodeURIComponent(`Opportunity from ${name || "portfolio"}`);
-    const body = encodeURIComponent(`From: ${name}\nEmail: ${email}\n\n${message}`);
-    window.location.href = `mailto:${PROFILE.email}?subject=${subject}&body=${body}`;
-    setSent(true);
+    const fd = new FormData(form);
+    const name = String(fd.get("name") ?? "").trim();
+    const email = String(fd.get("email") ?? "").trim();
+    const message = String(fd.get("message") ?? "").trim();
+    const website = String(fd.get("website") ?? "").trim(); // honeypot
+
+    if (name.length < 2) {
+      setError("Please enter your name.");
+      setStatus("error");
+      return;
+    }
+    if (!/^[^
+\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError("Please enter a valid work email.");
+      setStatus("error");
+      return;
+    }
+    if (message.length < 10) {
+      setError("Please write a short message (at least 10 characters).");
+      setStatus("error");
+      return;
+    }
+
+    setStatus("loading");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message, website }),
+      });
+      const data = (await res.json()) as { ok?: boolean; error?: string };
+
+      if (!res.ok || !data.ok) {
+        setStatus("error");
+        setError(data.error || "Something went wrong. Please try again or email directly.");
+        return;
+      }
+
+      setStatus("success");
+      form.reset();
+    } catch {
+      setStatus("error");
+      setError("Network error. Please email barathvelu777@gmail.com directly.");
+    }
   };
 
   const links = [
     { icon: Mail, label: "Email", value: PROFILE.email, href: `mailto:${PROFILE.email}` },
     { icon: Phone, label: "Phone", value: PROFILE.phone, href: `tel:${PROFILE.phoneTel}` },
     { icon: Github, label: "GitHub", value: PROFILE.githubHandle, href: PROFILE.github },
-    { icon: MapPin, label: "Location", value: PROFILE.location, href: undefined as string | undefined },
+    {
+      icon: MapPin,
+      label: "Location",
+      value: PROFILE.location,
+      href: undefined as string | undefined,
+    },
   ];
 
   return (
@@ -76,22 +124,44 @@ export function Contact() {
             })}
           </motion.div>
 
-          <motion.form
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.08, ease: easeOut }}
-            onSubmit={onSubmit}
             className="glass rounded-3xl p-6 md:p-8"
           >
-            {sent ? (
-              <div className="flex flex-col items-center justify-center gap-3 py-12 text-center">
-                <CheckCircle2 className="h-10 w-10 text-[var(--accent)]" />
-                <p className="font-display text-xl font-semibold">Opening your mail client…</p>
-                <p className="text-sm text-[var(--muted)]">Thanks for reaching out.</p>
+            {status === "success" ? (
+              <div
+                className="flex flex-col items-center justify-center gap-3 py-12 text-center"
+                role="status"
+                aria-live="polite"
+              >
+                <CheckCircle2 className="h-10 w-10 text-[var(--accent)]" aria-hidden />
+                <p className="font-display text-xl font-semibold">Message sent</p>
+                <p className="max-w-sm text-sm text-[var(--muted)]">
+                  Thanks for reaching out. I’ll get back to you soon.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setStatus("idle")}
+                  className="mt-4 text-sm text-[var(--accent)] underline-offset-4 hover:underline"
+                >
+                  Send another message
+                </button>
               </div>
             ) : (
-              <div className="space-y-4">
+              <form onSubmit={onSubmit} noValidate className="space-y-4">
+                {/* Honeypot — hidden from users */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  className="absolute left-[-9999px] h-0 w-0 opacity-0"
+                  aria-hidden
+                />
+
                 <label className="block">
                   <span className="text-[10px] uppercase tracking-[0.25em] text-[var(--muted)]">
                     Name
@@ -99,20 +169,26 @@ export function Contact() {
                   <input
                     required
                     name="name"
-                    className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none focus:border-[var(--accent)]"
+                    autoComplete="name"
+                    disabled={status === "loading"}
+                    className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none transition focus:border-[var(--accent)] disabled:opacity-60"
                   />
                 </label>
+
                 <label className="block">
                   <span className="text-[10px] uppercase tracking-[0.25em] text-[var(--muted)]">
-                    Email
+                    Work email
                   </span>
                   <input
                     required
                     type="email"
                     name="email"
-                    className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none focus:border-[var(--accent)]"
+                    autoComplete="email"
+                    disabled={status === "loading"}
+                    className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none transition focus:border-[var(--accent)] disabled:opacity-60"
                   />
                 </label>
+
                 <label className="block">
                   <span className="text-[10px] uppercase tracking-[0.25em] text-[var(--muted)]">
                     Message
@@ -121,19 +197,42 @@ export function Contact() {
                     required
                     name="message"
                     rows={4}
-                    className="mt-1.5 w-full resize-none rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none focus:border-[var(--accent)]"
+                    disabled={status === "loading"}
+                    className="mt-1.5 w-full resize-none rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none transition focus:border-[var(--accent)] disabled:opacity-60"
                     placeholder="Role, team, or what you’re hiring for…"
                   />
                 </label>
+
+                {error && (
+                  <p className="text-sm text-red-400" role="alert" aria-live="assertive">
+                    {error}
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  className="w-full rounded-xl bg-[var(--fg)] px-6 py-3.5 text-sm font-semibold text-[var(--bg)]"
+                  disabled={status === "loading"}
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--fg)] px-6 py-3.5 text-sm font-semibold text-[var(--bg)] transition disabled:opacity-70"
                 >
-                  Send message
+                  {status === "loading" ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
+                      Sending…
+                    </>
+                  ) : (
+                    "Send message"
+                  )}
                 </button>
-              </div>
+
+                <p className="text-center text-[11px] text-[var(--muted)]">
+                  Or email{" "}
+                  <a href={`mailto:${PROFILE.email}`} className="text-[var(--accent)] hover:underline">
+                    {PROFILE.email}
+                  </a>
+                </p>
+              </form>
             )}
-          </motion.form>
+          </motion.div>
         </div>
       </div>
     </section>
