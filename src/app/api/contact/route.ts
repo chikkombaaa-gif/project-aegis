@@ -6,12 +6,11 @@ type Body = {
   name?: string;
   email?: string;
   message?: string;
-  website?: string; // honeypot
+  website?: string;
 };
 
 function isValidEmail(email: string) {
-  return /^[^
-\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 export async function POST(request: Request) {
@@ -22,7 +21,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Invalid JSON body." }, { status: 400 });
   }
 
-  // Bot honeypot — should stay empty
   if (body.website && body.website.trim().length > 0) {
     return NextResponse.json({ ok: true });
   }
@@ -74,7 +72,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ ok: true });
     }
 
-    // Default: FormSubmit (free). Activate once via the confirmation email.
     const res = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(to)}`, {
       method: "POST",
       headers: {
@@ -98,7 +95,7 @@ export async function POST(request: Request) {
           ok: false,
           error:
             data.message ||
-            "Could not deliver message. Check FormSubmit activation for your inbox, or set WEB3FORMS_ACCESS_KEY.",
+            "Could not deliver message. Check FormSubmit activation email, or set WEB3FORMS_ACCESS_KEY.",
         },
         { status: 502 },
       );
