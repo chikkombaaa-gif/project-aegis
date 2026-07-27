@@ -21,15 +21,14 @@ export function Contact() {
     const name = String(fd.get("name") ?? "").trim();
     const email = String(fd.get("email") ?? "").trim();
     const message = String(fd.get("message") ?? "").trim();
-    const website = String(fd.get("website") ?? "").trim(); // honeypot
+    const website = String(fd.get("website") ?? "").trim();
 
     if (name.length < 2) {
       setError("Please enter your name.");
       setStatus("error");
       return;
     }
-    if (!/^[^
-\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setError("Please enter a valid work email.");
       setStatus("error");
       return;
@@ -60,7 +59,7 @@ export function Contact() {
       form.reset();
     } catch {
       setStatus("error");
-      setError("Network error. Please email barathvelu777@gmail.com directly.");
+      setError(`Network error. Please email ${PROFILE.email} directly.`);
     }
   };
 
@@ -80,7 +79,7 @@ export function Contact() {
     <section id="contact" className="px-5 py-24 md:px-6 md:py-32">
       <div className="mx-auto max-w-6xl">
         <p className="mb-3 text-[11px] uppercase tracking-[0.35em] text-[var(--accent)]">
-          06 — Contact
+          05 — Contact
         </p>
         <h2 className="font-display max-w-2xl text-3xl font-semibold md:text-5xl">
           Let’s build something that ships.
@@ -102,7 +101,7 @@ export function Contact() {
             {links.map((l) => {
               const Icon = l.icon;
               const inner = (
-                <div className="glass flex items-center gap-4 rounded-2xl p-4">
+                <div className="glass flex items-center gap-4 rounded-2xl p-4 transition hover:glow-border">
                   <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--border)]">
                     <Icon className="h-4 w-4 text-[var(--accent)]" />
                   </div>
@@ -115,7 +114,7 @@ export function Contact() {
                 </div>
               );
               return l.href ? (
-                <a key={l.label} href={l.href} className="block transition hover:opacity-90">
+                <a key={l.label} href={l.href} className="block">
                   {inner}
                 </a>
               ) : (
@@ -152,7 +151,6 @@ export function Contact() {
               </div>
             ) : (
               <form onSubmit={onSubmit} noValidate className="space-y-4">
-                {/* Honeypot — hidden from users */}
                 <input
                   type="text"
                   name="website"
