@@ -1,39 +1,31 @@
 # Barath V — Portfolio
 
-AI & Machine Learning Engineer · Next.js 15 · dark-first · case-study work.
+AI & Machine Learning Engineer · Vite · React · Framer Motion
 
 **Live:** [vbarathportfolio.vercel.app](https://vbarathportfolio.vercel.app/)
 
-## Stack
-
-- Next.js 15 (App Router) + TypeScript
-- Tailwind CSS v4
-- Framer Motion + next-themes
-- Contact API (`/api/contact` → FormSubmit / Web3Forms)
-
-## Setup
+## Run locally
 
 ```bash
-npm install --legacy-peer-deps
+npm install
 npm run dev
 npm run build
 ```
 
 ## Content
 
-Edit **`src/data/content.ts`** only.
+Edit `src/data/content.ts` only.
 
-Do **not** publish placeholder projects, fake jobs, or empty writing links.
+## Vercel settings (required)
 
-Optional:
+| Setting | Value |
+|---------|--------|
+| Framework | **Other** (not Next.js) |
+| Build Command | `npm run build` |
+| Output Directory | **`dist`** |
+| Install Command | `npm install` |
 
-- `public/resume.pdf` — then link it from the hero
-- Compress `public/assets/barath.png` to ~200KB
-- Set `WEB3FORMS_ACCESS_KEY` on Vercel for reliable form delivery
-
-## Vercel
-
-Framework: **Next.js**. Clear any old Vite **Output Directory** (`dist`).
+Then **Redeploy** latest `main` with **no build cache**.
 
 ## License
 
