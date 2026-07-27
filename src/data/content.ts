@@ -1,27 +1,23 @@
 /**
- * PLACEHOLDER CONTENT — replace with your real data.
- * Single source of truth for the entire portfolio.
+ * Single source of truth — keep this honest.
+ * No fake companies, no placeholder projects on the live site.
  */
 
 export const PROFILE = {
   name: "Barath V",
   fullName: "Barath Velu",
   role: "AI & Machine Learning Engineer",
-  // TODO: replace with your final one-liner
   tagline:
-    "I design and ship ML systems that survive production — rigorous evaluation, clean Python, and NLP pipelines teams can own.",
-  availability: "Available for full-time roles · internships · research collaboration",
+    "I build ML systems that survive outside the notebook — clean Python, leakage-aware evaluation, and NLP pipelines a team can run.",
+  availability: "Open to SDE & ML roles · Full-time & internships",
   email: "barathvelu777@gmail.com",
   phone: "+91 75501 40875",
   phoneTel: "+917550140875",
   location: "Chennai, India",
   github: "https://github.com/barathvelu1",
   githubHandle: "barathvelu1",
-  linkedin: "https://linkedin.com/in/", // TODO: your LinkedIn URL
-  x: "", // TODO: optional
-  kaggle: "", // TODO: optional
-  scholar: "", // TODO: optional
-  resumeUrl: "/resume.pdf", // TODO: add public/resume.pdf
+  linkedin: "",
+  resumeUrl: "/resume.pdf",
   photo: "/assets/barath.png",
   cgpa: "8.0 / 10",
   college: "Jeppiaar Engineering College",
@@ -31,7 +27,7 @@ export const PROFILE = {
 } as const;
 
 export const HIGHLIGHTS = [
-  { label: "Focus", value: "NLP · Supervised ML · Pipelines" },
+  { label: "Focus", value: "NLP · Supervised ML" },
   { label: "CGPA", value: "8.0 / 10" },
   { label: "Stage", value: "Pre-final year" },
   { label: "Base", value: "Chennai, IN" },
@@ -61,7 +57,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     ],
   },
   {
-    name: "NLP / LLMs",
+    name: "NLP",
     skills: [
       { name: "Text Classification", level: 88, years: "2+" },
       { name: "Preprocessing & Tokenization", level: 90, years: "2+" },
@@ -70,20 +66,12 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     ],
   },
   {
-    name: "MLOps & Data",
-    skills: [
-      { name: "Data Pipelines", level: 82, years: "1+" },
-      { name: "MongoDB", level: 85, years: "2+" },
-      { name: "ETL patterns", level: 80, years: "1+" },
-      { name: "Experiment tracking mindset", level: 78, years: "1+" },
-    ],
-  },
-  {
-    name: "Tools & Frameworks",
+    name: "Data & Engineering",
     skills: [
       { name: "Python", level: 92, years: "3+" },
       { name: "Scikit-learn", level: 90, years: "2+" },
       { name: "Pandas / NumPy", level: 90, years: "3+" },
+      { name: "MongoDB", level: 85, years: "2+" },
       { name: "Git", level: 88, years: "3+" },
       { name: "SQL", level: 82, years: "2+" },
     ],
@@ -105,7 +93,6 @@ export type Project = {
   year: string;
   github?: string;
   demo?: string;
-  cover?: string; // TODO: add cover images under /public/projects/
 };
 
 export const PROJECTS: Project[] = [
@@ -115,11 +102,11 @@ export const PROJECTS: Project[] = [
     summary:
       "Full text → prediction pipeline with durable storage and evaluation in the loop.",
     problem:
-      "Ad-hoc notebook classifiers don’t transfer to real systems: no clear stages, weak evaluation, no storage for inputs/outputs.",
+      "Notebook classifiers rarely transfer: unclear stages, weak evaluation, no storage for inputs or outputs.",
     approach:
       "Modular stages: ingest → clean → features → train → evaluate → infer. MongoDB for documents and predictions.",
     architecture:
-      "Linear pipeline with swappable stages; train/eval separated; inference path shares feature code with training.",
+      "Linear pipeline with swappable stages; train/eval separated; inference shares feature code with training.",
     results:
       "Reproducible runs, stored predictions, evaluation wired into the workflow — not a one-off script.",
     learned:
@@ -144,9 +131,9 @@ export const PROJECTS: Project[] = [
     approach:
       "Strict train/validation boundaries, cross-validation, metric-first model comparison.",
     architecture:
-      "Feature store mindset in code: transform fit on train only; evaluate on held-out folds.",
+      "Transforms fit on train only; evaluate on held-out folds; selection prefers generalization.",
     results:
-      "Transparent performance reporting and a selection process that prefers generalization.",
+      "Transparent performance reporting and a selection process you can defend in review.",
     learned:
       "The split protocol is part of the model — document it like an API.",
     tags: ["Python", "ML", "Feature Engineering", "Validation"],
@@ -184,24 +171,6 @@ export const PROJECTS: Project[] = [
     year: "2026",
     github: "https://github.com/barathvelu1",
   },
-  {
-    id: "placeholder-4",
-    title: "[PLACEHOLDER] Project Four",
-    summary: "Replace with your fourth strong project — impact metrics required.",
-    problem: "TODO: problem statement",
-    approach: "TODO: approach",
-    architecture: "TODO: architecture overview",
-    results: "TODO: measurable results",
-    learned: "TODO: lessons",
-    tags: ["Python", "TODO"],
-    metrics: [
-      { label: "Metric", value: "TODO" },
-      { label: "Impact", value: "TODO" },
-    ],
-    status: "In Progress",
-    year: "2026",
-    github: "https://github.com/barathvelu1",
-  },
 ];
 
 export type TimelineItem = {
@@ -226,34 +195,12 @@ export const TIMELINE: TimelineItem[] = [
     ],
     tech: ["Python", "ML", "NLP"],
   },
-  {
-    type: "experience",
-    title: "[PLACEHOLDER] Role / Internship",
-    org: "Company or lab name",
-    period: "YYYY – YYYY",
-    bullets: [
-      "TODO: impact bullet with metric",
-      "TODO: ownership / systems work",
-      "TODO: collaboration or shipping outcome",
-    ],
-    tech: ["Python", "TODO"],
-  },
 ];
-
-export const WRITING = [
-  {
-    title: "[PLACEHOLDER] Technical note or post",
-    summary: "Short description of a blog post, paper, or deep-dive.",
-    href: "#",
-    year: "2026",
-  },
-] as const;
 
 export const NAV = [
   { id: "about", label: "About" },
   { id: "skills", label: "Skills" },
   { id: "projects", label: "Work" },
   { id: "experience", label: "Experience" },
-  { id: "writing", label: "Writing" },
   { id: "contact", label: "Contact" },
 ] as const;
