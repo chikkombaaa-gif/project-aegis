@@ -3,7 +3,7 @@ export const PROFILE = {
   fullName: "Barath Velu",
   role: "AI & Machine Learning Engineer",
   tagline:
-    "I turn messy data into reliable ML systems — production-minded Python, honest evaluation, and NLP pipelines teams can actually run.",
+    "I build ML systems that work outside the notebook — Python, honest evaluation, and NLP pipelines a team can run and own.",
   availability: "Open to SDE & ML roles · Full-time & internships",
   email: "barathvelu777@gmail.com",
   phone: "7550140875",
@@ -22,7 +22,7 @@ export const PROFILE = {
 export const VALUE = [
   {
     title: "Ship systems, not demos",
-    body: "I design metrics, data flow, and inference together so models survive outside a notebook and can be owned by a team.",
+    body: "Metrics, data flow, and inference designed together so models survive outside a notebook and can be owned by a team.",
   },
   {
     title: "Honest evaluation",
@@ -30,7 +30,7 @@ export const VALUE = [
   },
   {
     title: "NLP on real text",
-    body: "Classification and analytics built for noisy, real-world inputs — from raw documents to decisions you can trust.",
+    body: "Classification and analytics built for noisy inputs — from raw documents to decisions you can defend in review.",
   },
 ] as const;
 
@@ -84,18 +84,22 @@ export type Project = {
   href?: string;
 };
 
+/**
+ * Keep every claim true. Link real repos when they exist.
+ * Recruiters check GitHub — empty or profile-only links hurt more than no link.
+ */
 export const PROJECTS: Project[] = [
   {
     title: "End-to-End NLP Classification Pipeline",
     status: "Active",
     year: "2025–26",
     tags: ["Python", "NLP", "MongoDB", "Scikit-learn"],
-    body: "Full pipeline from raw text to predictions: ingestion, cleaning, features, training, evaluation, and inference. MongoDB stores documents and outputs for a path toward serving — not a one-off script.",
+    body: "Full pipeline from raw text to predictions: ingestion, cleaning, features, training, evaluation, and inference. MongoDB stores documents and outputs so the path to serving is real — not a one-off notebook.",
     outcome: "Reproducible pipeline · Storage-backed predictions",
     highlights: [
       "Modular stages you can swap or extend",
-      "Durable storage for inputs & outputs",
-      "Evaluation wired into the loop",
+      "Durable storage for inputs and outputs",
+      "Evaluation wired into the training loop",
     ],
     href: "https://github.com/barathvelu1",
   },
@@ -104,10 +108,10 @@ export const PROJECTS: Project[] = [
     status: "Completed",
     year: "2025",
     tags: ["Python", "ML", "Feature Engineering", "Validation"],
-    body: "End-to-end supervised workflow with careful train/validation design, cross-validation, and metric-driven model choice. Built to avoid leakage and overclaiming performance.",
+    body: "End-to-end supervised workflow with strict train/validation boundaries, cross-validation, and metric-driven model choice — built to avoid leakage and overclaiming performance.",
     outcome: "Leakage-aware design · Metric-first selection",
     highlights: [
-      "Feature engineering with clear train/test boundaries",
+      "Feature transforms fit on train only",
       "CV-based model comparison",
       "Transparent performance reporting",
     ],
@@ -118,12 +122,12 @@ export const PROJECTS: Project[] = [
     status: "In Progress",
     year: "2026",
     tags: ["Python", "Neural Nets", "Representations"],
-    body: "Experiments on neural representations for structured and text data — emphasizing generalization and what the model learns, not leaderboard chasing.",
-    outcome: "Research rigor · Generalization first",
+    body: "Experiments on neural representations for structured and text data — prioritising generalisation and what the model learns, not leaderboard chasing.",
+    outcome: "Research rigor · Generalisation first",
     highlights: [
-      "Architecture & representation focus",
-      "Generalization over vanity metrics",
-      "Iterative, measured experiments",
+      "Architecture and representation focus",
+      "Generalisation over vanity metrics",
+      "Measured, iterative experiments",
     ],
     href: "https://github.com/barathvelu1",
   },
