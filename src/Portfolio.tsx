@@ -32,15 +32,50 @@ import {
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
+/** Awwwards-style first-load curtain */
+function Splash() {
+  const [show, setShow] = useState(true);
+  useEffect(() => {
+    const t = window.setTimeout(() => setShow(false), 1400);
+    return () => window.clearTimeout(t);
+  }, []);
+  return (
+    <AnimatePresence>
+      {show && (
+        <motion.div
+          className="fixed inset-0 z-[200] flex items-center justify-center bg-[var(--bg)]"
+          exit={{ y: "-100%" }}
+          transition={{ duration: 0.85, ease }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease }}
+            className="text-center"
+          >
+            <div className="display text-3xl tracking-tight text-gradient md:text-4xl">
+              {PROFILE.name}
+            </div>
+            <div className="mt-3 text-[10px] uppercase tracking-[0.4em] text-[var(--muted)]">
+              AI · ML · Systems
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
+
 export default function Portfolio() {
   const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 24 });
+  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 28 });
 
   return (
     <>
+      <Splash />
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[var(--accent)] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black"
+        className="sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[var(--accent)] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black"
       >
         Skip to content
       </a>
@@ -72,7 +107,7 @@ function Navbar() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    const onScroll = () => setScrolled(window.scrollY > 20);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -87,27 +122,27 @@ function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
+      className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
         scrolled || open
-          ? "border-b border-[var(--border)] bg-[color-mix(in_oklab,var(--bg)_82%,transparent)] backdrop-blur-xl"
+          ? "border-b border-[var(--border)] bg-[color-mix(in_oklab,var(--bg)_88%,transparent)] backdrop-blur-2xl"
           : ""
       }`}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-6">
-        <a href="#top" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] text-[11px] font-semibold tracking-widest text-[var(--accent)]">
+      <div className="mx-auto flex h-[4.25rem] max-w-6xl items-center justify-between px-5 md:px-6">
+        <a href="#top" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+          <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-[var(--border)] text-[11px] font-bold tracking-[0.15em] text-[var(--accent)]">
             BV
           </span>
-          <span className="text-xs font-medium tracking-[0.2em] text-[var(--muted)]">
+          <span className="hidden text-xs font-medium tracking-[0.22em] text-[var(--muted)] sm:inline">
             {PROFILE.fullName}
           </span>
         </a>
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-10 md:flex" aria-label="Primary">
           {NAV.map((l) => (
             <a
               key={l.id}
               href={`#${l.id}`}
-              className="text-[11px] uppercase tracking-[0.22em] text-[var(--muted)] transition hover:text-[var(--accent-2)]"
+              className="text-[11px] uppercase tracking-[0.24em] text-[var(--muted)] transition hover:text-[var(--accent-2)]"
             >
               {l.label}
             </a>
@@ -116,7 +151,7 @@ function Navbar() {
         <div className="flex items-center gap-2">
           <a
             href={`mailto:${PROFILE.email}?subject=${encodeURIComponent("Opportunity for Barath Velu")}`}
-            className="hidden rounded-full border border-[var(--border)] bg-[var(--accent)] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-black transition hover:bg-[var(--accent-2)] sm:inline-flex"
+            className="btn-gold hidden sm:inline-flex !py-2 !px-4 text-[11px] uppercase tracking-[0.18em]"
           >
             Hire me
           </a>
@@ -138,7 +173,7 @@ function Navbar() {
             exit={{ height: 0, opacity: 0 }}
             className="overflow-hidden border-t border-[var(--border)] md:hidden"
           >
-            <ul className="flex flex-col gap-1 px-5 py-4">
+            <ul className="flex flex-col gap-1 px-5 py-5">
               {NAV.map((l) => (
                 <li key={l.id}>
                   <a
@@ -162,8 +197,8 @@ function Portrait() {
   const ref = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0.5);
   const my = useMotionValue(0.5);
-  const rx = useSpring(useTransform(my, [0, 1], [8, -8]), { stiffness: 120, damping: 16 });
-  const ry = useSpring(useTransform(mx, [0, 1], [-10, 10]), { stiffness: 120, damping: 16 });
+  const rx = useSpring(useTransform(my, [0, 1], [7, -7]), { stiffness: 100, damping: 18 });
+  const ry = useSpring(useTransform(mx, [0, 1], [-9, 9]), { stiffness: 100, damping: 18 });
 
   return (
     <motion.div
@@ -179,45 +214,45 @@ function Portrait() {
         my.set(0.5);
       }}
       className="relative"
-      style={{ perspective: 1200 }}
+      style={{ perspective: 1400 }}
     >
       <div
-        className="pointer-events-none absolute -inset-10 rounded-[2rem] blur-3xl"
+        className="pointer-events-none absolute -inset-12 rounded-[2.5rem] blur-3xl"
         style={{
           background:
-            "radial-gradient(circle at 30% 20%, color-mix(in oklab, var(--accent) 40%, transparent), transparent 65%)",
+            "radial-gradient(circle at 35% 15%, color-mix(in oklab, var(--accent) 42%, transparent), transparent 62%)",
         }}
       />
       <motion.div
-        className="glass relative overflow-hidden rounded-[1.75rem] p-2"
+        className="glass relative overflow-hidden rounded-[1.85rem] p-2"
         style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d" }}
       >
-        <div className="relative overflow-hidden rounded-[1.4rem]">
+        <div className="relative overflow-hidden rounded-[1.5rem]">
           <img
             src={PROFILE.photo}
             alt={`${PROFILE.fullName} — ${PROFILE.role}`}
             width={400}
             height={520}
-            className="block h-[420px] w-[320px] object-cover object-center md:h-[500px] md:w-[380px]"
+            className="block h-[420px] w-[320px] object-cover object-center md:h-[520px] md:w-[390px]"
             loading="eager"
           />
           <div
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, transparent 42%, color-mix(in oklab, var(--bg) 92%, transparent) 100%)",
+                "linear-gradient(180deg, transparent 40%, color-mix(in oklab, var(--bg) 94%, transparent) 100%)",
             }}
           />
-          <div className="absolute inset-x-4 bottom-4 flex items-end justify-between">
+          <div className="absolute inset-x-5 bottom-5 flex items-end justify-between">
             <div>
-              <div className="text-[9px] uppercase tracking-[0.3em] text-[var(--muted)]">
+              <div className="text-[9px] uppercase tracking-[0.32em] text-[var(--muted)]">
                 {PROFILE.role}
               </div>
-              <div className="display mt-1 text-lg text-[var(--fg)]">{PROFILE.name}</div>
+              <div className="display mt-1 text-xl text-[var(--fg)]">{PROFILE.name}</div>
             </div>
-            <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.25em] text-[var(--accent)]">
+            <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.28em] text-[var(--accent)]">
               <span className="gold-dot h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
-              Open to hire
+              Open
             </span>
           </div>
         </div>
@@ -233,49 +268,43 @@ function Hero() {
       className="relative flex min-h-[100svh] items-center overflow-hidden px-5 pt-28 md:px-6 md:pt-24"
     >
       <div
-        className="pointer-events-none absolute -left-1/4 top-0 -z-10 h-[55vh] w-[55vh] rounded-full opacity-50 blur-3xl"
+        className="pointer-events-none absolute -left-1/4 top-0 -z-10 h-[60vh] w-[60vh] rounded-full opacity-45 blur-3xl"
         style={{ background: "radial-gradient(circle, var(--glow), transparent 70%)" }}
       />
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
+      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-14 md:grid-cols-2 md:gap-16">
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease }}
+          transition={{ duration: 1, ease }}
         >
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-3 py-1.5 text-[10px] uppercase tracking-[0.28em] text-[var(--muted)]">
+          <div className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-[var(--border)] px-3.5 py-1.5 text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">
             <span className="gold-dot h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
             {PROFILE.availability}
           </div>
-          <h1 className="display text-5xl font-semibold leading-[1.02] md:text-6xl lg:text-7xl">
+          <h1 className="display text-5xl font-semibold leading-[0.98] md:text-6xl lg:text-[5.25rem]">
             <span className="text-gradient">{PROFILE.name}</span>
           </h1>
-          <p className="mt-5 text-xl text-[var(--muted)] md:text-2xl">{PROFILE.role}</p>
-          <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-[var(--muted)]">
+          <p className="mt-6 text-xl text-[var(--muted)] md:text-2xl">{PROFILE.role}</p>
+          <p className="mt-6 max-w-md text-[15px] leading-[1.7] text-[var(--muted)]">
             {PROFILE.tagline}
           </p>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <a
-              href="#projects"
-              className="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-[var(--accent-2)]"
-            >
+          <div className="mt-10 flex flex-wrap gap-3">
+            <a href="#projects" className="btn-gold">
               View work <ArrowUpRight className="h-4 w-4" />
             </a>
             <a
               href={PROFILE.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-sm transition hover:glow-border"
+              className="btn-ghost glass"
             >
               <Github className="h-4 w-4" /> GitHub
             </a>
-            <a
-              href={`mailto:${PROFILE.email}`}
-              className="glass inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-sm transition hover:glow-border"
-            >
+            <a href={`mailto:${PROFILE.email}`} className="btn-ghost glass">
               <Mail className="h-4 w-4" /> Contact
             </a>
           </div>
-          <div className="mt-12 flex flex-wrap gap-x-8 gap-y-2 text-[11px] uppercase tracking-[0.25em] text-[var(--muted)]">
+          <div className="mt-14 flex flex-wrap gap-x-10 gap-y-3 text-[11px] uppercase tracking-[0.28em] text-[var(--muted)]">
             <span className="flex items-center gap-2">
               <MapPin className="h-3.5 w-3.5 text-[var(--accent)]" /> {PROFILE.location}
             </span>
@@ -288,9 +317,9 @@ function Hero() {
           </div>
         </motion.div>
         <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
+          initial={{ opacity: 0, scale: 0.94 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.15, ease }}
+          transition={{ duration: 1.1, delay: 0.12, ease }}
           className="flex justify-center"
         >
           <Portrait />
@@ -303,12 +332,12 @@ function Hero() {
 function Marquee() {
   const row = [...MARQUEE, ...MARQUEE];
   return (
-    <div className="relative overflow-hidden border-y border-[var(--border)] py-4" aria-hidden>
-      <div className="flex w-max gap-10 pr-10" style={{ animation: "marquee 36s linear infinite" }}>
+    <div className="relative overflow-hidden border-y border-[var(--border)] py-5" aria-hidden>
+      <div className="flex w-max gap-12 pr-12" style={{ animation: "marquee 38s linear infinite" }}>
         {row.map((t, i) => (
-          <span key={`${t}-${i}`} className="text-[11px] uppercase tracking-[0.35em] text-[var(--muted)]">
+          <span key={`${t}-${i}`} className="text-[11px] uppercase tracking-[0.38em] text-[var(--muted)]">
             {t}
-            <span className="ml-10 text-[var(--accent)]">·</span>
+            <span className="ml-12 text-[var(--accent)]">◆</span>
           </span>
         ))}
       </div>
@@ -330,21 +359,23 @@ function Section({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className="relative px-5 py-24 md:px-6 md:py-32">
+    <section id={id} className="relative px-5 py-28 md:px-6 md:py-36">
       <div className="mx-auto max-w-6xl">
         <motion.div
-          initial={{ opacity: 0, y: 28 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.8, ease }}
-          className="mb-14"
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.85, ease }}
+          className="mb-16"
         >
-          <div className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-[var(--muted)]">
+          <div className="mb-4 flex items-center gap-3 text-[11px] uppercase tracking-[0.38em] text-[var(--muted)]">
             <span className="text-[var(--accent)]">{index}</span>
-            <span className="h-px w-8 bg-[var(--accent)] opacity-70" />
+            <span className="h-px w-10 bg-[var(--accent)] opacity-70" />
             {eyebrow}
           </div>
-          <h2 className="display max-w-3xl text-3xl font-semibold md:text-5xl">{title}</h2>
+          <h2 className="display max-w-3xl text-3xl font-semibold leading-tight md:text-5xl">
+            {title}
+          </h2>
         </motion.div>
         {children}
       </div>
@@ -357,29 +388,26 @@ function About() {
     <Section id="about" index="01" eyebrow="About" title="I build systems that ship.">
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, ease }}
-          className="glass col-span-1 rounded-[1.75rem] p-8 md:col-span-2 md:p-10"
+          transition={{ duration: 0.75, ease }}
+          className="glass col-span-1 rounded-[1.85rem] p-8 md:col-span-2 md:p-11"
         >
-          <p className="text-lg leading-relaxed text-[var(--muted)] md:text-xl">
+          <p className="text-lg leading-relaxed text-[var(--muted)] md:text-xl md:leading-relaxed">
             Pre-final year <span className="text-[var(--fg)]">BE CSE (AI & ML)</span> at{" "}
-            <span className="text-[var(--fg)]">{PROFILE.college}</span>. I sit at the intersection of
-            machine learning and software engineering — Python that turns data into decisions and
-            keeps working after the demo ends.
+            <span className="text-[var(--fg)]">{PROFILE.college}</span>. I work where machine
+            learning meets software engineering — Python that turns data into decisions and keeps
+            working after the demo ends.
           </p>
-          <p className="mt-5 text-[var(--muted)]">
+          <p className="mt-6 text-[var(--muted)] leading-relaxed">
             Looking for an SDE or ML role with real ownership. I want a team that ships product,
             values rigorous evaluation, and lets strong juniors contribute from day one.
           </p>
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
+          <div className="mt-12 grid gap-4 sm:grid-cols-3">
             {VALUE.map((v, i) => (
-              <div
-                key={v.title}
-                className="rounded-2xl border border-[var(--border)] bg-[color-mix(in_oklab,var(--card)_70%,transparent)] p-5"
-              >
-                <div className="mb-2 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]">
+              <div key={v.title} className="rounded-2xl border border-[var(--border)] p-5">
+                <div className="mb-2 flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-[var(--accent)]">
                   <CheckCircle2 className="h-3.5 w-3.5" /> 0{i + 1}
                 </div>
                 <div className="text-sm font-semibold text-[var(--fg)]">{v.title}</div>
@@ -389,26 +417,26 @@ function About() {
           </div>
         </motion.div>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.1, ease }}
-          className="glass rounded-[1.75rem] p-8"
+          transition={{ duration: 0.75, delay: 0.1, ease }}
+          className="glass rounded-[1.85rem] p-8"
         >
-          <div className="mb-6 flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-[var(--accent)]">
+          <div className="mb-6 flex items-center gap-2 text-xs uppercase tracking-[0.32em] text-[var(--accent)]">
             <GraduationCap className="h-4 w-4" /> Education
           </div>
           <div className="relative border-l border-[var(--border)] pl-6">
-            <span className="absolute -left-[7px] top-1 h-3 w-3 rounded-full bg-[var(--accent)] shadow-[0_0_16px_var(--glow)]" />
-            <div className="text-sm font-semibold text-[var(--fg)]">{PROFILE.degree}</div>
-            <div className="mt-1 text-xs text-[var(--muted)]">{PROFILE.college}</div>
+            <span className="absolute -left-[7px] top-1 h-3.5 w-3.5 rounded-full bg-[var(--accent)] shadow-[0_0_18px_var(--glow)]" />
+            <div className="text-sm font-semibold leading-snug text-[var(--fg)]">{PROFILE.degree}</div>
+            <div className="mt-2 text-xs text-[var(--muted)]">{PROFILE.college}</div>
             <div className="mt-0.5 text-xs text-[var(--muted)]">{PROFILE.university}</div>
-            <div className="mt-4 inline-flex rounded-full border border-[var(--border)] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]">
+            <div className="mt-5 inline-flex rounded-full border border-[var(--border)] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]">
               CGPA {PROFILE.cgpa}
             </div>
-            <p className="mt-4 text-xs leading-relaxed text-[var(--muted)]">
-              {PROFILE.year}. Building production-style ML systems. Targeting product teams with
-              serious ownership.
+            <p className="mt-5 text-xs leading-relaxed text-[var(--muted)]">
+              {PROFILE.year}. Building production-style ML systems for product teams that care about
+              ownership.
             </p>
           </div>
           <div className="mt-8 rounded-2xl border border-[var(--border)] p-4">
@@ -436,9 +464,9 @@ function Skills() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: i * 0.05, duration: 0.65, ease }}
-            whileHover={{ y: -4 }}
-            className="glass relative overflow-hidden rounded-[1.5rem] p-6"
+            transition={{ delay: i * 0.05, duration: 0.7, ease }}
+            whileHover={{ y: -6 }}
+            className="glass rounded-[1.6rem] p-6"
           >
             <div className="flex items-center justify-between">
               <div className="text-base font-semibold text-[var(--fg)]">{s.group}</div>
@@ -454,7 +482,7 @@ function Skills() {
                 </span>
               ))}
             </div>
-            <div className="mt-5 h-[3px] overflow-hidden rounded-full bg-[color-mix(in_oklab,var(--border)_90%,transparent)]">
+            <div className="mt-5 h-[3px] overflow-hidden rounded-full bg-[color-mix(in_oklab,var(--border)_95%,transparent)]">
               <motion.div
                 className="h-full rounded-full"
                 style={{
@@ -463,7 +491,7 @@ function Skills() {
                 initial={{ width: 0 }}
                 whileInView={{ width: `${s.level}%` }}
                 viewport={{ once: true }}
-                transition={{ duration: 1, ease, delay: 0.1 }}
+                transition={{ duration: 1.1, ease, delay: 0.12 }}
               />
             </div>
           </motion.div>
@@ -476,28 +504,30 @@ function Skills() {
 function Projects() {
   return (
     <Section id="projects" index="03" eyebrow="Selected Work" title="Evidence of how I work.">
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-6">
         {PROJECTS.map((p, i) => (
           <motion.article
             key={p.title}
-            initial={{ opacity: 0, y: 28 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ delay: i * 0.08, duration: 0.75, ease }}
-            className="glass group relative overflow-hidden rounded-[1.75rem] p-7 md:p-9"
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: i * 0.08, duration: 0.8, ease }}
+            className="glass group relative overflow-hidden rounded-[1.85rem] p-7 md:p-10"
           >
             <div
               className="pointer-events-none absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100"
               style={{
                 background:
-                  "radial-gradient(ellipse at 10% 0%, color-mix(in oklab, var(--accent) 14%, transparent), transparent 55%)",
+                  "radial-gradient(ellipse at 8% 0%, color-mix(in oklab, var(--accent) 16%, transparent), transparent 55%)",
               }}
             />
             <div className="relative grid gap-6 md:grid-cols-[auto_1fr]">
-              <div className="display text-5xl text-[var(--muted)] opacity-25">0{i + 1}</div>
+              <div className="display text-5xl text-[var(--muted)] opacity-20 md:text-6xl">
+                0{i + 1}
+              </div>
               <div>
-                <div className="mb-3 flex flex-wrap items-center gap-3">
-                  <span className="rounded-full border border-[var(--border)] px-2.5 py-0.5 text-[9px] uppercase tracking-[0.2em] text-[var(--accent)]">
+                <div className="mb-4 flex flex-wrap items-center gap-3">
+                  <span className="rounded-full border border-[var(--border)] px-2.5 py-0.5 text-[9px] uppercase tracking-[0.22em] text-[var(--accent)]">
                     {p.status}
                   </span>
                   <span className="text-[11px] tracking-[0.15em] text-[var(--muted)]">{p.year}</span>
@@ -506,7 +536,7 @@ function Projects() {
                       href={p.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-auto inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]"
+                      className="ml-auto inline-flex items-center gap-1.5 text-[10px] uppercase tracking-[0.22em] text-[var(--accent)] transition hover:text-[var(--accent-2)]"
                     >
                       <Github className="h-3.5 w-3.5" /> Code
                     </a>
@@ -514,16 +544,16 @@ function Projects() {
                 </div>
                 <h3 className="display text-2xl text-[var(--fg)] md:text-3xl">{p.title}</h3>
                 <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[var(--muted)]">{p.body}</p>
-                <ul className="mt-5 grid gap-2 sm:grid-cols-3">
+                <ul className="mt-6 grid gap-2.5 sm:grid-cols-3">
                   {p.highlights.map((h) => (
-                    <li key={h} className="flex items-start gap-2 text-xs text-[var(--muted)]">
+                    <li key={h} className="flex items-start gap-2 text-xs leading-relaxed text-[var(--muted)]">
                       <CheckCircle2 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--accent)]" />
                       {h}
                     </li>
                   ))}
                 </ul>
-                <div className="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--border)] pt-5">
-                  <div className="text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]">
+                <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-[var(--border)] pt-6">
+                  <div className="text-[10px] uppercase tracking-[0.22em] text-[var(--accent)]">
                     {p.outcome}
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -546,7 +576,7 @@ function Projects() {
         href={PROFILE.github}
         target="_blank"
         rel="noopener noreferrer"
-        className="glass group mt-8 flex items-center justify-between rounded-[1.5rem] p-6 transition hover:glow-border"
+        className="glass group mt-8 flex items-center justify-between rounded-[1.6rem] p-6 transition hover:glow-border"
       >
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--border)]">
@@ -614,15 +644,15 @@ function Contact() {
     <Section id="contact" index="04" eyebrow="Contact" title="Let's build something that ships.">
       <div className="grid gap-8 md:grid-cols-2">
         <div className="space-y-3">
-          <p className="text-lg text-[var(--muted)]">
+          <p className="text-lg leading-relaxed text-[var(--muted)]">
             Hiring for SDE, ML, or applied AI with real ownership? Ready to join a product team and
             ship.
           </p>
           {links.map((l) => {
             const Icon = l.icon;
             const inner = (
-              <div className="glass flex items-center gap-4 rounded-2xl p-4 transition hover:glow-border">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[var(--border)]">
+              <div className="glass flex items-center gap-4 rounded-2xl p-4">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-[var(--border)]">
                   <Icon className="h-4 w-4 text-[var(--accent)]" />
                 </div>
                 <div>
@@ -642,9 +672,9 @@ function Contact() {
             );
           })}
         </div>
-        <div className="glass rounded-[1.75rem] p-6 md:p-8">
+        <div className="glass rounded-[1.85rem] p-6 md:p-9">
           {status === "success" ? (
-            <div className="flex flex-col items-center gap-3 py-12 text-center">
+            <div className="flex flex-col items-center gap-3 py-14 text-center">
               <CheckCircle2 className="h-10 w-10 text-[var(--accent)]" />
               <p className="display text-xl">Message sent</p>
               <p className="text-sm text-[var(--muted)]">Thanks — I'll reply soon.</p>
@@ -664,7 +694,7 @@ function Contact() {
                   name="name"
                   required
                   autoComplete="name"
-                  className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none transition focus:border-[var(--accent)]"
+                  className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3.5 text-sm outline-none transition focus:border-[var(--accent)]"
                 />
               </label>
               <label className="block">
@@ -674,7 +704,7 @@ function Contact() {
                   type="email"
                   required
                   autoComplete="email"
-                  className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none transition focus:border-[var(--accent)]"
+                  className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3.5 text-sm outline-none transition focus:border-[var(--accent)]"
                 />
               </label>
               <label className="block">
@@ -683,7 +713,7 @@ function Contact() {
                   name="message"
                   required
                   rows={4}
-                  className="mt-1.5 w-full resize-none rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none transition focus:border-[var(--accent)]"
+                  className="mt-1.5 w-full resize-none rounded-xl border border-[var(--border)] bg-transparent px-4 py-3.5 text-sm outline-none transition focus:border-[var(--accent)]"
                   placeholder="Role, team, stack…"
                 />
               </label>
@@ -692,11 +722,7 @@ function Contact() {
                   {error}
                 </p>
               )}
-              <button
-                type="submit"
-                disabled={status === "loading"}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-[var(--accent-2)] disabled:opacity-70"
-              >
+              <button type="submit" disabled={status === "loading"} className="btn-gold w-full justify-center disabled:opacity-70">
                 {status === "loading" ? (
                   <>
                     <Loader2 className="h-4 w-4 animate-spin" /> Sending…
@@ -715,33 +741,30 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="border-t border-[var(--border)] px-5 pb-12 pt-16 md:px-6">
-      <div className="mx-auto mb-10 max-w-6xl text-center" aria-hidden>
+    <footer className="border-t border-[var(--border)] px-5 pb-14 pt-20 md:px-6">
+      <div className="mx-auto mb-12 max-w-6xl text-center" aria-hidden>
         <div
-          className="display text-[12vw] leading-none md:text-[7vw]"
+          className="display text-[13vw] leading-none md:text-[7.5vw]"
           style={{
             background:
-              "linear-gradient(180deg, color-mix(in oklab, var(--accent) 35%, transparent), transparent 85%)",
+              "linear-gradient(180deg, color-mix(in oklab, var(--accent) 40%, transparent), transparent 88%)",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             color: "transparent",
-            WebkitTextStroke: "1px color-mix(in oklab, var(--accent) 25%, transparent)",
+            WebkitTextStroke: "1px color-mix(in oklab, var(--accent) 28%, transparent)",
           }}
         >
           Barath Velu
         </div>
       </div>
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 md:flex-row">
         <span className="text-xs tracking-[0.15em] text-[var(--muted)]">
           © {new Date().getFullYear()} {PROFILE.fullName}
         </span>
-        <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">
+        <span className="text-[10px] uppercase tracking-[0.32em] text-[var(--muted)]">
           Built to ship · Chennai
         </span>
-        <a
-          href="#top"
-          className="glass rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.3em] transition hover:glow-border"
-        >
+        <a href="#top" className="glass rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.3em]">
           Top ↑
         </a>
       </div>
