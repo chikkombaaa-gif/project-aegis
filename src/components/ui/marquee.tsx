@@ -19,7 +19,10 @@ export function Marquee() {
   const row = [...ITEMS, ...ITEMS];
   return (
     <div className="relative overflow-hidden border-y border-[var(--border)] py-4" aria-hidden>
-      <div className="flex w-max animate-[marquee_32s_linear_infinite] gap-10 pr-10">
+      <div
+        className="flex w-max gap-10 pr-10"
+        style={{ animation: "marquee 32s linear infinite" }}
+      >
         {row.map((t, i) => (
           <span
             key={`${t}-${i}`}
@@ -30,16 +33,6 @@ export function Marquee() {
           </span>
         ))}
       </div>
-      <style jsx>{`
-        @keyframes marquee {
-          from {
-            transform: translateX(0);
-          }
-          to {
-            transform: translateX(-50%);
-          }
-        }
-      `}</style>
     </div>
   );
 }
