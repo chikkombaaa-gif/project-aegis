@@ -15,6 +15,7 @@
 
 * {
   border-color: var(--border);
+  box-sizing: border-box;
 }
 
 html {
@@ -46,6 +47,29 @@ h3,
 .display {
   font-family: var(--font-display);
   letter-spacing: -0.03em;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.sr-only:focus,
+.focus\:not-sr-only:focus {
+  position: fixed;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
 }
 
 body::before {
