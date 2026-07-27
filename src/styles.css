@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #030303;
-  --fg: #f7f5f0;
-  --muted: #9a9488;
-  --card: rgba(18, 16, 12, 0.78);
-  --border: rgba(212, 175, 55, 0.14);
-  --accent: #d4af37;
-  --accent-2: #f0d78c;
-  --glow: rgba(212, 175, 55, 0.24);
+  --bg: #0a0a0a;
+  --fg: #fafafa;
+  --muted: #a3a3a3;
+  --card: #141414;
+  --border: rgba(255, 255, 255, 0.1);
+  --accent: #c8f560;
+  --accent-2: #e8ff9a;
+  --glow: rgba(200, 245, 96, 0.25);
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
 }
@@ -32,7 +32,7 @@ body {
 }
 
 ::selection {
-  background: color-mix(in oklab, var(--accent) 45%, transparent);
+  background: color-mix(in oklab, var(--accent) 50%, transparent);
   color: #0a0a0a;
 }
 
@@ -46,7 +46,7 @@ h2,
 h3,
 .display {
   font-family: var(--font-display);
-  letter-spacing: -0.035em;
+  letter-spacing: -0.04em;
 }
 
 .sr-only {
@@ -61,88 +61,65 @@ h3,
   border-width: 0;
 }
 
-/* Film grain */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9998;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 160px;
-}
-
-.glass {
+.card {
   background: var(--card);
-  backdrop-filter: blur(24px) saturate(150%);
-  -webkit-backdrop-filter: blur(24px) saturate(150%);
   border: 1px solid var(--border);
-  box-shadow:
-    inset 0 1px 0 rgba(240, 215, 140, 0.07),
-    0 28px 70px -36px rgba(0, 0, 0, 0.7);
+  border-radius: 1.25rem;
   transition:
-    border-color 0.35s ease,
-    box-shadow 0.35s ease,
-    transform 0.35s ease;
+    border-color 0.3s ease,
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-.glass:hover {
-  border-color: color-mix(in oklab, var(--accent) 35%, var(--border));
+.card:hover {
+  border-color: color-mix(in oklab, var(--accent) 40%, var(--border));
+  box-shadow: 0 0 0 1px color-mix(in oklab, var(--accent) 15%, transparent);
 }
 
-.glow-border {
-  box-shadow:
-    0 0 0 1px color-mix(in oklab, var(--accent) 45%, transparent),
-    0 0 36px var(--glow);
+.text-accent {
+  color: var(--accent);
 }
 
-.text-gradient {
-  background: linear-gradient(115deg, #fff8e7 10%, var(--accent) 48%, var(--accent-2) 92%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.grid-bg {
-  background-image:
-    linear-gradient(color-mix(in oklab, var(--accent) 6%, transparent) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklab, var(--accent) 6%, transparent) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse 75% 55% at 50% 30%, black 5%, transparent 70%);
-}
-
-.btn-gold {
+.btn-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   border-radius: 9999px;
   background: var(--accent);
   color: #0a0a0a;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.875rem;
-  padding: 0.875rem 1.5rem;
+  padding: 0.9rem 1.6rem;
+  letter-spacing: -0.01em;
   transition:
-    background 0.25s ease,
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+    background 0.2s ease,
+    transform 0.2s ease;
 }
 
-.btn-gold:hover {
+.btn-primary:hover {
   background: var(--accent-2);
-  box-shadow: 0 0 28px var(--glow);
+  transform: translateY(-1px);
 }
 
-.btn-ghost {
+.btn-outline {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   border-radius: 9999px;
-  padding: 0.875rem 1.25rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--fg);
   font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.9rem 1.4rem;
   transition:
-    box-shadow 0.25s ease,
-    border-color 0.25s ease;
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.btn-outline:hover {
+  border-color: var(--accent);
+  background: color-mix(in oklab, var(--accent) 8%, transparent);
 }
 
 @keyframes marquee {
@@ -154,28 +131,11 @@ body::before {
   }
 }
 
-@keyframes gold-pulse {
-  0%,
-  100% {
-    opacity: 1;
-    box-shadow: 0 0 0 0 var(--glow);
-  }
-  50% {
-    opacity: 0.8;
-    box-shadow: 0 0 14px 2px var(--glow);
-  }
-}
-
-.gold-dot {
-  animation: gold-pulse 2.4s ease-in-out infinite;
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  *,
-  .gold-dot {
+  * {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
