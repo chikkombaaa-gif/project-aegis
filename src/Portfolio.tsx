@@ -40,13 +40,16 @@ export default function Portfolio() {
     <>
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-[var(--accent)] focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-black"
       >
         Skip to content
       </a>
       <div className="pointer-events-none fixed inset-0 -z-20 grid-bg" />
       <motion.div
-        style={{ scaleX, background: "linear-gradient(90deg, var(--accent), var(--accent-2))" }}
+        style={{
+          scaleX,
+          background: "linear-gradient(90deg, var(--accent), var(--accent-2))",
+        }}
         className="fixed left-0 right-0 top-0 z-50 h-[2px] origin-left"
         aria-hidden
       />
@@ -86,13 +89,13 @@ function Navbar() {
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
         scrolled || open
-          ? "border-b border-[var(--border)] bg-[color-mix(in_oklab,var(--bg)_80%,transparent)] backdrop-blur-xl"
+          ? "border-b border-[var(--border)] bg-[color-mix(in_oklab,var(--bg)_82%,transparent)] backdrop-blur-xl"
           : ""
       }`}
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-6">
         <a href="#top" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] text-[11px] font-semibold tracking-widest">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--border)] text-[11px] font-semibold tracking-widest text-[var(--accent)]">
             BV
           </span>
           <span className="text-xs font-medium tracking-[0.2em] text-[var(--muted)]">
@@ -104,7 +107,7 @@ function Navbar() {
             <a
               key={l.id}
               href={`#${l.id}`}
-              className="text-[11px] uppercase tracking-[0.22em] text-[var(--muted)] transition hover:text-white"
+              className="text-[11px] uppercase tracking-[0.22em] text-[var(--muted)] transition hover:text-[var(--accent-2)]"
             >
               {l.label}
             </a>
@@ -112,8 +115,8 @@ function Navbar() {
         </nav>
         <div className="flex items-center gap-2">
           <a
-            href={`mailto:${PROFILE.email}?subject=${encodeURIComponent("Opportunity for Barath V")}`}
-            className="glass hidden rounded-full px-4 py-2 text-[11px] uppercase tracking-[0.2em] sm:inline-flex"
+            href={`mailto:${PROFILE.email}?subject=${encodeURIComponent("Opportunity for Barath Velu")}`}
+            className="hidden rounded-full border border-[var(--border)] bg-[var(--accent)] px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.2em] text-black transition hover:bg-[var(--accent-2)] sm:inline-flex"
           >
             Hire me
           </a>
@@ -182,7 +185,7 @@ function Portrait() {
         className="pointer-events-none absolute -inset-10 rounded-[2rem] blur-3xl"
         style={{
           background:
-            "radial-gradient(circle at 30% 20%, color-mix(in oklab, var(--accent) 35%, transparent), transparent 65%)",
+            "radial-gradient(circle at 30% 20%, color-mix(in oklab, var(--accent) 40%, transparent), transparent 65%)",
         }}
       />
       <motion.div
@@ -192,7 +195,7 @@ function Portrait() {
         <div className="relative overflow-hidden rounded-[1.4rem]">
           <img
             src={PROFILE.photo}
-            alt={`${PROFILE.name} — ${PROFILE.role}`}
+            alt={`${PROFILE.fullName} — ${PROFILE.role}`}
             width={400}
             height={520}
             className="block h-[420px] w-[320px] object-cover object-center md:h-[500px] md:w-[380px]"
@@ -202,7 +205,7 @@ function Portrait() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "linear-gradient(180deg, transparent 45%, color-mix(in oklab, var(--bg) 90%, transparent) 100%)",
+                "linear-gradient(180deg, transparent 42%, color-mix(in oklab, var(--bg) 92%, transparent) 100%)",
             }}
           />
           <div className="absolute inset-x-4 bottom-4 flex items-end justify-between">
@@ -210,10 +213,10 @@ function Portrait() {
               <div className="text-[9px] uppercase tracking-[0.3em] text-[var(--muted)]">
                 {PROFILE.role}
               </div>
-              <div className="display mt-1 text-lg text-white">{PROFILE.name}</div>
+              <div className="display mt-1 text-lg text-[var(--fg)]">{PROFILE.name}</div>
             </div>
-            <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.25em] text-emerald-400">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+            <span className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.25em] text-[var(--accent)]">
+              <span className="gold-dot h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
               Open to hire
             </span>
           </div>
@@ -230,7 +233,7 @@ function Hero() {
       className="relative flex min-h-[100svh] items-center overflow-hidden px-5 pt-28 md:px-6 md:pt-24"
     >
       <div
-        className="pointer-events-none absolute -left-1/4 top-0 -z-10 h-[55vh] w-[55vh] rounded-full opacity-40 blur-3xl"
+        className="pointer-events-none absolute -left-1/4 top-0 -z-10 h-[55vh] w-[55vh] rounded-full opacity-50 blur-3xl"
         style={{ background: "radial-gradient(circle, var(--glow), transparent 70%)" }}
       />
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-12 md:grid-cols-2 md:gap-16">
@@ -240,7 +243,7 @@ function Hero() {
           transition={{ duration: 0.9, ease }}
         >
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-[var(--border)] px-3 py-1.5 text-[10px] uppercase tracking-[0.28em] text-[var(--muted)]">
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[var(--accent)]" />
+            <span className="gold-dot h-1.5 w-1.5 rounded-full bg-[var(--accent)]" />
             {PROFILE.availability}
           </div>
           <h1 className="display text-5xl font-semibold leading-[1.02] md:text-6xl lg:text-7xl">
@@ -253,7 +256,7 @@ function Hero() {
           <div className="mt-9 flex flex-wrap gap-3">
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-white/90"
+              className="inline-flex items-center gap-2 rounded-full bg-[var(--accent)] px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-[var(--accent-2)]"
             >
               View work <ArrowUpRight className="h-4 w-4" />
             </a>
@@ -261,23 +264,23 @@ function Hero() {
               href={PROFILE.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="glass inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-sm"
+              className="glass inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-sm transition hover:glow-border"
             >
               <Github className="h-4 w-4" /> GitHub
             </a>
             <a
               href={`mailto:${PROFILE.email}`}
-              className="glass inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-sm"
+              className="glass inline-flex items-center gap-2 rounded-full px-5 py-3.5 text-sm transition hover:glow-border"
             >
               <Mail className="h-4 w-4" /> Contact
             </a>
           </div>
           <div className="mt-12 flex flex-wrap gap-x-8 gap-y-2 text-[11px] uppercase tracking-[0.25em] text-[var(--muted)]">
             <span className="flex items-center gap-2">
-              <MapPin className="h-3.5 w-3.5" /> {PROFILE.location}
+              <MapPin className="h-3.5 w-3.5 text-[var(--accent)]" /> {PROFILE.location}
             </span>
             <span className="flex items-center gap-2">
-              <GraduationCap className="h-3.5 w-3.5" /> CGPA {PROFILE.cgpa}
+              <GraduationCap className="h-3.5 w-3.5 text-[var(--accent)]" /> CGPA {PROFILE.cgpa}
             </span>
             <span className="flex items-center gap-2">
               <Target className="h-3.5 w-3.5 text-[var(--accent)]" /> {PROFILE.year}
@@ -338,7 +341,7 @@ function Section({
         >
           <div className="mb-3 flex items-center gap-3 text-[11px] uppercase tracking-[0.35em] text-[var(--muted)]">
             <span className="text-[var(--accent)]">{index}</span>
-            <span className="h-px w-8 bg-[var(--accent)] opacity-60" />
+            <span className="h-px w-8 bg-[var(--accent)] opacity-70" />
             {eyebrow}
           </div>
           <h2 className="display max-w-3xl text-3xl font-semibold md:text-5xl">{title}</h2>
@@ -361,8 +364,8 @@ function About() {
           className="glass col-span-1 rounded-[1.75rem] p-8 md:col-span-2 md:p-10"
         >
           <p className="text-lg leading-relaxed text-[var(--muted)] md:text-xl">
-            Pre-final year <span className="text-white">BE CSE (AI & ML)</span> at{" "}
-            <span className="text-white">{PROFILE.college}</span>. I sit at the intersection of
+            Pre-final year <span className="text-[var(--fg)]">BE CSE (AI & ML)</span> at{" "}
+            <span className="text-[var(--fg)]">{PROFILE.college}</span>. I sit at the intersection of
             machine learning and software engineering — Python that turns data into decisions and
             keeps working after the demo ends.
           </p>
@@ -379,7 +382,7 @@ function About() {
                 <div className="mb-2 flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]">
                   <CheckCircle2 className="h-3.5 w-3.5" /> 0{i + 1}
                 </div>
-                <div className="text-sm font-semibold text-white">{v.title}</div>
+                <div className="text-sm font-semibold text-[var(--fg)]">{v.title}</div>
                 <p className="mt-2 text-xs leading-relaxed text-[var(--muted)]">{v.body}</p>
               </div>
             ))}
@@ -397,10 +400,10 @@ function About() {
           </div>
           <div className="relative border-l border-[var(--border)] pl-6">
             <span className="absolute -left-[7px] top-1 h-3 w-3 rounded-full bg-[var(--accent)] shadow-[0_0_16px_var(--glow)]" />
-            <div className="text-sm font-semibold text-white">{PROFILE.degree}</div>
+            <div className="text-sm font-semibold text-[var(--fg)]">{PROFILE.degree}</div>
             <div className="mt-1 text-xs text-[var(--muted)]">{PROFILE.college}</div>
             <div className="mt-0.5 text-xs text-[var(--muted)]">{PROFILE.university}</div>
-            <div className="mt-4 inline-flex rounded-full border border-[var(--border)] px-3 py-1 text-[10px] uppercase tracking-[0.2em]">
+            <div className="mt-4 inline-flex rounded-full border border-[var(--border)] px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-[var(--accent)]">
               CGPA {PROFILE.cgpa}
             </div>
             <p className="mt-4 text-xs leading-relaxed text-[var(--muted)]">
@@ -435,10 +438,10 @@ function Skills() {
             viewport={{ once: true }}
             transition={{ delay: i * 0.05, duration: 0.65, ease }}
             whileHover={{ y: -4 }}
-            className="glass group relative overflow-hidden rounded-[1.5rem] p-6"
+            className="glass relative overflow-hidden rounded-[1.5rem] p-6"
           >
             <div className="flex items-center justify-between">
-              <div className="text-base font-semibold text-white">{s.group}</div>
+              <div className="text-base font-semibold text-[var(--fg)]">{s.group}</div>
               <div className="display text-2xl text-[var(--accent)]">{s.level}</div>
             </div>
             <div className="mt-4 flex flex-wrap gap-2">
@@ -451,10 +454,12 @@ function Skills() {
                 </span>
               ))}
             </div>
-            <div className="mt-5 h-[3px] overflow-hidden rounded-full bg-[color-mix(in_oklab,var(--border)_80%,transparent)]">
+            <div className="mt-5 h-[3px] overflow-hidden rounded-full bg-[color-mix(in_oklab,var(--border)_90%,transparent)]">
               <motion.div
                 className="h-full rounded-full"
-                style={{ background: "linear-gradient(90deg, var(--accent), var(--accent-2))" }}
+                style={{
+                  background: "linear-gradient(90deg, var(--accent), var(--accent-2))",
+                }}
                 initial={{ width: 0 }}
                 whileInView={{ width: `${s.level}%` }}
                 viewport={{ once: true }}
@@ -489,10 +494,10 @@ function Projects() {
               }}
             />
             <div className="relative grid gap-6 md:grid-cols-[auto_1fr]">
-              <div className="display text-5xl text-[var(--muted)] opacity-30">0{i + 1}</div>
+              <div className="display text-5xl text-[var(--muted)] opacity-25">0{i + 1}</div>
               <div>
                 <div className="mb-3 flex flex-wrap items-center gap-3">
-                  <span className="rounded-full border border-[var(--border)] px-2.5 py-0.5 text-[9px] uppercase tracking-[0.2em] text-[var(--muted)]">
+                  <span className="rounded-full border border-[var(--border)] px-2.5 py-0.5 text-[9px] uppercase tracking-[0.2em] text-[var(--accent)]">
                     {p.status}
                   </span>
                   <span className="text-[11px] tracking-[0.15em] text-[var(--muted)]">{p.year}</span>
@@ -507,7 +512,7 @@ function Projects() {
                     </a>
                   )}
                 </div>
-                <h3 className="display text-2xl text-white md:text-3xl">{p.title}</h3>
+                <h3 className="display text-2xl text-[var(--fg)] md:text-3xl">{p.title}</h3>
                 <p className="mt-4 max-w-3xl text-sm leading-relaxed text-[var(--muted)]">{p.body}</p>
                 <ul className="mt-5 grid gap-2 sm:grid-cols-3">
                   {p.highlights.map((h) => (
@@ -545,7 +550,7 @@ function Projects() {
       >
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[var(--border)]">
-            <Github className="h-6 w-6" />
+            <Github className="h-6 w-6 text-[var(--accent)]" />
           </div>
           <div>
             <div className="text-sm font-semibold">github.com/{PROFILE.githubHandle}</div>
@@ -570,8 +575,8 @@ function Contact() {
     const name = String(fd.get("name") ?? "").trim();
     const email = String(fd.get("email") ?? "").trim();
     const message = String(fd.get("message") ?? "").trim();
-    if (name.length < 2 || !email.includes("@") || message.length < 10) {
-      setError("Please fill name, valid email, and a short message.");
+    if (name.length < 2 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || message.length < 10) {
+      setError("Please fill name, a valid email, and a short message.");
       setStatus("error");
       return;
     }
@@ -652,13 +657,14 @@ function Contact() {
               </button>
             </div>
           ) : (
-            <form onSubmit={onSubmit} className="space-y-4">
+            <form onSubmit={onSubmit} className="space-y-4" noValidate>
               <label className="block">
                 <span className="text-[10px] uppercase tracking-[0.25em] text-[var(--muted)]">Name</span>
                 <input
                   name="name"
                   required
-                  className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none focus:border-[var(--accent)]"
+                  autoComplete="name"
+                  className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none transition focus:border-[var(--accent)]"
                 />
               </label>
               <label className="block">
@@ -667,7 +673,8 @@ function Contact() {
                   name="email"
                   type="email"
                   required
-                  className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none focus:border-[var(--accent)]"
+                  autoComplete="email"
+                  className="mt-1.5 w-full rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none transition focus:border-[var(--accent)]"
                 />
               </label>
               <label className="block">
@@ -676,15 +683,19 @@ function Contact() {
                   name="message"
                   required
                   rows={4}
-                  className="mt-1.5 w-full resize-none rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none focus:border-[var(--accent)]"
+                  className="mt-1.5 w-full resize-none rounded-xl border border-[var(--border)] bg-transparent px-4 py-3 text-sm outline-none transition focus:border-[var(--accent)]"
                   placeholder="Role, team, stack…"
                 />
               </label>
-              {error && <p className="text-sm text-red-400">{error}</p>}
+              {error && (
+                <p className="text-sm text-red-400" role="alert">
+                  {error}
+                </p>
+              )}
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-black disabled:opacity-70"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--accent)] px-6 py-3.5 text-sm font-semibold text-black transition hover:bg-[var(--accent-2)] disabled:opacity-70"
               >
                 {status === "loading" ? (
                   <>
@@ -709,11 +720,12 @@ function Footer() {
         <div
           className="display text-[12vw] leading-none md:text-[7vw]"
           style={{
-            background: "linear-gradient(180deg, color-mix(in oklab, white 16%, transparent), transparent 85%)",
+            background:
+              "linear-gradient(180deg, color-mix(in oklab, var(--accent) 35%, transparent), transparent 85%)",
             WebkitBackgroundClip: "text",
             backgroundClip: "text",
             color: "transparent",
-            WebkitTextStroke: "1px color-mix(in oklab, white 12%, transparent)",
+            WebkitTextStroke: "1px color-mix(in oklab, var(--accent) 25%, transparent)",
           }}
         >
           Barath Velu
@@ -726,7 +738,10 @@ function Footer() {
         <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--muted)]">
           Built to ship · Chennai
         </span>
-        <a href="#top" className="glass rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.3em]">
+        <a
+          href="#top"
+          className="glass rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.3em] transition hover:glow-border"
+        >
           Top ↑
         </a>
       </div>
