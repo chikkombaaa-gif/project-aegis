@@ -1,62 +1,39 @@
-# Barath V — Portfolio (Next.js 15)
+# Barath V — Portfolio
 
-AI & Machine Learning Engineer portfolio — dark-first, cyan accents, case-study work, production-minded.
+AI & Machine Learning Engineer · Next.js 15 · dark-first · case-study work.
 
 **Live:** [vbarathportfolio.vercel.app](https://vbarathportfolio.vercel.app/)
 
 ## Stack
 
-- **Next.js 15** (App Router) + TypeScript
-- **Tailwind CSS v4** + custom design tokens
-- **Framer Motion** + **Lenis**
-- **next-themes** (dark / light)
-- Canvas neural-field background (lightweight — no heavy 3D for Lighthouse)
+- Next.js 15 (App Router) + TypeScript
+- Tailwind CSS v4
+- Framer Motion + next-themes
+- Contact API (`/api/contact` → FormSubmit / Web3Forms)
 
 ## Setup
 
 ```bash
-npm install
-npm run dev      # http://localhost:3000
+npm install --legacy-peer-deps
+npm run dev
 npm run build
-npm run start
-npm run typecheck
 ```
-
-Node.js **20+** required.
 
 ## Content
 
-Edit **`src/data/content.ts`** — profile, skills, projects (case studies), timeline, writing.
+Edit **`src/data/content.ts`** only.
 
-Placeholders are marked with `TODO` / `[PLACEHOLDER]`.
+Do **not** publish placeholder projects, fake jobs, or empty writing links.
 
-Optional assets:
+Optional:
 
-- `public/resume.pdf` — Resume download CTA
-- `public/assets/barath.png` — portrait (compress to ~200KB)
-- `public/projects/*` — project covers when ready
+- `public/resume.pdf` — then link it from the hero
+- Compress `public/assets/barath.png` to ~200KB
+- Set `WEB3FORMS_ACCESS_KEY` on Vercel for reliable form delivery
 
-## Structure
+## Vercel
 
-```
-src/
-  app/                 # layout, page, globals
-  components/
-    layout/            # navbar, footer
-    sections/          # hero → contact
-    ui/                # magnetic, cursor, loader, particles, theme
-    providers/         # theme + lenis
-  data/content.ts      # single source of truth
-  lib/motion.ts
-```
-
-## Design system
-
-See **[DESIGN.md](./DESIGN.md)** for colors, type, spacing, components.
-
-## Deploy
-
-Vercel (framework: Next.js). Push `main` to deploy.
+Framework: **Next.js**. Clear any old Vite **Output Directory** (`dist`).
 
 ## License
 

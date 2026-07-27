@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowDown, Download, ArrowUpRight } from "lucide-react";
+import { ArrowDown, Download, ArrowUpRight, Github } from "lucide-react";
 import { PROFILE } from "@/data/content";
 import { Particles } from "@/components/ui/particles";
 import { Magnetic } from "@/components/ui/magnetic";
@@ -71,10 +71,20 @@ export function Hero() {
           </Magnetic>
           <Magnetic>
             <a
-              href={PROFILE.resumeUrl}
+              href={PROFILE.github}
+              target="_blank"
+              rel="noopener noreferrer"
               className="glass inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium"
             >
-              <Download className="h-4 w-4" /> Download Resume
+              <Github className="h-4 w-4" /> GitHub
+            </a>
+          </Magnetic>
+          <Magnetic>
+            <a
+              href={`mailto:${PROFILE.email}?subject=${encodeURIComponent("Opportunity for Barath V")}`}
+              className="glass inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm font-medium"
+            >
+              Contact
             </a>
           </Magnetic>
         </motion.div>
